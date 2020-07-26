@@ -39,7 +39,7 @@ export const Header = () => {
       <SignIn show={showSignIn} onHide={handleSignInClose}/>
       <Register show={showRegister} onHide={handleRegisterClose}/>
 
-
+      <span>{process.env.PROTECTQL_HOST}</span>
 
       
     </div>
