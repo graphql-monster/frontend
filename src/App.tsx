@@ -16,6 +16,7 @@ import { UserProvider } from './contexts/userContext'
 import apolloClient from './common/apolloClient'
 import UserRoleList from "./pages/user-roles/list";
 import UserRoleEdit from './pages/user-roles/edit'
+import GQLPlayground from "./pages/projects/GQLPlayground";
 
 
 // This site has 3 pages, all of which are rendered
@@ -53,6 +54,7 @@ export default function BasicExample() {
                 <Dashboard />
               </Route>
               <Route path="/user/projects/create" component={ProjectEdit} />
+              <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
                 <ProjectList userId={localStorage.getItem('user.id') || ''}/>
