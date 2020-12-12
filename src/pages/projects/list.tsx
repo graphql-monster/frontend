@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const USER_LIST_QUERY = gql`
   query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
+    _port
       id
       name,
       models
@@ -13,6 +14,7 @@ const USER_LIST_QUERY = gql`
 
 const ADMIN_LIST_QUERY = gql`
   query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
+    _port,
       id
       name,
       models,
@@ -41,6 +43,7 @@ export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({u
             <FilteredList 
                 name={'Projects'}
                 fields={[
+                  '_port',
                   'name', 
                   'models', 
                   {'name': 'id', 'title':'', component: GraphiqlLink}]}
