@@ -29,14 +29,18 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
 
   const [model, setModel] = useState({
     name: "project A",
-    schema: DEFAULT_SCHEMA
+    models: DEFAULT_SCHEMA
   });
 
+  const skipLoading = !externId
   const { loading, error } = useQuery(query.QUERY, {
     variables: {id: externId},
-    skip: !externId,
+    skip: skipLoading,
     onCompleted: (loadedDataRaw: any) =>{
-      
+      if(!loadedDataRaw){
+        return
+      }
+      console.log('loadedDataRaw', loadedDataRaw, skipLoading)
       const loadedData = getDataFromRaw(loadedDataRaw)
       
       console.log('Edit:QUERY', {externId, loadedDataRaw, loadedData})
@@ -116,7 +120,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
 
   return (
     <div>
-      <h1>{name} Edit ({externId})</h1>
+      {externId ? <h1>{name} Edit ({externId})</h1> : <h1>{name} create</h1>}
       {error && <Alert variant={'danger'}>`${error.message}`</Alert>}
       <BaseForm model={model} doUpdate={onUpdate} edit={Boolean(localId)} fields={fields} />
     </div>
