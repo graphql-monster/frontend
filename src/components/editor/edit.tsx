@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import { BaseForm, TBaseForm } from "./form";
 import gql from "graphql-tag";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { DEFAULT_SCHEMA } from "../../pages/projects/defaultSchema";
 import * as _ from 'lodash'
 import { Alert } from 'react-bootstrap'
@@ -61,7 +61,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
       if(e.message == 'GraphQL error: Unauhorized'){
         setUnauthorized(true)
       }
-      setModel({name:'', schema: ''})
+      setModel({name:'', models: ''})
     }
   });
 

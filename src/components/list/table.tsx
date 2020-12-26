@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import { Table as BTable, Button } from 'react-bootstrap'
 
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { ListRow } from './row';
 import Loading from '../common/loading';
 import DeleteModal from '../common/DeleteModal';
@@ -39,7 +39,7 @@ export const Table : React.FC<IProjectList> = ({filter, name, adminMode = false,
 
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState<any>([])
-  const [error, setError] = useState()
+  const [error, setError] = useState<any>()
 
   const { refetch: userRefetch, loading: userLoading } = useQuery(adminMode? queries.ADMIN_LIST_QUERY : queries.USER_LIST_QUERY, {
     onError: (e) => {
