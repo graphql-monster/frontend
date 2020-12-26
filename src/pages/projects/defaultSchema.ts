@@ -35,6 +35,7 @@ type User @model {
     password: String
     token: String
     refreshToken: String
+    roles: [UserRole] @relation(name: "RoleOnUser")
 }
 
 type UserRole @model {
