@@ -6,6 +6,10 @@ import BaseEdit from "../../components/editor/edit"
 import { Form } from "react-bootstrap";
 import { TControl } from "../../components/editor/control";
 
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/theme-github";
 
 const CREATE_MUTATION = gql`
   mutation createProject($userId: ID!, $name: String!, $models: String!) {
@@ -36,7 +40,21 @@ const QUERY = gql`
 `;
 
 const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
-    <Form.Control as="textarea" rows={30} {...{onChange, value}} />
+  <>
+   <AceEditor 
+      mode="java"
+      theme="github"
+      width="1000px"
+      value={value}
+      onChange={(value)=>{
+        console.log(value)
+        onChange({target: {value}})
+      }}
+      name="UNIQUE_ID_OF_DIV"
+      editorProps={{ $blockScrolling: true }}
+    />`
+    {/* <Form.Control as="textarea" rows={30} {...{onChange, value}} /> */}
+    </>
 )
 
 export const ProjectEdit = (data:any) => {
