@@ -34,7 +34,7 @@ const DELETE_MUTATION = gql`
 `;
 
 const GraphiqlLink: React.FC<{value:any, names?:any, item:any}> = ({value,names, item}) => {
-  return <Link to={`/user/projects/${item.id}/graphiql`}>graphiql</Link>
+  return <Link to={`/user/projects/${item.id}/graphiql`}>playground</Link>
 }
 
 export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {

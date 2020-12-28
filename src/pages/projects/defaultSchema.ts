@@ -4,13 +4,10 @@ export const DEFAULT_SCHEMA = `
 # start type your models here
 #
 
-
 type Todo @model {
     id: ID! @isUnique
     name: String!
 }
-
-
 
 #####################################
 # DEFAULT MODELS
@@ -43,5 +40,4 @@ type UserRole @model {
     role: String @isUnique
     users: [User] @relation(name: "RoleOnUser")
 }
-
 `
