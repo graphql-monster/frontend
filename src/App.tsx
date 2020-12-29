@@ -17,6 +17,9 @@ import apolloClient from './common/apolloClient'
 import UserRoleList from "./pages/user-roles/list";
 import UserRoleEdit from './pages/user-roles/edit'
 import GQLPlayground from "./pages/projects/GQLPlayground";
+import Home from "./pages/home/home";
+import { Register } from "./pages/login/Register";
+import SignIn from "./pages/login/SignIn";
 
 
 // This site has 3 pages, all of which are rendered
@@ -46,6 +49,12 @@ export default function BasicExample() {
             <Switch>
               <Route exact path="/">
                 <Home />
+              </Route>
+              <Route path="/login">
+                <SignIn />
+              </Route>
+              <Route path="/register">
+                <Register />
               </Route>
               <Route path="/about">
                 <About />
@@ -81,13 +90,6 @@ export default function BasicExample() {
 // You can think of these components as "pages"
 // in your app.
 
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
 
 function About() {
   return (

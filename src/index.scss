@@ -5,5 +5,75 @@ $body-bg: rgb(211, 211, 211);
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
+@import 'css/landing/css/coloring.css';
+// @import 'css/landing/css/animate.css';
+// // @import 'css/landing/css/owl.carousel.css';
+// @import 'css/landing/css/owl.theme.css';
+// @import 'css/landing/css/owl.transitions.css';
+// @import 'css/landing/css/magnific-popup.css';
+// @import 'css/landing/css/jquery.countdown.css';
+@import 'css/landing/css/style.css';
 
-  
+.ready-to-launch {
+    margin-top: 0;
+    font-family: "Nunito";
+    font-weight: bold;
+    color: #35404e;
+    font-size: 52px;
+    margin-bottom: 20px;
+    line-height: 56px;
+    letter-spacing: -1px;
+}
+
+.p-lead {
+    font-size: 17px;
+    line-height: 1.7em;
+    margin-top: 0;
+    font-weight: 600;
+    color: #8492a6;
+}
+.id-color {
+    color:#017DFC
+}
+
+body {
+    background-image: url("css/landing/1.png");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+
+.btn-round {
+    border: solid 1px var(--primary);
+    border-radius: 30px;
+    padding: 12px 30px;
+    min-width: 120px;
+    outline: 0;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: none;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+    line-height: 56px;
+    letter-spacing: -1px;
+    font-family: "Nunito";
+    font-weight: bold;
+    color: #35404e;
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+h1, h2, h4, h3, h5, h6, .h1_big, .h1, .h2, .h3, .h4, .h5, .h6, footer.footer-light h5 {
+    margin-top: 0;
+    font-family: "Nunito";
+    font-weight: bold;
+    color: #35404e;
+}
