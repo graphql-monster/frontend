@@ -46,13 +46,13 @@ export const Header = () => {
               <ul id="mainmenu">
                 <li>
                   <a href="/">Home</a>
-                  <ul>
+                  {/* <ul>
                     <li><a href="index.html">Main</a></li>
                     <li><a href="index-startup.html">Startup</a></li>
                     <li><a href="index-coworking.html">Co-working</a></li>
                     <li><a href="index-agency.html">Agency</a></li>
                     <li><a href="index-apps.html">Apps</a></li>
-                  </ul>
+                  </ul> */}
                 </li>
                 <li>
                   <a href="/pricing">Pricing</a>
@@ -65,7 +65,7 @@ export const Header = () => {
                   </ul> */}
                 </li>
                 <li>
-                  <a href="#">Services</a>
+                  <a href="#">Documentation</a>
                   <ul>
                     <li><a href="service-single.html">Service Single</a></li>
                     <li><a href="services-image.html">Services Images</a></li>
@@ -75,36 +75,11 @@ export const Header = () => {
                     <li><a href="pricing-plans.html">Pricing Plans</a></li>
                   </ul>
                 </li>
-                <li>
-                  <a href="#">Pages</a>
-                  <ul>
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="login-2.html">Login 2</a></li>
-                    <li><a href="register.html">Register</a></li>
-                    <li><a href="contact-us.html">Contact Us</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#">Elements</a>
-                  <ul>
-                    <li><a href="icons-font-awesome.html">Font Awesome Icons</a></li>
-                    <li><a href="icons-elegant.html">Elegant Icons</a></li>
-                    <li><a href="icons-etline.html">Etline Icons</a></li>
-                    <li><a href="alerts.html">Alerts</a></li>
-                    <li><a href="accordion.html">Accordion</a></li>
-                    <li><a href="modal.html">Modal</a></li>
-                    <li><a href="progress-bar.html">Progress Bar</a></li>
-                    <li><a href="tabs.html">Tabs</a></li>
-                    <li><a href="tabs.html">Timeline</a></li>
-                    <li><a href="counters.html">Counters</a></li>
-                  </ul>
-                </li>
+            
               </ul>
             </div>
             <div className="align-self-center ml-auto header-col-right">
-              <Link className="btn btn-primary btn-round" to="/login">Login</Link>&nbsp;&nbsp;
+              &nbsp;&nbsp;<Link className="btn btn-primary btn-round" to="/login">User</Link>
                                     <span id="menu-btn"></span>
             </div>
             <div className="clearfix"></div>

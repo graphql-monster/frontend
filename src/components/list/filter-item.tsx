@@ -70,7 +70,9 @@ export const FilterItem: React.FC<IFilterItemParam> = ({fields, onChange}) => {
 
     const gc = (o:any) => {
         const o2 = o
-        return () => {onFieldChange(o2)}
+        return () => {
+            //onFieldChange(o2)
+        }
     }
 
     const go = (o:any) => {
@@ -86,8 +88,8 @@ export const FilterItem: React.FC<IFilterItemParam> = ({fields, onChange}) => {
                 as={InputGroup.Prepend}
                 variant="success"
                 title={fieldSelected}
-                id="input-group-dropdown-1" >
-                    {fields.map((o)=> (<Dropdown.Item key={o} onClick={gc(o)}>{o}</Dropdown.Item>))}
+                id="input-group-dropdown-0" >
+                    {fields.map((o)=> (<Dropdown.Item key={o} onClick={gc(o)}>{o.toString()}</Dropdown.Item>))}
             </DropdownButton>
             <DropdownButton
                 className="select-option"

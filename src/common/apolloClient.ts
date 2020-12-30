@@ -14,8 +14,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-  // uri: 'http://localhost:3001/graphql'
-  uri: 'http://protectql.com/graphql',
+  uri: `${process.env.REACT_APP_HOST}/graphql`
+  //uri: 'http://protectql.com/graphql',
 })
 
 // const errroLink = onError(({ graphQLErrors, networkError }) => {

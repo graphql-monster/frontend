@@ -108,24 +108,25 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
 
 
     return (
-        <div>
+        <>
+        <section>
+        <h1>{name}</h1>
             <div className="row-head">
-                <div>
-                <h3>{name}</h3>
-                </div>
+                
                 <FilterItem fields={fields} onChange={onFilterChange} />
                 <div>
-                <Button onClick={onCreateNew}>Create New</Button>
+                
                 </div>
                 
             </div>
             <div className="row-table">
            
             <Table name={name} filter={filter} queries={queries} adminMode={adminMode} fields={fields} />
+            <Button onClick={onCreateNew}>Create New Project</Button>
             </div>
             
-        </div>
-        
+        </section>
+        </>
     )
 }
 

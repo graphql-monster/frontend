@@ -7,7 +7,7 @@ import { useUserState } from "../../contexts/userContext"
 export const GQLPlayground: React.FC<{data: any}> = (data:any) => {
     const userState = useUserState()
     const projectId = _.get(data, 'match.params.projectId')
-    const endpoint = `${process.env.REACT_APP_HOST}/open/${userState.id}/project/${projectId}/graphql`
+    const endpoint = `${process.env.REACT_APP_HOST}/client/${userState.id}/project/${projectId}/graphql`
     // const endpoint = `${process.env.REACT_APP_HOST}/graphql`
    
     console.log(userState)

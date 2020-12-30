@@ -39,18 +39,30 @@ const GraphiqlLink: React.FC<{value:any, names?:any, item:any}> = ({value,names,
 
 export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
     return (
-        <div>
+      <>
+ 
+            <div className="center-y relative text-center" data-scroll-speed="4">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                                <div className="col-md-12 text-center">
+                                    
             <FilteredList 
                 name={'Projects'}
                 fields={[
-                  '_port',
                   'name', 
-                  'models', 
-                  {'name': 'id', 'title':'', component: GraphiqlLink}]}
+                  {'name': 'id', 'title':'playground', component: GraphiqlLink}]}
                 userId={userId} 
                 adminMode={adminMode}
                 queries={{USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION}} />
         </div>
+                  
+                                <div className="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </>
     )
 }
 
