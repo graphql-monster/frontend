@@ -20,6 +20,8 @@ import GQLPlayground from "./pages/projects/GQLPlayground";
 import Home from "./pages/home/home";
 import { Register } from "./pages/login/Register";
 import SignIn from "./pages/login/SignIn";
+import { PricingPage } from "./pages/pricing/pricing";
+import SubscribePage from "./pages/pricing/subsribe";
 
 
 // This site has 3 pages, all of which are rendered
@@ -56,8 +58,11 @@ export default function BasicExample() {
               <Route path="/register">
                 <Register />
               </Route>
-              <Route path="/about">
-                <About />
+              <Route path="/pricing">
+                <PricingPage />
+              </Route>
+              <Route path="/subscribe">
+                <SubscribePage />
               </Route>
               <Route path="/dashboard">
                 <Dashboard />

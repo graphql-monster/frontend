@@ -29,9 +29,9 @@ export const Home = () => {
                                 </div>
                             </div>
 
-                            <p className="p-lead">Instant procected Graphql service, with models designed by you. You can connect with React.js, Vue.js or Angular.js app and create application right now</p>
-                            <Link className="btn btn-primary btn-round" to="/login">More info</Link>&nbsp;&nbsp;
-                            <Link className="btn btn-round" to="/register">Try for free</Link>
+                            <p className="p-lead">Instant protected Graphql service, with models designed by you. You can connect with React.js, Vue.js or Angular.js app and create application right now</p>
+                            <Link className="btn btn-primary btn-round" to="/register">Try it for free</Link>&nbsp;&nbsp;
+                            <Link className="btn btn-round" to="/register">How it is works?</Link>
                             <div className="mb-sm-30"></div>
                         </div>
 

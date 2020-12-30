@@ -55,14 +55,14 @@ export const Header = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="#">Company</a>
-                  <ul>
+                  <a href="/pricing">Pricing</a>
+                  {/* <ul>
                     <li><a href="about-us.html">About Us</a></li>
                     <li><a href="our-team.html">Our Team</a></li>
                     <li><a href="our-history.html">Our History</a></li>
                     <li><a href="faq.html">FAQs</a></li>
                     <li><a href="careers.html">Careers</a></li>
-                  </ul>
+                  </ul> */}
                 </li>
                 <li>
                   <a href="#">Services</a>
