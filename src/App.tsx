@@ -22,6 +22,8 @@ import { Register } from "./pages/login/Register";
 import SignIn from "./pages/login/SignIn";
 import { PricingPage } from "./pages/pricing/pricing";
 import SubscribePage from "./pages/pricing/subsribe";
+import SubscibesListPage from "./pages/pricing/subsribe-list";
+
 
 
 // This site has 3 pages, all of which are rendered
@@ -81,6 +83,9 @@ export default function BasicExample() {
               </Route>
               <Route path="/admin/roles">
                 <UserRoleList adminMode={true}/>
+              </Route>
+              <Route path="/admin/subsribes">
+                <SubscibesListPage adminMode={true}/>
               </Route>
               <Route path="/user/roles/create" component={UserRoleEdit} />
               <Route path="/user/roles/:id" component={UserRoleEdit} />

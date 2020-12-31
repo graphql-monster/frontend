@@ -8,14 +8,14 @@ import Recaptcha from 'react-recaptcha'
 
 const SUBSCRIBE_MUTATION_QL = gql`
   mutation subsribe($email: String!, $message: String!) {
-    createSubscribe(email: $email, message: $pass) {
+    createSubscribe(email: $email, message: $message) {
       id
     }
   }
 `;
 export const SubscribePage: React.FC = () => {
-    const [email, setEmail] = useState(localStorage.getItem('user.email') as string)
-    const [pass, setPass] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setPass] = useState('')
 
     const [invalidEmail, setInvalidEmail] = useState(false)
     const [invalidPass, setInvalidPass] = useState(false)
@@ -37,7 +37,7 @@ export const SubscribePage: React.FC = () => {
       });
 
     const onSubsribe = async () => {
-        subsribe({ variables: { email, pass } })
+        subsribe({ variables: { email, message } })
     }
 
     const onEmailChange = (event: any) => {
@@ -114,12 +114,13 @@ export const SubscribePage: React.FC = () => {
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Do you want tell us more?</Form.Label>
-                                <Form.Control as='textarea' rows={10} onChange={onTextChange} value={pass} isInvalid={invalidPass} />
+                                <Form.Control as='textarea' rows={10} onChange={onTextChange} value={message} isInvalid={invalidPass} />
                             </Form.Group>
 
                             
                             {<div id='submit' className="pull-left">
-                                {!loading && <Button className="btn-round" variant="primary" onClick={() => onSubsribe()} disabled={!verified || invalidEmail}>Send to us</Button>}
+                                 {/* disabled={!verified || invalidEmail} */}
+                                {!loading && <Button className="btn-round" variant="primary" onClick={() => onSubsribe()} >Send to us</Button>}
                                 {loading && <Button className="btn-round" variant="primary" disabled>Sending...</Button>}
                                 <div className="clearfix"></div>
                             </div>}

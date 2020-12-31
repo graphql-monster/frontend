@@ -15,8 +15,9 @@ export interface IListRowParams {
   item: any;
   fields?: IFilteredField[]
   onDelete: (obj: any) => void
+  showDelete?: boolean
 }
-export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields=['id'] }) => {
+export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields=['id'] , showDelete=false}) => {
   return (
     <tr className="row1">
       
@@ -24,9 +25,9 @@ export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields
       {fields.map(field=>(field !=='id' && <td><ListRowItem item={item} field={field} /></td>))}
       {item.user && (<td>{item.user.email}</td>)}
       
-      <td className="right">
+      {showDelete && <td className="right">
         <Button variant="danger" size="sm" onClick={()=>{onDelete(item)}}>delete</Button>
-      </td>
+      </td>}
     </tr>
   );
 };

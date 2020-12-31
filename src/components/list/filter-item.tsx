@@ -71,7 +71,7 @@ export const FilterItem: React.FC<IFilterItemParam> = ({fields, onChange}) => {
     const gc = (o:any) => {
         const o2 = o
         return () => {
-            //onFieldChange(o2)
+            onFieldChange(o2)
         }
     }
 

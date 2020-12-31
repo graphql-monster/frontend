@@ -127,7 +127,7 @@ export const Table : React.FC<IProjectList> = ({filter, name, adminMode = false,
               </thead>
               <tbody>
               {
-                data.length && data.map((projectItem:any)=>(<ListRow name={name} item={projectItem} onDelete={onDelete} fields={fields} />))
+                data.length && data.map((projectItem:any)=>(<ListRow name={name} item={projectItem} onDelete={onDelete} fields={fields} showDelete={adminMode}/>))
               }
               </tbody>
             
