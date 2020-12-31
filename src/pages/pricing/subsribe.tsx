@@ -21,6 +21,7 @@ export const SubscribePage: React.FC = () => {
     const [invalidPass, setInvalidPass] = useState(false)
     const [verified, setVerify] = useState(false)
 
+    const [subsribed, setSubsribed] = useState(false)
     const history = useHistory()
     const dispatch = useUserDispatch()
 
@@ -28,7 +29,7 @@ export const SubscribePage: React.FC = () => {
         errorPolicy: "none",
         onCompleted: (data) => {
           console.log('e,c', data)
-    
+          setSubsribed(true)
         },
         onError: () => {
           console.log('onError', data)
@@ -113,19 +114,19 @@ export const SubscribePage: React.FC = () => {
 
 
                             <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Do you want tell us more?</Form.Label>
+                                <Form.Label>Do you tell us what features you need a most?</Form.Label>
                                 <Form.Control as='textarea' rows={10} onChange={onTextChange} value={message} isInvalid={invalidPass} />
                             </Form.Group>
 
                             
-                            {<div id='submit' className="pull-left">
+                            {!subsribed && <div id='submit' className="pull-left">
                                  {/* disabled={!verified || invalidEmail} */}
-                                {!loading && <Button className="btn-round" variant="primary" onClick={() => onSubsribe()} >Send to us</Button>}
+                                {!loading && <Button className="btn-round" variant="primary" onClick={() => onSubsribe()} disabled={!verified || invalidEmail}>Send to us</Button>}
                                 {loading && <Button className="btn-round" variant="primary" disabled>Sending...</Button>}
                                 <div className="clearfix"></div>
                             </div>}
 
-                            {<div>
+                            {!subsribed && <div>
                                 <Recaptcha
                                     sitekey={"6LeirhoaAAAAADIzp_mcmG0ly-DQSBB5ScfXi3jh"}
                                     verifyCallback={(v) => {
@@ -134,6 +135,7 @@ export const SubscribePage: React.FC = () => {
                                     }
                                 />
                             </div>}
+                            {subsribed && <div>Sent: Thank You we will reach you very soon with our new features</div>}
 
                         </Form>
                     </div>
