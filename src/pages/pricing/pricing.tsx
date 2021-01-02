@@ -36,7 +36,7 @@ export const PricingPage:React.FC = () => (
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 1000 request / hour</li>
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 1Mb database space</li>
+        <i className="fa fa-check mr-2 text-primary"></i> up to 1MB database space</li>
       <li className="mb-3 text-muted">
         <i className="fa fa-times mr-2"></i>
         <del>User Email verification</del>
@@ -66,7 +66,7 @@ export const PricingPage:React.FC = () => (
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 3000 request / hour</li>
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 10Mb database space</li>
+        <i className="fa fa-check mr-2 text-primary"></i> up to 10MB database space</li>
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> User Email verification</li>
       <li className="mb-3">
@@ -90,9 +90,9 @@ export const PricingPage:React.FC = () => (
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 10 projects</li>
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 5000 request / hour</li>
+        <i className="fa fa-check mr-2 text-primary"></i> up to 10000 request / hour</li>
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 50Mb database space</li>
+        <i className="fa fa-check mr-2 text-primary"></i> up to 50MB database space</li>
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> User Email verification</li>
       <li className="mb-3">
