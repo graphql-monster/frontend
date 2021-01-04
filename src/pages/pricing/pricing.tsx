@@ -90,7 +90,7 @@ export const PricingPage:React.FC = () => (
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 10 projects</li>
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 5000 request / hour</li>
+        <i className="fa fa-check mr-2 text-primary"></i> up to 10000 request / hour</li>
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 50MB database space</li>
       <li className="mb-3">

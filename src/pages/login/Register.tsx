@@ -37,7 +37,7 @@ export const Register: React.FC = () => {
           user: data.createUser as User
         })
         onHide()
-        history.push('/dashboard')
+        history.push('/user/projects')
       } else {
         setInvalidEmail(true)
       }

@@ -122,7 +122,7 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
             <div className="row-table">
            
             <Table name={name} filter={filter} queries={queries} adminMode={adminMode} fields={fields} />
-            <Button onClick={onCreateNew}>Create New Project</Button>
+            <Button onClick={onCreateNew}>Create New</Button>
             </div>
             
         </section>

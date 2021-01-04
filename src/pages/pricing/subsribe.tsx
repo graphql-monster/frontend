@@ -8,19 +8,20 @@ import Recaptcha from 'react-recaptcha'
 
 const SUBSCRIBE_MUTATION_QL = gql`
   mutation subsribe($email: String!, $message: String!) {
-    createSubscribe(email: $email, message: $pass) {
+    createSubscribe(email: $email, message: $message) {
       id
     }
   }
 `;
 export const SubscribePage: React.FC = () => {
-    const [email, setEmail] = useState(localStorage.getItem('user.email') as string)
-    const [pass, setPass] = useState('')
+    const [email, setEmail] = useState('')
+    const [message, setPass] = useState('')
 
     const [invalidEmail, setInvalidEmail] = useState(false)
     const [invalidPass, setInvalidPass] = useState(false)
     const [verified, setVerify] = useState(false)
 
+    const [subsribed, setSubsribed] = useState(false)
     const history = useHistory()
     const dispatch = useUserDispatch()
 
@@ -28,7 +29,7 @@ export const SubscribePage: React.FC = () => {
         errorPolicy: "none",
         onCompleted: (data) => {
           console.log('e,c', data)
-    
+          setSubsribed(true)
         },
         onError: () => {
           console.log('onError', data)
@@ -37,7 +38,7 @@ export const SubscribePage: React.FC = () => {
       });
 
     const onSubsribe = async () => {
-        subsribe({ variables: { email, pass } })
+        subsribe({ variables: { email, message } })
     }
 
     const onEmailChange = (event: any) => {
@@ -113,18 +114,19 @@ export const SubscribePage: React.FC = () => {
 
 
                             <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Do you want tell us more?</Form.Label>
-                                <Form.Control as='textarea' rows={10} onChange={onTextChange} value={pass} isInvalid={invalidPass} />
+                                <Form.Label>Do you tell us what features you need a most?</Form.Label>
+                                <Form.Control as='textarea' rows={10} onChange={onTextChange} value={message} isInvalid={invalidPass} />
                             </Form.Group>
 
                             
-                            {<div id='submit' className="pull-left">
+                            {!subsribed && <div id='submit' className="pull-left">
+                                 {/* disabled={!verified || invalidEmail} */}
                                 {!loading && <Button className="btn-round" variant="primary" onClick={() => onSubsribe()} disabled={!verified || invalidEmail}>Send to us</Button>}
                                 {loading && <Button className="btn-round" variant="primary" disabled>Sending...</Button>}
                                 <div className="clearfix"></div>
                             </div>}
 
-                            {<div>
+                            {!subsribed && <div>
                                 <Recaptcha
                                     sitekey={"6LeirhoaAAAAADIzp_mcmG0ly-DQSBB5ScfXi3jh"}
                                     verifyCallback={(v) => {
@@ -133,6 +135,7 @@ export const SubscribePage: React.FC = () => {
                                     }
                                 />
                             </div>}
+                            {subsribed && <div>Sent: Thank You we will reach you very soon with our new features</div>}
 
                         </Form>
                     </div>

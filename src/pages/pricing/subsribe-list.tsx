@@ -4,30 +4,24 @@ import gql from 'graphql-tag';
 import { Link } from "react-router-dom";
 
 const USER_LIST_QUERY = gql`
-  query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
-    _port
-      id
-      name,
-      models
+  query allSubscribes($filter: SubscribeFilter){ allSubscribes(filter: $filter) {
+    id,
+    email,
+    message
     }}
 `;
 
 const ADMIN_LIST_QUERY = gql`
-  query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
-    _port,
-      id
-      name,
-      models,
-      user {
-          id,
-          email
-      }
+  query allSubscribes($filter: SubscribeFilter){ allSubscribes(filter: $filter) {
+    id,
+    email,
+    message
     }}
 `;
 
 const DELETE_MUTATION = gql`
-  mutation deleteProject($id: ID!) {
-    deleteProject(id: $id) {
+  mutation deleteSubsribe($id: ID!) {
+    deleteSubscribe(id: $id) {
       id
     }
   }
@@ -37,7 +31,7 @@ const GraphiqlLink: React.FC<{value:any, names?:any, item:any}> = ({value,names,
   return <Link to={`/user/projects/${item.id}/graphiql`}>playground</Link>
 }
 
-export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
+export const SubscibesListPage: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
     return (
       <>
  
@@ -48,10 +42,10 @@ export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({u
                                 <div className="col-md-12 text-center">
                                     
             <FilteredList 
-                name={'Projects'}
+                name={'Subsribe'}
                 fields={[
-                  'name', 
-                  {'name': 'id', 'title':'playground', component: GraphiqlLink}]}
+                  'email',
+                  'message']}
                 userId={userId} 
                 adminMode={adminMode}
                 queries={{USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION}} 
@@ -67,4 +61,4 @@ export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({u
     )
 }
 
-export default ProjectList
+export default SubscibesListPage

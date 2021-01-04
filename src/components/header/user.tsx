@@ -48,11 +48,19 @@ const UserHeader = ({user, onLogout}:any) => {
                     <li><a href="/documentation#models-with-relation">Models with relation</a></li>
                   </ul>
                 </li>
-            
+                <li>
+                  <a href="#">Administration</a>
+                  <ul>
+                    <li><a href="/admin/projects">All projects</a></li>
+                    <li><a href="/admin/subsribes">All subsribes</a></li>
+                    <li><a href="/admin/users">All users</a></li>
+                    <li><a href="/admin/roles">All roles</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
             <div className="align-self-center ml-auto header-col-right">
-              <Link className="btn btn-primary btn-round" to="/login">Logout</Link>&nbsp;&nbsp;
+              <Link className="btn btn-primary btn-round" to="/login" onClick={onLogout}>Logout</Link>&nbsp;&nbsp;
                                     <span id="menu-btn"></span>
             </div>
             <div className="clearfix"></div>

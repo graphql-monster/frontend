@@ -36,7 +36,7 @@ export const SignIn: React.FC = () => {
                 user: d.login as User
             })
             onHide()
-            history.push('/dashboard')
+            history.push('/user/projects')
         }, onError: (error) => {
             setInvalidEmail(true)
             setInvalidPass(true)
