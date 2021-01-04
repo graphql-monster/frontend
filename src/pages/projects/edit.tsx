@@ -42,7 +42,6 @@ const QUERY = gql`
 const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
   <>
    <AceEditor 
-      mode="java"
       theme="github"
       width="1000px"
       value={value}

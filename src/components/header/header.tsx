@@ -65,14 +65,10 @@ export const Header = () => {
                   </ul> */}
                 </li>
                 <li>
-                  <a href="#">Documentation</a>
+                  <a href="/documentation">Documentation</a>
                   <ul>
-                    <li><a href="service-single.html">Service Single</a></li>
-                    <li><a href="services-image.html">Services Images</a></li>
-                    <li><a href="services-icon.html">Services Icon</a></li>
-                    <li><a href="services-icon-boxed.html">Services Icon Boxed</a></li>
-                    <li><a href="services-carousel.html">Services Carousel</a></li>
-                    <li><a href="pricing-plans.html">Pricing Plans</a></li>
+                    <li><a href="/documentation#simple-model">Simple model</a></li>
+                    <li><a href="/documentation#models-with-relation">Models with relation</a></li>
                   </ul>
                 </li>
             

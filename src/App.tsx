@@ -22,6 +22,7 @@ import { Register } from "./pages/login/Register";
 import SignIn from "./pages/login/SignIn";
 import { PricingPage } from "./pages/pricing/pricing";
 import SubscribePage from "./pages/pricing/subsribe";
+import Documentation from "./pages/documentation/Documentation";
 
 
 // This site has 3 pages, all of which are rendered
@@ -66,6 +67,9 @@ export default function BasicExample() {
               </Route>
               <Route path="/dashboard">
                 <Dashboard />
+              </Route>
+              <Route path="/documentation">
+                <Documentation />
               </Route>
               <Route path="/user/projects/create" component={ProjectEdit} />
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />

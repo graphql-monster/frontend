@@ -42,6 +42,8 @@ export const Home = () => {
                 </div>
             </section>
 
+            <section className="full-height vertical-center">
+            </section>
         </div>
 
     );
