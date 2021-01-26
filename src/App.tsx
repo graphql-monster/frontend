@@ -19,7 +19,7 @@ import UserRoleEdit from './pages/user-roles/edit'
 import GQLPlayground from "./pages/projects/GQLPlayground";
 import Home from "./pages/home/home";
 import { Register } from "./pages/login/Register";
-import SignIn from "./pages/login/SignIn";
+import Login from "./pages/login/Login";
 import { PricingPage } from "./pages/pricing/pricing";
 import SubscribePage from "./pages/pricing/subsribe";
 import Documentation from "./pages/documentation/Documentation";
@@ -56,7 +56,7 @@ export default function BasicExample() {
                 <Home />
               </Route>
               <Route path="/login">
-                <SignIn />
+                <Login />
               </Route>
               <Route path="/register">
                 <Register />

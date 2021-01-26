@@ -1,25 +1,27 @@
 import React, { useState, useContext } from 'react'
 import gql from 'graphql-tag'
-import { useQuery, useLazyQuery } from '@apollo/client'
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client'
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
 import { Modal, Form, Button, Alert } from 'react-bootstrap'
 
 const LOGIN_QL = gql`
-  query Login($email: String!, $pass: String!) {
-    login(email: $email, password:$pass) {
-      id,
+  mutation Login($email: String!, $pass: String!) {
+    login_v1(email: $email, password:$pass) {
       token,
-      email,
-      roles {
-        role,
-        id
-      }
-    }
+      refreshToken,
+      user {
+          id
+          email,
+            roles {
+                name
+            }
+        }
+    } 
 }
 `;
 
-export const SignIn: React.FC = () => {
+export const Login: React.FC = () => {
     const [email, setEmail] = useState(localStorage.getItem('user.email') as string)
     const [pass, setPass] = useState('')
 
@@ -29,23 +31,22 @@ export const SignIn: React.FC = () => {
     const history = useHistory()
     const dispatch = useUserDispatch()
 
-    const [login, { loading, data, error }] = useLazyQuery(LOGIN_QL, {
-        onCompleted: (d) => {
+    const [login, { loading, data, error }] = useMutation(LOGIN_QL, { errorPolicy: 'none' });
+
+    const onLogin = async () => {
+        try {
+            const {data}:any = await login({ variables: { email, pass } })
             dispatch({
                 type: USER_LOGIN,
-                user: d.login as User
+                userToken: data.login_v1 as User
             })
-            onHide()
             history.push('/user/projects')
-        }, onError: (error) => {
+        } catch(e) {
             setInvalidEmail(true)
             setInvalidPass(true)
             setPass('')
         }
-    });
-
-    const onLogin = async () => {
-        login({ variables: { email, pass } })
+        
     }
 
     const onEmailChange = (event: any) => {
@@ -175,4 +176,4 @@ export const SignIn: React.FC = () => {
     //     </div>
 }
 
-export default SignIn
+export default Login

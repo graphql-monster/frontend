@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
 
-const SIGNIN_MUTATION = gql`
-  mutation signUp($email: String!, $pass: String!) {
-    createUser(email: $email, password: $pass) {
-      id
+const REGISTER_MUTATION = gql`
+  mutation register($email: String!, $pass: String!) {
+    register_v1(email: $email, password: $pass) {
+      refreshToken
       token
-      roles {
-        role
-        id
+      user {
+        roles{name}
+        id,
+        email,
       }
     }
   }
@@ -27,26 +28,8 @@ export const Register: React.FC = () => {
   const history = useHistory()
   const dispatch = useUserDispatch()
 
-  const [signIn, { loading, data, error }] = useMutation(SIGNIN_MUTATION, {
+  const [register, { loading, data, error }] = useMutation(REGISTER_MUTATION, {
     errorPolicy: "none",
-    onCompleted: (data) => {
-      console.log('e,c', data)
-      if (data.createUser) {
-        dispatch({
-          type: USER_LOGIN,
-          user: data.createUser as User
-        })
-        onHide()
-        history.push('/user/projects')
-      } else {
-        setInvalidEmail(true)
-      }
-
-    },
-    onError: () => {
-      console.log('onError', data)
-      setInvalidEmail(true)
-    }
   });
 
   const [invalidEmail, setInvalidEmail] = useState(false);
@@ -62,7 +45,18 @@ export const Register: React.FC = () => {
       return
     }
 
-    signIn({ variables: { email, pass } })
+    try {
+      const { data } = await register({ variables: { email, pass } })
+      dispatch({
+        type: USER_LOGIN,
+        userToken: data.register_v1
+      })
+      history.push('/user/projects')
+    } catch (ex) {
+        console.log('onError', data)
+        setInvalidEmail(true)
+      }
+  
   };
 
   const onHide = () => {

@@ -1,18 +1,27 @@
 import React from 'react'
 
+export interface UserToken {
+  token: string
+  refreshToken: string
+  user: User
+}
 
 export interface User {
     id: string,
-    token: string,
     email: string,
-    roles: string[]
+    roles: UserRole[]
 }
 
-const userToStorage = (user: User) => {
-    localStorage.setItem('user.token', user.token)
-    localStorage.setItem('user.id', user.id)
-    localStorage.setItem('user.email', user.email)
-    localStorage.setItem('user.roles', user.roles.join(';'))
+export interface UserRole {
+  name: string
+}
+
+const userToStorage = (userToken: UserToken) => {
+    localStorage.setItem('user.token', userToken.token)
+    localStorage.setItem('user.refreshToken', userToken.refreshToken)
+    localStorage.setItem('user.id', userToken.user.id)
+    localStorage.setItem('user.email', userToken.user.email)
+    localStorage.setItem('user.roles', userToken.user.roles.map(r=>r.name).toString())
 }
 
 const removeUserFromStorage = () => {
@@ -50,12 +59,12 @@ const userReducer = (state: any, action: any) => {
       return userFromStorage()
     }
     case USER_LOGIN: {
-      userToStorage(action.user)
+      userToStorage(action.userToken)
       return {
-        id: action.user.id,
-        token: action.user.token,
-        email: action.user.email,
-        roles: action.user.roles,
+        id: action.userToken.user.id,
+        token: action.userToken.token,
+        email: action.userToken.user.email,
+        roles: action.userToken.user.roles,
       } as User
     }
     case USER_LOGOUT: {

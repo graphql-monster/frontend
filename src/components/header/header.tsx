@@ -5,7 +5,7 @@ import UserHeaderComponent from './user'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import SignIn from '../../pages/login/SignIn';
+import Login from '../../pages/login/Login';
 import Register from '../../pages/login/Register';
 
 export const Header = () => {
