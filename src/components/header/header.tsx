@@ -75,7 +75,7 @@ export const Header = () => {
               </ul>
             </div>
             <div className="align-self-center ml-auto header-col-right">
-              &nbsp;&nbsp;<Link className="btn btn-primary btn-round" to="/login">Login</Link>
+              &nbsp;&nbsp;<Link className="" to="/login">Login</Link> or <Link className="" to="/register">Register</Link>
                                     <span id="menu-btn"></span>
             </div>
             <div className="clearfix"></div>

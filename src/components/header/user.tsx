@@ -13,54 +13,64 @@ const UserHeader = ({user, onLogout}:any) => {
           <div className="d-flex justify-content-between">
             <div className="align-self-center header-col-left">
               <div id="logo">
-                <a href="/user/projects">
+                <Link to="/user/projects">
                   <img alt="" src="logoPQL2.png" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="align-self-center ml-auto header-col-mid">
 
               <ul id="mainmenu">
                 <li>
-                  <a href="/user/projects">Projects</a>
+                  <Link to="/user/projects">Projects</Link>
                   {/* <ul>
-                    <li><a href="index.html">Main</a></li>
-                    <li><a href="index-startup.html">Startup</a></li>
-                    <li><a href="index-coworking.html">Co-working</a></li>
-                    <li><a href="index-agency.html">Agency</a></li>
-                    <li><a href="index-apps.html">Apps</a></li>
+                    <li><Link to="index.html">Main</Link></li>
+                    <li><Link to="index-startup.html">Startup</Link></li>
+                    <li><Link to="index-coworking.html">Co-working</Link></li>
+                    <li><Link to="index-agency.html">Agency</Link></li>
+                    <li><Link to="index-apps.html">Apps</Link></li>
                   </ul> */}
                 </li>
                 <li>
-                  <a href="/pricing">Pricing</a>
+                  <Link to="/pricing">Pricing</Link>
                   {/* <ul>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="our-team.html">Our Team</a></li>
-                    <li><a href="our-history.html">Our History</a></li>
-                    <li><a href="faq.html">FAQs</a></li>
-                    <li><a href="careers.html">Careers</a></li>
+                    <li><Link to="about-us.html">About Us</Link></li>
+                    <li><Link to="our-team.html">Our Team</Link></li>
+                    <li><Link to="our-history.html">Our History</Link></li>
+                    <li><Link to="faq.html">FAQs</Link></li>
+                    <li><Link to="careers.html">Careers</Link></li>
                   </ul> */}
                 </li>
                 <li>
-                <a href="/documentation">Documentation</a>
+                <Link to="/documentation">Documentation</Link>
                   <ul>
-                    <li><a href="/documentation#simple-model">Simple model</a></li>
-                    <li><a href="/documentation#models-with-relation">Models with relation</a></li>
+                    <li><Link to="/documentation#simple-model">Simple model</Link></li>
+                    <li><Link to="/documentation#models-with-relation">Models with relation</Link></li>
                   </ul>
                 </li>
                 <li>
-                  <a href="#">Administration</a>
+                  <Link to="#">Administration</Link>
                   <ul>
-                    <li><a href="/admin/projects">All projects</a></li>
-                    <li><a href="/admin/subsribes">All subsribes</a></li>
-                    <li><a href="/admin/users">All users</a></li>
-                    <li><a href="/admin/roles">All roles</a></li>
+                    <li><Link to="/admin/projects">All projects</Link></li>
+                    <li><Link to="/admin/subsribes">All subsribes</Link></li>
+                    <li><Link to="/admin/users">All users</Link></li>
+                    <li><Link to="/admin/roles">All roles</Link></li>
                   </ul>
                 </li>
               </ul>
             </div>
             <div className="align-self-center ml-auto header-col-right">
-              <Link className="btn btn-primary btn-round" to="/login" onClick={onLogout}>Logout</Link>&nbsp;&nbsp;
+            <ul id="mainmenu">
+                <li>
+                  <Link to="/user/info">User</Link>
+                  <ul>
+                    <li><Link to="/user/info" >User Info</Link></li>
+                    <li><Link to="/login" onClick={onLogout}>Logout</Link></li>
+                    
+                  </ul>
+                </li>
+                </ul>
+              &nbsp;&nbsp;
                                     <span id="menu-btn"></span>
             </div>
             <div className="clearfix"></div>

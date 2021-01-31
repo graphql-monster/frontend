@@ -25,6 +25,7 @@ import SubscribePage from "./pages/pricing/subsribe";
 import Documentation from "./pages/documentation/Documentation";
 import SubscibesListPage from "./pages/pricing/subsribe-list";
 import VerifyUser from "./pages/login/VerifyUser";
+import UserInfo from "./pages/login/UserInfo";
 
 
 
@@ -62,6 +63,7 @@ export default function BasicExample() {
               <Route path="/register">
                 <Register />
               </Route>
+              
               <Route path="/verify-user/:verifyToken" component={VerifyUser} />
               <Route path="/pricing">
                 <PricingPage />
@@ -80,6 +82,9 @@ export default function BasicExample() {
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
                 <ProjectList />
+              </Route>
+              <Route path="/user/info">
+                <UserInfo />
               </Route>
               <Route path="/admin/projects">
                 <ProjectList adminMode={true}/>
