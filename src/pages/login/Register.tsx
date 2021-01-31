@@ -15,6 +15,7 @@ const REGISTER_MUTATION = gql`
         roles{name}
         id,
         email,
+        verified
       }
     }
   }

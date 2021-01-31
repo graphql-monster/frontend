@@ -9,6 +9,7 @@ export interface UserToken {
 export interface User {
     id: string,
     email: string,
+    verified: boolean,
     roles: UserRole[]
 }
 
@@ -21,13 +22,16 @@ const userToStorage = (userToken: UserToken) => {
     localStorage.setItem('user.refreshToken', userToken.refreshToken)
     localStorage.setItem('user.id', userToken.user.id)
     localStorage.setItem('user.email', userToken.user.email)
+    localStorage.setItem('user.verified', userToken.user.verified.toString())
     localStorage.setItem('user.roles', userToken.user.roles.map(r=>r.name).toString())
 }
 
 const removeUserFromStorage = () => {
+  localStorage.removeItem('user.refreshToken')
   localStorage.removeItem('user.token')
   localStorage.removeItem('user.id')
   // localStorage.removeItem('user.email')
+  localStorage.removeItem('user.verified')
   localStorage.removeItem('user.roles')
 }
 
@@ -65,6 +69,7 @@ const userReducer = (state: any, action: any) => {
         token: action.userToken.token,
         email: action.userToken.user.email,
         roles: action.userToken.user.roles,
+        verified: action.userToken.user.verified,
       } as User
     }
     case USER_LOGOUT: {

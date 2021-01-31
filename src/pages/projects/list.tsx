@@ -37,7 +37,8 @@ const GraphiqlLink: React.FC<{value:any, names?:any, item:any}> = ({value,names,
   return <Link to={`/user/projects/${item.id}/graphiql`}>playground</Link>
 }
 
-export const ProjectList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
+export const ProjectList: React.FC<{ adminMode?: boolean}> = ({adminMode=false}) => {
+    const userId = (!adminMode && localStorage.getItem('user.id')) || ''
     return (
       <>
  

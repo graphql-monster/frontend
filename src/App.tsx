@@ -24,6 +24,7 @@ import { PricingPage } from "./pages/pricing/pricing";
 import SubscribePage from "./pages/pricing/subsribe";
 import Documentation from "./pages/documentation/Documentation";
 import SubscibesListPage from "./pages/pricing/subsribe-list";
+import VerifyUser from "./pages/login/VerifyUser";
 
 
 
@@ -61,6 +62,7 @@ export default function BasicExample() {
               <Route path="/register">
                 <Register />
               </Route>
+              <Route path="/verify-user/:verifyToken" component={VerifyUser} />
               <Route path="/pricing">
                 <PricingPage />
               </Route>
@@ -77,7 +79,7 @@ export default function BasicExample() {
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
-                <ProjectList userId={localStorage.getItem('user.id') || ''}/>
+                <ProjectList />
               </Route>
               <Route path="/admin/projects">
                 <ProjectList adminMode={true}/>

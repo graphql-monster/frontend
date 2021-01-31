@@ -11,12 +11,13 @@ const LOGIN_QL = gql`
       token,
       refreshToken,
       user {
-          id
-          email,
-            roles {
-                name
-            }
+        id
+        email,
+        verified,
+        roles {
+          name
         }
+    }
     } 
 }
 `;
