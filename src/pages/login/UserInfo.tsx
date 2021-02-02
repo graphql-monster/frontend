@@ -22,6 +22,14 @@ const CHANGE_PASSWORD_MUTATION = gql`
   }
 `;
 
+const VERIFY_EMAIL_RESEND_MUTATION = gql`
+  mutation verifyEmailResend($userId: ID!) {
+    verifyEmailResend_v1(userId: $userId) {
+      status
+    }
+  }
+`;
+
 export const UserInfo: React.FC = () => {
   const [oldPassword, setOldPassword] = useState("ahoj");
   const [newPassword, setNewPassword] = useState("ahoj");
@@ -29,12 +37,11 @@ export const UserInfo: React.FC = () => {
   const [showPasswordChanged, setShowPasswordChanged] = useState(false);
   const [invalidPasswordCopy, setInvalidNewPasswordCopy] = useState(false);
 
+  const [showVerifyEmailSended, setShowVerifyEmailSended] = useState(false);
   const history = useHistory()
   const dispatch = useUserDispatch()
 
-  const [changePassword, { loading, data, error }] = useMutation(CHANGE_PASSWORD_MUTATION, {
-    errorPolicy: "none",
-  });
+  
 
   const [invalidOldPassword, setInvalidOldPassword] = useState(false);
 
@@ -47,8 +54,31 @@ export const UserInfo: React.FC = () => {
   const userEmail = localStorage.getItem('user.email') || ''
   const userVerified = localStorage.getItem('user.verified') == 'true'
 
+  const [changePassword, { loading, data, error }] = useMutation(CHANGE_PASSWORD_MUTATION, {
+    errorPolicy: "none",
+  });
+
+  const [verifyEmailResend, { loading: resendLoading, data: resend, error: resendError }] = useMutation(VERIFY_EMAIL_RESEND_MUTATION, {
+    errorPolicy: "none",
+  });
+
+  const onVerifyEmailResend = async () => {
+
+    try {
+      const { data } = await verifyEmailResend({ variables: { userId } })
+      setShowVerifyEmailSended(true)
+      // show notify
+      setTimeout(()=>{
+        setShowVerifyEmailSended(false)
+      }, 5000)
+    } catch (ex) {
+        console.log('onError', data)
+      }
+  
+  };
+
   const onChangePassword = async () => {
-    if (newPassword != newPasswordCopy) {
+    if (newPassword !== newPasswordCopy) {
       setInvalidNewPasswordCopy(true)
       return
     }
@@ -114,6 +144,7 @@ export const UserInfo: React.FC = () => {
       <div className="col-md-12 text-center">
           <h1>User Setting</h1>
           {showPasswordChanged ? (<div className="alert alert-success" role="alert">The password was changed</div>): null}
+          {showVerifyEmailSended ? (<div className="alert alert-success" role="alert">Email with verify link was re-send to {userEmail}</div>): null}
       </div>
       <div className="col-md-12 text-center">
           <h2>Email</h2>
@@ -125,7 +156,7 @@ export const UserInfo: React.FC = () => {
           </div>
           <div className="col-md-7 ">
             {userVerified?<div>Verified</div>: <div>
-              not verified <Button className="btn-sm" variant="warning">Resent email with link for verify</Button>
+              not verified <Button className="btn-sm" variant="warning" onClick={() => onVerifyEmailResend()} disabled={showVerifyEmailSended}>Resent email with link for verify</Button>
               
             </div>}
           </div>
