@@ -26,6 +26,7 @@ import Documentation from "./pages/documentation/Documentation";
 import SubscibesListPage from "./pages/pricing/subsribe-list";
 import VerifyUser from "./pages/login/VerifyUser";
 import UserInfo from "./pages/login/UserInfo";
+import ForgottenPassword from "./pages/login/ForgottenPassword";
 
 
 
@@ -62,6 +63,10 @@ export default function BasicExample() {
               </Route>
               <Route path="/register">
                 <Register />
+              </Route>
+
+              <Route path="/forgotten-password">
+                <ForgottenPassword />
               </Route>
               
               <Route path="/verify-user/:verifyToken" component={VerifyUser} />
