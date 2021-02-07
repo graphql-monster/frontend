@@ -2,6 +2,16 @@ import { ApolloClient, InMemoryCache , createHttpLink,  ApolloLink, fromPromise 
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { refreshToken } from './refreshToken';
+import { RetryLink } from "@apollo/client/link/retry";
+
+const retryLink = new RetryLink({
+  attempts: (count, operation, error) => {
+    return true;
+  },
+  delay: (count, operation, error) => {
+    return count * 1000 * Math.random();
+  },
+});
 
 let isRefreshing = false;
 let pendingRequests:any = [];
@@ -61,7 +71,9 @@ const unautheniticatedAction = (forward:any, operation:any) => {
   }
 
   // @ts-ignore
-  return forward$.flatMap(() => forward(operation));
+  return forward$.flatMap(() => {
+    return forward(operation)
+  });
 }
 
 const authLink = setContext((_, { headers }) => {
@@ -81,6 +93,7 @@ const httpLink = createHttpLink({
   //uri: 'http://protectql.com/graphql',
 })
 
+// @ts-ignore
 const erroLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors)
     graphQLErrors.map(({ message, locations, path }) =>
@@ -90,14 +103,15 @@ const erroLink = onError(({ graphQLErrors, networkError, operation, forward }) =
     );
 
     if(graphQLErrors && graphQLErrors?.length > 0 && graphQLErrors[0].message == 'Unauthorized') {
-      unautheniticatedAction(forward, operation)
+      // @ts-ignore
+      return unautheniticatedAction(forward, operation)
     }
 
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
 export const apolloClient = new ApolloClient({
-  link: ApolloLink.from([erroLink, authLink, httpLink]),
+  link: ApolloLink.from([retryLink, erroLink, authLink, httpLink]),
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
