@@ -18,6 +18,8 @@ const FORGOTTEN_PASSWORD_REQUEST_MUTATION = gql`
 
 export const ForgottenPassword: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false)
 
   const history = useHistory()
   const dispatch = useUserDispatch()
@@ -26,13 +28,14 @@ export const ForgottenPassword: React.FC = () => {
     errorPolicy: "none",
   });
 
-  const [invalidEmail, setInvalidEmail] = useState(false);
 
   const onRequestSend = async () => {
+    setEmailSent(false)
     if(isEmailValid(email)){
       setInvalidEmail(false)
       try {
         const { data } = await doForgottenPassword({ variables: { email } })
+        setEmailSent(true)
       } catch (ex) {
         console.log('onError', data)
         setInvalidEmail(true)
@@ -48,6 +51,14 @@ export const ForgottenPassword: React.FC = () => {
     setEmail(event.target.value);
     setInvalidEmail(false);
   };
+
+  if(emailSent) {
+    return (
+      <>
+      <Alert variant={"success"}>We sent to You instruction to email {email}. Check your mailbox (don't forget check spam as well)</Alert>
+      </>
+    )
+  }
 
   return (<>
     <section id="subheader" data-bgimage="url(images/background/5.png) bottom">
@@ -109,39 +120,6 @@ export const ForgottenPassword: React.FC = () => {
     </section>
   </>
   );
-
-  //   <div>
-  //   <Modal show={show} onHide={onHide}>
-  //     <Modal.Header closeButton>
-  //       <div>
-  //         <Modal.Title>SigIn</Modal.Title>
-  //       </div>
-  //     </Modal.Header>
-
-  //     <Modal.Body>
-  //       {loading && <div>Loading...</div>}
-  //       <div>
-  //         {invalidEmail && (
-  //           <Alert variant={"danger"}>Email is probably taken, did you <Link to="/forgotten-password">forgotten password</Link>?</Alert>
-  //         )}
-  //         {invalidCopy && (
-  //           <Alert variant={"danger"}>The retyped password is not the same</Alert>
-  //         )}
-  //       </div>
-
-
-  //     </Modal.Body>
-
-  //     <Modal.Footer>
-  //       <Button variant="primary" type="submit" onClick={() => onRegister()}>
-  //         Register
-  //       </Button>
-  //       <Button variant="secondary" onClick={onHide}>
-  //         Close
-  //       </Button>
-  //     </Modal.Footer>
-  //   </Modal>
-  // </div>
 };
 
 export default ForgottenPassword;

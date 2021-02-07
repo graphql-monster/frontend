@@ -133,47 +133,6 @@ export const Login: React.FC = () => {
     </>
     )
 
-    // <div>
-    //         <Modal show={show} onHide={onHide}>
-    //             <Modal.Header closeButton>
-    //                 <div>
-    //                     <Modal.Title>SigIn</Modal.Title>
-    //                 </div>
-
-    //             </Modal.Header>
-
-    //             <Modal.Body>
-    //                 {loading && <div>Loading...</div>}
-    //                 <div>
-    //                     {invalidPass && <Alert variant={'danger'}>Email or password is not valid</Alert>}
-    //                 </div>
-
-    //                 <Form>
-    //                     <Form.Group controlId="formBasicEmail">
-    //                         <Form.Label>Email address</Form.Label>
-    //                         <Form.Control type="email" placeholder="Enter email" onChange={onEmailChange} value={email} isInvalid={invalidEmail}/>
-    //                         <Form.Text className="text-muted">
-    //                             We'll never share your email with anyone else.
-    //                         </Form.Text>
-    //                     </Form.Group>
-
-    //                     <Form.Group controlId="formBasicPassword">
-    //                         <Form.Label>Password</Form.Label>
-    //                         <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} value={pass} isInvalid={invalidPass} />
-    //                     </Form.Group>
-
-
-    //                 </Form>
-    //             </Modal.Body>
-
-    //             <Modal.Footer>
-    //                 <Button variant="primary" type="submit" onClick={() => onLogin()}>SigIn</Button>
-    //                 <Button variant="secondary" onClick={onHide}>Close</Button>
-    //             </Modal.Footer>
-    //         </Modal>
-
-
-    //     </div>
 }
 
 export default Login

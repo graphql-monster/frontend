@@ -63,7 +63,7 @@ const filterDestruct = (filter: any) => {
 
 export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMode=false, queries, fields}) => {
 
-    const [filter, setFilter] = useState(createFilter())
+    const [filter, setFilter] = useState(adminMode ? createFilter() : null)
     const history = useHistory()
 
     // console.log(filter, listFilter)
@@ -91,6 +91,7 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
         
     }, [userId])
 
+
     const onFilterChange = useCallback((f: string | null) => {
         const defaultFilter = createDefaultFilter(userId)
         
@@ -106,6 +107,13 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
         history.push('/user/' + name.toLowerCase() + '/create' )
     }
 
+    // if is not adminMode, 
+    // the useEffect will update filter with user after render
+    // but in render is already called the query
+    // but the query will call without properly setuped filter and return unauthorized
+    if(!adminMode && !filter){
+        return null
+    }
 
     return (
         <>

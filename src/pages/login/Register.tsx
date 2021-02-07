@@ -182,39 +182,6 @@ export const Register: React.FC = () => {
     </section>
   </>
   );
-
-  //   <div>
-  //   <Modal show={show} onHide={onHide}>
-  //     <Modal.Header closeButton>
-  //       <div>
-  //         <Modal.Title>SigIn</Modal.Title>
-  //       </div>
-  //     </Modal.Header>
-
-  //     <Modal.Body>
-  //       {loading && <div>Loading...</div>}
-  //       <div>
-  //         {invalidEmail && (
-  //           <Alert variant={"danger"}>Email is probably taken, did you <Link to="/forgotten-password">forgotten password</Link>?</Alert>
-  //         )}
-  //         {invalidCopy && (
-  //           <Alert variant={"danger"}>The retyped password is not the same</Alert>
-  //         )}
-  //       </div>
-
-
-  //     </Modal.Body>
-
-  //     <Modal.Footer>
-  //       <Button variant="primary" type="submit" onClick={() => onRegister()}>
-  //         Register
-  //       </Button>
-  //       <Button variant="secondary" onClick={onHide}>
-  //         Close
-  //       </Button>
-  //     </Modal.Footer>
-  //   </Modal>
-  // </div>
 };
 
 export default Register;
