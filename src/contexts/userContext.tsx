@@ -22,7 +22,7 @@ const userToStorage = (userToken: UserToken) => {
     localStorage.setItem('user.refreshToken', userToken.refreshToken)
     localStorage.setItem('user.id', userToken.user.id)
     localStorage.setItem('user.email', userToken.user.email)
-    localStorage.setItem('user.verified', userToken.user.verified.toString())
+    localStorage.setItem('user.verified', Boolean(userToken.user.verified).toString())
     localStorage.setItem('user.roles', userToken.user.roles.map(r=>r.name).toString())
 }
 
@@ -69,7 +69,7 @@ const userReducer = (state: any, action: any) => {
         token: action.userToken.token,
         email: action.userToken.user.email,
         roles: action.userToken.user.roles,
-        verified: action.userToken.user.verified,
+        verified: Boolean(action.userToken.user.verified),
       } as User
     }
     case USER_LOGOUT: {

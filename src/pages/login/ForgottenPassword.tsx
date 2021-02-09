@@ -24,6 +24,10 @@ export const ForgottenPassword: React.FC = () => {
   const history = useHistory()
   const dispatch = useUserDispatch()
 
+  const [checkResetEmail, { loading: loadingCheckResetEmail, data: checkResetEmailData, error: checkResetEmailError }] = useMutation(FORGOTTEN_PASSWORD_REQUEST_MUTATION, {
+    errorPolicy: "none",
+  });
+
   const [doForgottenPassword, { loading, data, error }] = useMutation(FORGOTTEN_PASSWORD_REQUEST_MUTATION, {
     errorPolicy: "none",
   });
@@ -31,7 +35,7 @@ export const ForgottenPassword: React.FC = () => {
 
   const onRequestSend = async () => {
     setEmailSent(false)
-    if(isEmailValid(email)){
+    if(email && isEmailValid(email)){
       setInvalidEmail(false)
       try {
         const { data } = await doForgottenPassword({ variables: { email } })
@@ -87,9 +91,7 @@ export const ForgottenPassword: React.FC = () => {
 
 
               <Form>
-                {invalidEmail && (<Alert variant={"danger"}>We don't know anybady who is registred with this {email}, it is correct?</Alert>)}
-                
-                <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
                     type="email"

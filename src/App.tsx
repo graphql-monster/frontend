@@ -27,6 +27,7 @@ import SubscibesListPage from "./pages/pricing/subsribe-list";
 import VerifyUser from "./pages/login/VerifyUser";
 import UserInfo from "./pages/login/UserInfo";
 import ForgottenPassword from "./pages/login/ForgottenPassword";
+import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
 
 
 
@@ -65,9 +66,11 @@ export default function BasicExample() {
                 <Register />
               </Route>
 
-              <Route path="/forgotten-password">
+              <Route path="/forgotten-password/:token" component={ForgottenPasswordReset} />
+              <Route exact path="/forgotten-password">
                 <ForgottenPassword />
               </Route>
+              
               
               <Route path="/verify-user/:verifyToken" component={VerifyUser} />
               <Route path="/pricing">
