@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
-import { Modal, Form, Alert, Button } from "react-bootstrap";
+import { Modal, Form, Alert, Button, ProgressBar } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
-import { isEmailValid } from "../../common/utils";
+import { isEmailValid, isPasswordValid, passwordStrong } from "../../common/utils";
 import _ from "lodash";
 
 const FORGOTTEN_PASSWORD_CHECK_MUTATION = gql`
@@ -49,6 +49,7 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
 
   
   const [invalidPass, setInvalidPass] = useState(false);
+  const [strong, setStrong] = useState(passwordStrong(''))
   const [validPass, setValidPass] = useState(false);
 
   const [invalidCopy, setInvalidCopy] = useState(false);
@@ -69,6 +70,9 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
   }, [token, doForgottenPasswordCheck])
 
   const onReset = async () => {
+    if(!strong.valid){
+      return
+    }
 
     if (password !== copy) {
       setInvalidCopy(true)
@@ -91,11 +95,11 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
 
   const onPasswordChange = (event: any) => {
     const pass = event.target.value as string
-    const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-    setValidPass(regularExpression.test(pass))
 
     setPassword(pass);
-    setInvalidPass(false);
+    const valid = isPasswordValid(pass)
+    setInvalidPass(!valid);
+    setStrong(passwordStrong(pass))
   };
 
   const onCopyChange = (event: any) => {
@@ -120,7 +124,7 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
                 <form action='blank.php' className="row" id='form_subscribe' method="post" name="myForm">
                   <div className="col-md-12 text-center">
                     <h1>User Password Reset</h1>
-                    <p>All big things starting here</p>
+                    <p>You will be back soon</p>
                   </div>
                   <div className="clearfix"></div>
                 </form>
@@ -138,17 +142,20 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
   
   
                 <Form>
-                  
-  
+                {/* {invalidPass && (<Alert variant={"danger"}>The password have to contain capital letter,lower letter, a number and must be 6-16 characters long</Alert>)}   */}
+                {invalidCopy && (<Alert variant={"danger"}>The retyped password is not the same</Alert>)}
                   <Form.Group controlId="formBasicPassword">
+                  
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       type="password"
                       placeholder="Password"
                       onChange={onPasswordChange}
                       value={password}
-                      isInvalid={invalidPass}
+                      isInvalid={!strong.valid}
                     />
+                    <Form.Text>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter</Form.Text>
+                    <ProgressBar now={strong.strong} label={strong.name} variant={strong.variant}/>
                   </Form.Group>
   
                   <Form.Group controlId="formBasicPassword">
@@ -164,7 +171,7 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
                 </Form>
   
                 <div id='submit' className="pull-left">
-                  {!loading && <Button className="btn-round" variant="primary" onClick={() => onReset()}>Reset password</Button>}
+                  {!loading && <Button className="btn-round" variant="primary" onClick={() => onReset()} disabled={!strong.valid}>Reset password</Button>}
                   {loading && <Button className="btn-round" variant="primary" disabled>Loading...</Button>}
   
                   <div className="clearfix"></div>
