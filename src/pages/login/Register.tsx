@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
-import { Modal, Form, Alert, Button } from "react-bootstrap";
+import { Modal, Form, Alert, Button, ProgressBar } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
-import { isEmailValid } from "../../common/utils";
+import { isEmailValid, passwordStrong } from "../../common/utils";
 
 const REGISTER_MUTATION = gql`
   mutation register($email: String!, $pass: String!) {
@@ -23,8 +23,8 @@ const REGISTER_MUTATION = gql`
 `;
 
 export const Register: React.FC = () => {
-  const [email, setEmail] = useState("ahoj");
-  const [pass, setPass] = useState("ahoj");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const [copy, setCopy] = useState("");
 
   const history = useHistory()
@@ -35,9 +35,8 @@ export const Register: React.FC = () => {
   });
 
   const [invalidEmail, setInvalidEmail] = useState(false);
-
-  const [invalidPass, setInvalidPass] = useState(false);
-  const [validPass, setValidPass] = useState(false);
+  const [emailProbablyTaken, setEmailProbablyTaken] = useState(false);
+  const [strong, setStrong] = useState(passwordStrong(''))
 
   const [invalidCopy, setInvalidCopy] = useState(false);
 
@@ -60,7 +59,7 @@ export const Register: React.FC = () => {
       history.push('/user/projects')
     } catch (ex) {
         console.log('onError', data)
-        setInvalidEmail(true)
+        setEmailProbablyTaken(true)
       }
   
   };
@@ -69,23 +68,21 @@ export const Register: React.FC = () => {
   const onEmailChange = (event: any) => {
     setEmail(event.target.value);
     setInvalidEmail(false);
+    setEmailProbablyTaken(false)
   };
 
   const onPasswordChange = (event: any) => {
     const pass = event.target.value as string
-    const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-    setValidPass(regularExpression.test(pass))
 
     setPass(pass);
     setInvalidEmail(false);
-    setInvalidPass(false);
+    setStrong(passwordStrong(pass))
   };
 
   const onCopyChange = (event: any) => {
     const c = event.target.value
     setCopy(c)
     setInvalidEmail(false)
-    setInvalidPass(false)
 
     if (c == pass) {
       setInvalidCopy(false)
@@ -119,7 +116,8 @@ export const Register: React.FC = () => {
 
 
               <Form>
-                {invalidEmail && (<Alert variant={"danger"}>Email is probably taken, did you <Link to="/forgotten-password">forgotten password</Link>?</Alert>)}
+                {invalidEmail && (<Alert variant={"danger"}>Email is not in good shape</Alert>)}
+                {emailProbablyTaken && (<Alert variant={"danger"}>Email is probably taken, did you <Link to="/forgotten-password">forgotten password</Link>?</Alert>)}
                 {invalidCopy && (<Alert variant={"danger"}>The retyped password is not the same</Alert>)}
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
@@ -136,14 +134,16 @@ export const Register: React.FC = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    onChange={onPasswordChange}
-                    value={pass}
-                    isInvalid={invalidPass}
-                  />
+                <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      onChange={onPasswordChange}
+                      value={pass}
+                      isInvalid={!strong.valid}
+                    />
+                    <Form.Text>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter</Form.Text>
+                    <ProgressBar now={strong.strong} label={strong.name} variant={strong.variant}/>
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
@@ -166,12 +166,12 @@ export const Register: React.FC = () => {
 
                 <div className="spacer-single"></div>
 
-                <ul className="list s3">
+                {/* <ul className="list s3">
                   <li>Or login with:</li>
                   <li><a href="#">Facebook</a></li>
                   <li><a href="#">Google</a></li>
                   <li><a href="#">Instagram</a></li>
-                </ul>
+                </ul> */}
 
               </div>
 
