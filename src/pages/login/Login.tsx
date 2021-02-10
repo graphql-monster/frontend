@@ -94,8 +94,8 @@ export const Login: React.FC = () => {
                         <Form name="contactForm" id='contact_form' className="form-border" >
                             {!invalidPass && <h3>Login to your account</h3>}
                             {invalidPass && <Alert variant={'danger'}>Email or password is not valid. Did You <Link to="/forgotten-password">forgotten your password</Link>?</Alert>}
+                            {invalidEmail && (<Alert variant={"danger"}>Email is not in good shape...</Alert>)}
                             <Form.Group controlId="formBasicEmail">
-
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="text" placeholder="Enter email" onChange={onEmailChange} value={email} isInvalid={invalidEmail} />
                             </Form.Group>

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
 import { isEmailValid, passwordStrong } from "../../common/utils";
+import PasswordComponent from "./PasswordComponent";
 
 const REGISTER_MUTATION = gql`
   mutation register($email: String!, $pass: String!) {
@@ -116,7 +117,7 @@ export const Register: React.FC = () => {
 
 
               <Form>
-                {invalidEmail && (<Alert variant={"danger"}>Email is not in good shape</Alert>)}
+                {invalidEmail && (<Alert variant={"danger"}>Email is not in good shape...</Alert>)}
                 {emailProbablyTaken && (<Alert variant={"danger"}>Email is probably taken, did you <Link to="/forgotten-password">forgotten password</Link>?</Alert>)}
                 {invalidCopy && (<Alert variant={"danger"}>The retyped password is not the same</Alert>)}
                 <Form.Group controlId="formBasicEmail">
@@ -133,18 +134,7 @@ export const Register: React.FC = () => {
           </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      onChange={onPasswordChange}
-                      value={pass}
-                      isInvalid={!strong.valid}
-                    />
-                    <Form.Text>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter</Form.Text>
-                    <ProgressBar now={strong.strong} label={strong.name} variant={strong.variant}/>
-                </Form.Group>
+                <PasswordComponent password={pass} onPasswordChange={onPasswordChange} strongPassword={strong} />
 
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>Re-Password</Form.Label>

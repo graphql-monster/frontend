@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
 import { isEmailValid, isPasswordValid, passwordStrong } from "../../common/utils";
 import _ from "lodash";
+import PasswordComponent from "./PasswordComponent";
 
 const FORGOTTEN_PASSWORD_CHECK_MUTATION = gql`
   mutation forgottenPasswordCheck($token: String!) {
@@ -144,19 +145,7 @@ export const ForgotenPasswordReset: React.FC<any> = ({match}) => {
                 <Form>
                 {/* {invalidPass && (<Alert variant={"danger"}>The password have to contain capital letter,lower letter, a number and must be 6-16 characters long</Alert>)}   */}
                 {invalidCopy && (<Alert variant={"danger"}>The retyped password is not the same</Alert>)}
-                  <Form.Group controlId="formBasicPassword">
-                  
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      onChange={onPasswordChange}
-                      value={password}
-                      isInvalid={!strong.valid}
-                    />
-                    <Form.Text>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter</Form.Text>
-                    <ProgressBar now={strong.strong} label={strong.name} variant={strong.variant}/>
-                  </Form.Group>
+                <PasswordComponent password={password} onPasswordChange={onPasswordChange} strongPassword={strong} />
   
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Re-Password</Form.Label>

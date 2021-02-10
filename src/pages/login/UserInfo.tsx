@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { User, useUserDispatch, USER_LOGIN } from '../../contexts/userContext';
 import { userInfo } from "os";
+import PasswordComponent from "./PasswordComponent";
+import { passwordStrong } from "../../common/utils";
 
 const CHANGE_PASSWORD_MUTATION = gql`
   mutation changePassword($userId: ID!, $oldPassword: String!, $newPassword: String!) {
@@ -31,8 +33,8 @@ const VERIFY_EMAIL_RESEND_MUTATION = gql`
 `;
 
 export const UserInfo: React.FC = () => {
-  const [oldPassword, setOldPassword] = useState("ahoj");
-  const [newPassword, setNewPassword] = useState("ahoj");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [newPasswordCopy, setNewPasswordCopy] = useState("");
   const [showPasswordChanged, setShowPasswordChanged] = useState(false);
   const [invalidPasswordCopy, setInvalidNewPasswordCopy] = useState(false);
@@ -47,6 +49,7 @@ export const UserInfo: React.FC = () => {
 
   const [invalidPass, setInvalidPass] = useState(false);
   const [validPass, setValidPass] = useState(false);
+  const [strong, setStrong] = useState(passwordStrong(''))
 
   
 
@@ -78,6 +81,8 @@ export const UserInfo: React.FC = () => {
   };
 
   const onChangePassword = async () => {
+    if(!strong.valid) return
+
     if (newPassword !== newPasswordCopy) {
       setInvalidNewPasswordCopy(true)
       return
@@ -114,12 +119,12 @@ export const UserInfo: React.FC = () => {
 
   const onNewPasswordChange = (event: any) => {
     const pass = event.target.value as string
-    const regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-    setValidPass(regularExpression.test(pass))
+    setStrong(passwordStrong(pass))
 
     setNewPassword(pass);
     setInvalidOldPassword(false);
     setInvalidPass(false);
+
     
     if (pass == newPasswordCopy) {
       setInvalidNewPasswordCopy(false)
@@ -138,9 +143,7 @@ export const UserInfo: React.FC = () => {
   };
 
   return (<>
-
-
-    <section className="no-top" data-bgimage="url(images/background/3.png) top">
+  <section className="no-top" data-bgimage="url(images/background/3.png) top">
       <div className="col-md-12 text-center">
           <h1>User Setting</h1>
           {showPasswordChanged ? (<div className="alert alert-success" role="alert">The password was changed</div>): null}
@@ -186,16 +189,7 @@ export const UserInfo: React.FC = () => {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>New password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    onChange={onNewPasswordChange}
-                    value={newPassword}
-                    isInvalid={invalidPass}
-                  />
-                </Form.Group>
+                <PasswordComponent password={newPassword} onPasswordChange={onNewPasswordChange} strongPassword={strong} />
 
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>Repeat New Password</Form.Label>
@@ -210,7 +204,7 @@ export const UserInfo: React.FC = () => {
               </Form>
 
               <div id='submit' className="pull-left">
-                {!loading && <Button className="btn-round" variant="primary" onClick={() => onChangePassword()}>Change Password</Button>}
+                {!loading && <Button className="btn-round" variant="primary" onClick={() => onChangePassword()} disabled={!strong.valid}>Change Password</Button>}
                 {loading && <Button className="btn-round" variant="primary" disabled>Loading...</Button>}
 
                 <div className="clearfix"></div>
