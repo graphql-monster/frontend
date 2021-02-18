@@ -118,7 +118,7 @@ export const Login: React.FC = () => {
 
                                 <ul className="list s3">
                                     <li>Or login with:</li>
-                                    <li><a href="#">Facebook</a></li>
+                                    <li><a href={`${process.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a></li>
                                     <li><a href="#">Google</a></li>
                                     <li><a href="#">Instagram</a></li>
                                 </ul>

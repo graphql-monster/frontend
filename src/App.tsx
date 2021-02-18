@@ -28,6 +28,7 @@ import VerifyUser from "./pages/login/VerifyUser";
 import UserInfo from "./pages/login/UserInfo";
 import ForgottenPassword from "./pages/login/ForgottenPassword";
 import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
+import { FacebookCallback } from "./pages/login/passport/FacebookCallback";
 
 
 
@@ -59,14 +60,15 @@ export default function BasicExample() {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/login">
+              <Route exact path="/login">
                 <Login />
               </Route>
+              <Route path="/login/facebook" component={FacebookCallback}/>
               <Route path="/register">
                 <Register />
               </Route>
 
-              <Route path="/forgotten-password/:token" component={ForgottenPasswordReset} />
+              <Route path="/forgotten-password/" component={ForgottenPasswordReset} />
               <Route exact path="/forgotten-password">
                 <ForgottenPassword />
               </Route>
