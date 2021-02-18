@@ -18,8 +18,14 @@ export const FacebookCallback: React.FC<any> = ({match}) => {
     const history = useHistory()
     const dispatch = useUserDispatch()
 
-    const [error, setError] = useState()
+    const [error, setError] = useState<string>()
 
+    const showError = (errorMessage:string) => {
+        setError(errorMessage)
+        setTimeout(()=>{
+            history.replace('/login')
+        }, 4000)
+    }
     useEffect(()=>{
         const request = async () => {
             try {
@@ -31,21 +37,17 @@ export const FacebookCallback: React.FC<any> = ({match}) => {
                 history.replace('/user/projects')
             } catch(ex) {
                 const response = JSON.parse(_.get(ex, 'request.response', '{}'))
-                setError(response.error?.message || ex.message)
-
-                setTimeout(()=>{
-                    history.replace('/login')
-                }, 4000)
+                showError(response.error?.message || ex.message)
             }
             
            
         }
 
-
-        request()
+        if(code) request()
+        else showError('User denied')
     }, [match.params])
 
     return (<>
-        {error && <Alert variant={'danger'}>Facebook login isn't work due "{error}" You will be redirect back to <Link to="/login">Login</Link>?</Alert>}
+        {error && <Alert variant={'danger'}>Facebook login isn't work due "{error}" You will be redirect back to <Link to="/login">Login</Link></Alert>}
     </>)
 }
