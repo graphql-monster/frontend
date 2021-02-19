@@ -29,6 +29,7 @@ import UserInfo from "./pages/login/UserInfo";
 import ForgottenPassword from "./pages/login/ForgottenPassword";
 import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
 import { FacebookCallback } from "./pages/login/passport/FacebookCallback";
+import { GithubCallback } from "./pages/login/passport/GithubCallback";
 
 
 
@@ -64,6 +65,9 @@ export default function BasicExample() {
                 <Login />
               </Route>
               <Route path="/login/facebook" component={FacebookCallback}/>
+              <Route path="/login/github" >
+                <GithubCallback type={'github'} />
+              </Route>
               <Route path="/register">
                 <Register />
               </Route>
