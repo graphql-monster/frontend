@@ -16,7 +16,8 @@ const CREATE_MUTATION = gql`
     createProject(userId: $userId, name: $name, models: $models) {
       id
       name
-      models
+      models,
+      _error
     }
   }
 `;
@@ -26,7 +27,8 @@ const UPDATE_MUTATION = gql`
     updateProject(id: $id, name: $name, models: $models) {
       id
       name
-      models
+      models,
+      _error
     }
   }
 `;
@@ -36,6 +38,7 @@ const QUERY = gql`
       id,
       name,
       models,
+      _error,
       user{id}
     }}
 `;
@@ -57,26 +60,43 @@ const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
     </>
 )
 
+const ProjectErrorControl:React.FC<TControl> = ({onChange, value}) => (
+  <>
+  {value ? <div className="alert alert-danger" role="alert">{value}</div> : ('all good')}
+  </>
+)
+
 export const ProjectEdit = (data:any) => {
   const projectId = _.get(data, 'match.params.projectId')
-  
+  const [error, setError] = useState('')
+
+  const onUpdated:(data: any)=>void = (data) => {
+    console.log('onUpdated', data)
+    if(data && data._error) {
+      const firstRow = data._error.split('\n')[0]
+      setError(firstRow)
+    } else setError('')
+  } 
 
   return (
     <>
-      <BaseEdit 
-        id={projectId} 
-        name={'Project'}
-        fields={['name', {
-          name:'models',
-          label: 'Schema',
-          control: ProjectSchemaControl
-        }]}
-        query={{
-            CREATE_MUTATION,
-            UPDATE_MUTATION,
-            QUERY
-        }}
-      />
+     <> {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}</>
+    <BaseEdit 
+      id={projectId} 
+      name={'Project'}
+      fields={['name',
+      {
+        name:'models',
+        label: 'Schema',
+        control: ProjectSchemaControl
+      }]}
+      query={{
+          CREATE_MUTATION,
+          UPDATE_MUTATION,
+          QUERY
+      }}
+      onUpdated={onUpdated}
+    />
     </>
   );
 };

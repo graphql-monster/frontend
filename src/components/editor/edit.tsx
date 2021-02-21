@@ -19,11 +19,10 @@ export type TBaseEdit = Pick<TBaseForm, 'fields'> & {
   id: string
   name: string
   query: any
+  onUpdated? : (data:any) => void
 }
 
-export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}) => {
-  
-
+export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields, onUpdated}) => {
   const [localId, setLocalId] = useState(externId);
   const [unauthorized, setUnauthorized] = useState(false);
 
@@ -32,36 +31,46 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
     models: DEFAULT_SCHEMA
   });
 
+  const updateDataFromLoaded = (loadedDataRaw: any) => {
+    if(!loadedDataRaw){
+      return
+    }
+    
+    const loadedData = getDataFromRaw(loadedDataRaw)
+    
+    console.log('Edit:QUERY', {externId, loadedDataRaw, loadedData})
+
+    if(loadedData){
+      const np = fields.reduce((o:any, field: TField)=> {
+        const fieldName = (field as TControlField).name ? (field as TControlField).name : field as string
+        o[fieldName] = loadedData[fieldName]
+        return o
+      }, {})
+
+      setModel(np)
+    } else {
+      setUnauthorized(true)
+    }
+
+    if(onUpdated) onUpdated(loadedData)
+  }
+
   const skipLoading = !externId
   const { loading, error } = useQuery(query.QUERY, {
     variables: {id: externId},
     skip: skipLoading,
     onCompleted: (loadedDataRaw: any) =>{
-      if(!loadedDataRaw){
-        return
-      }
       console.log('loadedDataRaw', loadedDataRaw, skipLoading)
-      const loadedData = getDataFromRaw(loadedDataRaw)
+      updateDataFromLoaded(loadedDataRaw)
       
-      console.log('Edit:QUERY', {externId, loadedDataRaw, loadedData})
-
-      if(loadedData){
-        const np = fields.reduce((o:any, field: TField)=> {
-          const fieldName = (field as TControlField).name ? (field as TControlField).name : field as string
-          o[fieldName] = loadedData[fieldName]
-          return o
-        }, {})
-
-        setModel(np)
-      } else {
-        setUnauthorized(true)
-      }
+      
     }, onError: (e) => {
       console.log('onError >>> ', e.message)
       if(e.message == 'GraphQL error: Unauhorized'){
         setUnauthorized(true)
       }
       setModel({name:'', models: ''})
+      
     }
   });
 
@@ -73,7 +82,10 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
     onCompleted: (raw: any) => {
       const data = getDataFromRaw(raw)
       console.log("CREATED", raw, data.id);
-      setLocalId(data.id);
+      setLocalId(raw.id);
+
+      if(onUpdated) onUpdated(raw)
+      // updateDataFromLoaded(raw)
     },
     onError: () => {}
   });
@@ -82,9 +94,14 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields}
     query.UPDATE_MUTATION,
     {
       errorPolicy: "none",
-      onCompleted: (data: any) => {
-        console.log("UPDATED", data.updateProject.id);
-        setLocalId(data.createProject.id);
+      onCompleted: (data: any) => { 
+        
+        const raw =  getDataFromRaw(data)
+        console.log("UPDATED", data, raw);
+        setLocalId(raw.id);
+
+        if(onUpdated) onUpdated(raw)
+        // updateDataFromLoaded(raw)
       },
       onError: () => {}
     }
