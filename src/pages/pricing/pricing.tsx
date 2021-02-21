@@ -32,7 +32,7 @@ export const PricingPage:React.FC = () => (
     up to 3 projects
     <ul className="list-unstyled my-5 text-small text-left">
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 3 projects</li>
+        <i className="fa fa-check mr-2 text-primary"></i>one project</li>
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 1000 request / hour</li>
       <li className="mb-3">
@@ -40,6 +40,10 @@ export const PricingPage:React.FC = () => (
       <li className="mb-3 text-muted">
         <i className="fa fa-times mr-2"></i>
         <del>User Email verification</del>
+      </li>
+      <li className="mb-3 text-muted">
+        <i className="fa fa-times mr-2"></i>
+        <del>3th party login (facebook, google, ...)</del>
       </li>
       <li className="mb-3 text-muted">
         <i className="fa fa-times mr-2"></i>
@@ -56,13 +60,13 @@ export const PricingPage:React.FC = () => (
 <div className="col-lg-4 mb-5 mb-lg-0">
   <div className="bg-white p-5 rounded-lg shadow">
     <h1 className="h6 text-uppercase font-weight-bold mb-4">Pro</h1>
-    <h2 className="h1 font-weight-bold">$99.99<span className="text-small font-weight-normal ml-2">/ year</span></h2>
+    <h2 className="h1 font-weight-bold">$199.99<span className="text-small font-weight-normal ml-2">/ year</span></h2>
 
     <div className="custom-separator my-4 mx-auto bg-primary"></div>
     up to 4 projects
     <ul className="list-unstyled my-5 text-small text-left font-weight-normal">
       <li className="mb-3">
-        <i className="fa fa-check mr-2 text-primary"></i> up to 3 projects</li>
+        <i className="fa fa-check mr-2 text-primary"></i> 3th party login (facebook, google, ...)</li>
       <li className="mb-3">
         <i className="fa fa-check mr-2 text-primary"></i> up to 3000 request / hour</li>
       <li className="mb-3">
@@ -82,7 +86,7 @@ export const PricingPage:React.FC = () => (
 <div className="col-lg-4">
   <div className="bg-white p-5 rounded-lg shadow">
     <h1 className="h6 text-uppercase font-weight-bold mb-4">Enterprise</h1>
-    <h2 className="h1 font-weight-bold">$199.99<span className="text-small font-weight-normal ml-2">/ year</span></h2>
+    <h2 className="h1 font-weight-bold">$399.99<span className="text-small font-weight-normal ml-2">/ year</span></h2>
 
     <div className="custom-separator my-4 mx-auto bg-primary"></div>
     up to 10 projects

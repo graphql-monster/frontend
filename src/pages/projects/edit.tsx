@@ -35,14 +35,15 @@ const QUERY = gql`
   query project($id:ID){ Project(id:$id) {
       id,
       name,
-      models
+      models,
+      user{id}
     }}
 `;
 
 const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
   <>
    <AceEditor 
-      theme="github"
+      
       width="1000px"
       value={value}
       onChange={(value)=>{

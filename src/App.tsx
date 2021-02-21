@@ -9,6 +9,7 @@ import { ApolloProvider } from '@apollo/client';
 
 import { ProjectEdit } from './pages/projects/edit'
 import { ProjectList } from './pages/projects/list'
+import Projects from './pages/projects/projects'
 import UserList from "./pages/users/list";
 import { Header } from './components/header/header'
 import { UserProvider } from './contexts/userContext'
@@ -28,7 +29,6 @@ import VerifyUser from "./pages/login/VerifyUser";
 import UserInfo from "./pages/login/UserInfo";
 import ForgottenPassword from "./pages/login/ForgottenPassword";
 import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
-import { FacebookCallback } from "./pages/login/passport/FacebookCallback";
 import { GithubCallback } from "./pages/login/passport/GithubCallback";
 
 
@@ -64,7 +64,9 @@ export default function BasicExample() {
               <Route exact path="/login">
                 <Login />
               </Route>
-              <Route path="/login/facebook" component={FacebookCallback}/>
+              <Route path="/login/facebook" >
+                <GithubCallback type={'facebook'} />
+              </Route>
               <Route path="/login/github" >
                 <GithubCallback type={'github'} />
               </Route>
@@ -95,7 +97,7 @@ export default function BasicExample() {
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
-                <ProjectList />
+                <Projects />
               </Route>
               <Route path="/user/info">
                 <UserInfo />
