@@ -70,6 +70,9 @@ export default function BasicExample() {
               <Route path="/login/github" >
                 <GithubCallback type={'github'} />
               </Route>
+              <Route path="/login/google" >
+                <GithubCallback type={'google'} />
+              </Route>
               <Route path="/register">
                 <Register />
               </Route>

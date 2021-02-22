@@ -120,7 +120,7 @@ export const Login: React.FC = () => {
                                     <li>Or login with:</li>
                                     <li><a href={`${process.env.REACT_APP_HOST}/auth/github`}>GitHub</a></li>
                                     <li><a href={`${process.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a></li>
-                                    <li><a href="#">Google</a></li>
+                                    <li><a href={`${process.env.REACT_APP_HOST}/auth/google`}>Google</a></li>
                                    
                                 </ul>
 
