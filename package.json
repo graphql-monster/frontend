@@ -37,7 +37,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "tar -zcf build.tar.gz ./build/ && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
+    "deploy:client": "rm -r ./build/ && tar -xvf build.tar.gz && rm build.tar.gz"
   },
   "eslintConfig": {
     "extends": "react-app"
