@@ -67,8 +67,10 @@ export const Header = () => {
                 <li>
                   <a href="/documentation">Documentation</a>
                   <ul>
-                    <li><a href="/documentation#simple-model">Simple model</a></li>
-                    <li><a href="/documentation#models-with-relation">Models with relation</a></li>
+                    <li><a href="/documentation#model">Model</a></li>
+                    <li><a href="/documentation#fields">Fields</a></li>
+                    <li><a href="/documentation#relations">Relations</a></li>
+                    <li><a href="/documentation#model-permissions">Model Permissions</a></li>
                   </ul>
                 </li>
             

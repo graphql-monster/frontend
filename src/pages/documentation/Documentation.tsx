@@ -13,7 +13,12 @@ export const Documentation = () => {
     const c1 = 
 ``
 
-return <ReactMarkdown plugins={[gfm]} children={markdown} />
+return (
+    <div className="my-documentation">
+        <ReactMarkdown plugins={[gfm]} children={markdown} allowDangerousHtml={true} />
+    </div>
+)
+
 //     return (
 //         <div className="no-bottom no-top" id="content">
 //             <section className="full-height documentation-section">

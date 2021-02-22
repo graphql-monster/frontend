@@ -44,8 +44,10 @@ const UserHeader = ({user, onLogout}:any) => {
                 <li>
                 <Link to="/documentation">Documentation</Link>
                   <ul>
-                    <li><Link to="/documentation#simple-model">Simple model</Link></li>
-                    <li><Link to="/documentation#models-with-relation">Models with relation</Link></li>
+                    <li><a href="/documentation#model">Model</a></li>
+                    <li><a href="/documentation#fields">Fields</a></li>
+                    <li><a href="/documentation#relations">Relations</a></li>
+                    <li><a href="/documentation#model-permissions">Model Permissions</a></li>
                   </ul>
                 </li>
                 <li>
