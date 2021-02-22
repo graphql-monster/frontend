@@ -14,7 +14,7 @@ const ADMIN_LIST_QUERY = gql`
   query allUserRoles($filter: UserRoleFilter) {
   allUserRoles(filter: $filter) {
       id,
-      role
+      name
     }
   }
 `;

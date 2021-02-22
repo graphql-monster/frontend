@@ -1,11 +1,42 @@
-.documentation-section {
-    margin: 40px;
+.my-documentation {
+  margin: 40px;
 }
 
-pre {
-    padding: 1.5em;
-    background-color: whitesmoke;
-    border-style: solid;
-    border-color: gray;
-    border-width: 1px;
+.my-documentation hr {
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+.my-documentation pre {
+  padding: 20px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+  font-style: italic;
+}
+
+.my-documentation table {
+  color: black;
+  margin: 0 0 20px 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.my-documentation table thead {
+  background-color: lightgray;
+}
+
+.my-documentation table tbody tr td,
+.my-documentation table thead th {
+  color: black;
+  padding: 5px 5px 10px 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.my-documentation table tbody tr td {
+  color: rgb(50, 50, 50);
 }
