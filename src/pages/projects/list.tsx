@@ -3,9 +3,8 @@ import FilteredList from "../../components/list/filtered-list";
 import gql from 'graphql-tag';
 import { Link } from "react-router-dom";
 
-const USER_LIST_QUERY = gql`
+export const USER_LIST_QUERY = gql`
   query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
-    _port
       id
       name,
       models
@@ -14,7 +13,6 @@ const USER_LIST_QUERY = gql`
 
 const ADMIN_LIST_QUERY = gql`
   query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
-    _port,
       id
       name,
       models,

@@ -9,7 +9,6 @@ import ProjectCards from "./ProjectCards";
 
 const USER_LIST_QUERY = gql`
   query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
-    _port
       id
       name,
       models, 

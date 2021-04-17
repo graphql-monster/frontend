@@ -15,21 +15,30 @@ export const getDataFromRaw = (rawData: any) => {
   return rawData[rawName]
 }
 
+export type TBaseEditUpdateCacheFn = (cache: any, data: any) => void
+
 export type TBaseEdit = Pick<TBaseForm, 'fields'> & {
   id: string
   name: string
   query: any
   onUpdated? : (data:any) => void
+  updateCache?: TBaseEditUpdateCacheFn
 }
 
-export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields, onUpdated}) => {
+export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields, onUpdated, updateCache}) => {
   const [localId, setLocalId] = useState(externId);
   const [unauthorized, setUnauthorized] = useState(false);
+  const [errors, setErrors] = useState<string[]|null>([])
 
   const [model, setModel] = useState({
-    name: "project A",
+    name: "Project A",
     models: DEFAULT_SCHEMA
   });
+
+  const handleError = (incommingError:{message: string}) => {
+    const incomingErrors = incommingError.message.split('\n')
+    setErrors(incomingErrors)
+  }
 
   const updateDataFromLoaded = (loadedDataRaw: any) => {
     if(!loadedDataRaw){
@@ -37,8 +46,6 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     }
     
     const loadedData = getDataFromRaw(loadedDataRaw)
-    
-    console.log('Edit:QUERY', {externId, loadedDataRaw, loadedData})
 
     if(loadedData){
       const np = fields.reduce((o:any, field: TField)=> {
@@ -63,7 +70,6 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
       console.log('loadedDataRaw', loadedDataRaw, skipLoading)
       updateDataFromLoaded(loadedDataRaw)
       
-      
     }, onError: (e) => {
       console.log('onError >>> ', e.message)
       if(e.message == 'GraphQL error: Unauhorized'){
@@ -82,12 +88,15 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     onCompleted: (raw: any) => {
       const data = getDataFromRaw(raw)
       console.log("CREATED", raw, data.id);
-      setLocalId(raw.id);
+      setLocalId(data.id);
+
+      setErrors(null)
 
       if(onUpdated) onUpdated(raw)
       // updateDataFromLoaded(raw)
     },
-    onError: () => {}
+    update: updateCache,
+    onError: handleError
   });
 
   const [updateProjectMutation, { loading:updateLoading, data: updateData, error:updateError }] = useMutation(
@@ -100,10 +109,13 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
         console.log("UPDATED", data, raw);
         setLocalId(raw.id);
 
+        setErrors(null)
+
         if(onUpdated) onUpdated(raw)
         // updateDataFromLoaded(raw)
       },
-      onError: () => {}
+      update: updateCache,
+      onError: handleError
     }
   );
 
@@ -139,6 +151,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     <div>
       {externId ? <h1>{name} Edit ({externId})</h1> : <h1>{name} create</h1>}
       {error && <Alert variant={'danger'}>`${error.message}`</Alert>}
+      {errors && errors.length > 0 && errors.map((e)=>(<Alert variant={'danger'}>{e}</Alert>))}
       <BaseForm model={model} doUpdate={onUpdate} edit={Boolean(localId)} fields={fields} />
     </div>
   );

@@ -10,6 +10,7 @@ import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
+import { USER_LIST_QUERY } from "./list";
 
 const CREATE_MUTATION = gql`
   mutation createProject($userId: ID!, $name: String!, $models: String!) {
@@ -67,15 +68,36 @@ const ProjectErrorControl:React.FC<TControl> = ({onChange, value}) => (
 )
 
 export const ProjectEdit = (data:any) => {
+  const userId = localStorage.getItem('user.id')
   const projectId = _.get(data, 'match.params.projectId')
   const [error, setError] = useState('')
 
-  const onUpdated:(data: any)=>void = (data) => {
-    console.log('onUpdated', data)
-    if(data && data._error) {
-      const firstRow = data._error.split('\n')[0]
-      setError(firstRow)
-    } else setError('')
+  const updateCache:(cache: any, data: any)=>void = (cache, {data}) => {
+    const createProject = data.createProject
+    
+    if(createProject){
+      const cacheRead = cache.readQuery({
+        query: USER_LIST_QUERY,
+        variables: {
+          filter: {user_every: {id: userId}}
+        },
+      });
+
+      cache.writeQuery({
+        query: USER_LIST_QUERY,
+        variables: {
+          filter: {user_every: {id: userId}}
+        },
+        data: {
+          allProjects: [
+            ...cacheRead.allProjects, createProject
+          ]
+        }
+      });
+
+      console.log(cacheRead)
+    }
+    
   } 
 
   return (
@@ -95,7 +117,7 @@ export const ProjectEdit = (data:any) => {
           UPDATE_MUTATION,
           QUERY
       }}
-      onUpdated={onUpdated}
+      updateCache={updateCache}
     />
     </>
   );
