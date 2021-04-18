@@ -16,6 +16,8 @@ export const getDataFromRaw = (rawData: any) => {
 }
 
 export type TBaseEditUpdateCacheFn = (cache: any, data: any) => void
+export type TBaseEdiRenameErrorFn = (error: string) => string
+export type TBaseEdiOnCompletedFn = (data: any) => void
 
 export type TBaseEdit = Pick<TBaseForm, 'fields'> & {
   id: string
@@ -23,9 +25,11 @@ export type TBaseEdit = Pick<TBaseForm, 'fields'> & {
   query: any
   onUpdated? : (data:any) => void
   updateCache?: TBaseEditUpdateCacheFn
+  renameError?: TBaseEdiRenameErrorFn
+  onCompleted?: TBaseEdiOnCompletedFn
 }
 
-export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields, onUpdated, updateCache}) => {
+export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields, onUpdated, updateCache, renameError, onCompleted}) => {
   const [localId, setLocalId] = useState(externId);
   const [unauthorized, setUnauthorized] = useState(false);
   const [errors, setErrors] = useState<string[]|null>([])
@@ -36,7 +40,10 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
   });
 
   const handleError = (incommingError:{message: string}) => {
-    const incomingErrors = incommingError.message.split('\n')
+    let incomingErrors = incommingError.message.split('\n')
+    if(renameError) {
+      incomingErrors = incomingErrors.map(error=>renameError(error))
+    }
     setErrors(incomingErrors)
   }
 
@@ -92,6 +99,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
 
       setErrors(null)
 
+      if(onCompleted) onCompleted(raw)
       if(onUpdated) onUpdated(raw)
       // updateDataFromLoaded(raw)
     },
@@ -111,6 +119,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
 
         setErrors(null)
 
+        if(onCompleted) onCompleted(raw)
         if(onUpdated) onUpdated(raw)
         // updateDataFromLoaded(raw)
       },

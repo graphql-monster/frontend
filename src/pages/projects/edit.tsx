@@ -11,6 +11,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import { USER_LIST_QUERY } from "./list";
+import { useHistory } from "react-router";
 
 const CREATE_MUTATION = gql`
   mutation createProject($userId: ID!, $name: String!, $models: String!) {
@@ -71,6 +72,7 @@ export const ProjectEdit = (data:any) => {
   const userId = localStorage.getItem('user.id')
   const projectId = _.get(data, 'match.params.projectId')
   const [error, setError] = useState('')
+  const history = useHistory()
 
   const updateCache:(cache: any, data: any)=>void = (cache, {data}) => {
     const createProject = data.createProject
@@ -100,6 +102,27 @@ export const ProjectEdit = (data:any) => {
     
   } 
 
+  const renameError = (error: string) => {
+    const dupkeyRegEx = /index: name_1_user_1 dup key: { name: "(.*?)"/
+   
+    const dupkeyMatch = error.match(dupkeyRegEx)
+    if(dupkeyMatch){
+      return `Field project name have to be unique, you want '${dupkeyMatch[1]}' what is already in your project list`
+    }
+
+    const pathNameRegEx = /validation failed: name: Path `name` is required./
+    const pathNameMatch = error.match(pathNameRegEx)
+    if(pathNameMatch){
+      return `Field project name can't be empty`
+    }
+
+    return error;
+  }
+
+  const onCompleted = () => {
+    history.push('/user/projects')
+  }
+
   return (
     <>
      <> {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}</>
@@ -118,6 +141,8 @@ export const ProjectEdit = (data:any) => {
           QUERY
       }}
       updateCache={updateCache}
+      renameError={renameError}
+      onCompleted={onCompleted}
     />
     </>
   );
