@@ -40,7 +40,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "tar -zcf build.tar.gz ./build/ && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
+    "deploy": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
+    "deploy:all": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && ssh protectql@89.221.215.217 'cd ~/master/frontend && yarn deploy:client' && rm build.tar.gz",
+    "deploy:here": "ssh protectql@89.221.215.217 'cd ~/master/frontend/ && rm -r ./build/ && tar -xvf build.tar.gz && rm build.tar.gz\\'",
     "deploy:client": "rm -r ./build/ && tar -xvf build.tar.gz && rm build.tar.gz"
   },
   "eslintConfig": {

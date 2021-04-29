@@ -14,10 +14,11 @@ import { USER_LIST_QUERY } from "./list";
 import { useHistory } from "react-router";
 
 const CREATE_MUTATION = gql`
-  mutation createProject($userId: ID!, $name: String!, $models: String!) {
-    createProject(userId: $userId, name: $name, models: $models) {
+  mutation createProject($userId: ID!, $name: String!, $domain: String, $models: String!) {
+    createProject(userId: $userId, name: $name, domain: $domain, models: $models) {
       id
-      name
+      name,
+      domain,
       models,
       _error
     }
@@ -25,10 +26,11 @@ const CREATE_MUTATION = gql`
 `;
 
 const UPDATE_MUTATION = gql`
-  mutation updateProject($id: ID!, $name: String!, $models: String!) {
-    updateProject(id: $id, name: $name, models: $models) {
+  mutation updateProject($id: ID!, $name: String!, $domain: String, $models: String!) {
+    updateProject(id: $id, name: $name, domain: $domain, models: $models) {
       id
-      name
+      name,
+      domain,
       models,
       _error
     }
@@ -39,6 +41,7 @@ const QUERY = gql`
   query project($id:ID){ Project(id:$id) {
       id,
       name,
+      domain,
       models,
       _error,
       user{id}
@@ -129,7 +132,7 @@ export const ProjectEdit = (data:any) => {
     <BaseEdit 
       id={projectId} 
       name={'Project'}
-      fields={['name',
+      fields={['name','domain',
       {
         name:'models',
         label: 'Schema',

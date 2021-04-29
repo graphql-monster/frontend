@@ -158,7 +158,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
 
   return (
     <div>
-      {externId ? <h1>{name} Edit ({externId})</h1> : <h1>{name} create</h1>}
+      {externId ? <h3>{name} Edit ({externId})</h3> : <h3>{name} create</h3>}
       {error && <Alert variant={'danger'}>`${error.message}`</Alert>}
       {errors && errors.length > 0 && errors.map((e)=>(<Alert variant={'danger'}>{e}</Alert>))}
       <BaseForm model={model} doUpdate={onUpdate} edit={Boolean(localId)} fields={fields} />

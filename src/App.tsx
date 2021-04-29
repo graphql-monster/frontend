@@ -8,8 +8,7 @@ import {
 import { ApolloProvider } from '@apollo/client';
 
 import { ProjectEdit } from './pages/projects/edit'
-import { ProjectList } from './pages/projects/list'
-import Projects from './pages/projects/projects'
+import ProjectList, { ProjectAdminList } from './pages/projects/list'
 import UserList from "./pages/users/list";
 import { Header } from './components/header/header'
 import { UserProvider } from './contexts/userContext'
@@ -77,7 +76,7 @@ export default function BasicExample() {
                 <Register />
               </Route>
 
-              <Route path="/forgotten-password/" component={ForgottenPasswordReset} />
+              <Route path="/forgotten-password/:token" component={ForgottenPasswordReset} />
               <Route exact path="/forgotten-password">
                 <ForgottenPassword />
               </Route>
@@ -100,13 +99,13 @@ export default function BasicExample() {
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
-                <Projects />
+                <ProjectList />
               </Route>
               <Route path="/user/info">
                 <UserInfo />
               </Route>
               <Route path="/admin/projects">
-                <ProjectList adminMode={true}/>
+                <ProjectAdminList />
               </Route>
               <Route path="/admin/users">
                 <UserList adminMode={true}/>
