@@ -10,7 +10,7 @@ import { ApolloProvider } from '@apollo/client';
 import { ProjectEdit } from './pages/projects/edit'
 import ProjectList, { ProjectAdminList } from './pages/projects/list'
 import UserList from "./pages/users/list";
-import { Header } from './components/header/header'
+import { Header } from './components/Header/Header'
 import { UserProvider } from './contexts/userContext'
 
 import apolloClient from './common/apolloClient'
