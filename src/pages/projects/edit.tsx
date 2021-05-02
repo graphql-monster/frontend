@@ -19,7 +19,7 @@ const UPDATE_MUTATION = loader('./graphql/update.gql')
 const QUERY = loader('./graphql/query.gql');
 
 const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
-  <>
+  <React.Fragment>
    <AceEditor 
       
       width="1000px"
@@ -32,7 +32,13 @@ const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
       editorProps={{ $blockScrolling: true }}
     />`
     {/* <Form.Control as="textarea" rows={30} {...{onChange, value}} /> */}
-    </>
+    </React.Fragment>
+)
+
+const TextEditControl:React.FC<TControl> = ({onChange, value, placeholder}) => (
+  <React.Fragment>
+    <Form.Control as="textarea" rows={3} {...{onChange, value}} placeholder={placeholder} />
+  </React.Fragment>
 )
 
 const ProjectErrorControl:React.FC<TControl> = ({onChange, value}) => (
@@ -41,24 +47,28 @@ const ProjectErrorControl:React.FC<TControl> = ({onChange, value}) => (
   </>
 )
 
-const SchemaTab = ['name','domain',
-{
-  name:'models',
-  label: 'Schema',
-  control: ProjectSchemaControl
-}]
+const SchemaTab = [ 
+  {label: 'Service name (SERVICE_NAME)', name: 'name', placeholder: 'your-service-name'},
+  {name:'models', label: 'Schema',control: ProjectSchemaControl}
+]
 
 const EmailTab:TField[] = [
+  // {label: 'Service name (same as project name)', name: 'name', placeholder: 'service name'},
+  {label: 'Service url (SERVICE_URL)', name: 'domain', placeholder: 'your-service.domain'},
   {label: 'Email from', name: 'email', placeholder: 'info@your-service.domain'},
-  {label: 'Welcome Email Title', name: 'emailWelcomeTitle', placeholder: 'info@your-service.domain'},
-  {label: 'Welcome Email Message', name: 'emailWelcomeMessage', placeholder: 'info@your-service.domain'},
-  {label: 'Reset Password Email Title', name: 'emailForgottenPasswordTitle', placeholder: 'info@your-service.domain'},
-  {label: 'Reset Password Email Message', name: 'emailForgottenPasswordMessage', placeholder: 'info@your-service.domain'}
+  {label: 'Welcome Email Title', name: 'emailWelcomeTitle', placeholder: 'Wellcome in {{SERVICE_NAME}}'},
+  {label: 'Welcome Email Message', name: 'emailWelcomeMessage', control: TextEditControl, placeholder: 'Please verify your email by click to this <a href="{{SERVICE_URL}}/email/${user.__verifyToken}/verify">{{SERVICE_URL}}/email/${user.__verifyToken}/verify</a>'},
+  {label: 'Reset Password Email Title', name: 'emailForgottenPasswordTitle', placeholder: 'Change password request for {{SERVICE_NAME}}'},
+  {label: 'Reset Password Email Message', name: 'emailForgottenPasswordMessage', control: TextEditControl, placeholder: 'We recaive request about reset Your password. If is not your action, please ignore this message. If you want reset your password follow instruction on this link <a href="{{SERVICE_URL}}/forgotten-password/${user.__resetPasswordToken}">{{SERVICE_URL}}/forgotten-password/${user.__resetPasswordToken}</a>'}
 ]
 
 const LoginTab = [
-  'emailToken',
-  'emailToken'
+  {label: 'Facebook:ID', name: 'loginFacebookId'},
+  {label: 'Facebook:SECRET', name: 'loginFacebookSecret'},
+  {label: 'Gmail:ID', name: 'loginGmailId'},
+  {label: 'Gmail:Secret', name: 'loginGmailSecret'},
+  {label: 'Github:Id', name: 'loginGithubId'},
+  {label: 'Github:Secret', name: 'loginGithubSecret'},
 ]
 
 export const ProjectEdit = (data:any) => {

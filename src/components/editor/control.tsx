@@ -48,7 +48,7 @@ export const BaseControl: React.FC<IBaseControl> = ({ model, field, onChange, ed
     <Form.Group controlId="formBasicEmail">
           <Form.Label>{label}</Form.Label>
           {control ? 
-            control({onChange:(env: any) => onUpdate(env.target.value), value}) :
+            control({onChange:(env: any) => onUpdate(env.target.value), value, placeholder}) :
             <Form.Control
               type="text"
               placeholder={placeholder}

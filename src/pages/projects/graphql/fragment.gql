@@ -8,6 +8,14 @@ fragment ProjectFragment on Project {
     emailWelcomeTitle,
     emailWelcomeMessage,
     emailForgottenPasswordMessage,
-    emailForgottenPasswordTitle
+    emailForgottenPasswordTitle,
+
+    loginFacebookId,
+    loginFacebookSecret,
+    loginGmailId,
+    loginGmailSecret,
+    loginGithubId,
+    loginGithubSecret,
+
     _error
 }

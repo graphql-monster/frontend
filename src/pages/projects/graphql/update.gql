@@ -1,7 +1,37 @@
 #import "./fragment.gql"
 
-mutation updateProject($id: ID!, $name: String!, $domain: String, $models: String!, $email: String, $emailWelcomeTitle: String, $emailWelcomeMessage: String, $emailForgottenPasswordTitle: String, $emailForgottenPasswordMessage:String) {
-    updateProject(id: $id, name: $name, domain: $domain, models: $models, email:$email, emailWelcomeTitle:$emailWelcomeTitle, emailWelcomeMessage:$emailWelcomeMessage, emailForgottenPasswordTitle: $emailForgottenPasswordTitle, emailForgottenPasswordMessage: $emailForgottenPasswordMessage) {
+mutation updateProject(
+    $id: ID!, 
+    $name: String!, 
+    $domain: String, 
+    $models: String!, 
+    $email: String, 
+    $emailWelcomeTitle: String, 
+    $emailWelcomeMessage: String, 
+    $emailForgottenPasswordTitle: String, 
+    $emailForgottenPasswordMessage:String,
+    $loginFacebookId:String,
+    $loginFacebookSecret:String,
+    $loginGmailId:String,
+    $loginGmailSecret:String,
+    $loginGithubId:String,
+    $loginGithubSecret:String) {
+    
+    updateProject(id: $id, 
+                  name: $name, 
+                  domain: $domain, 
+                  models: $models, 
+                  email:$email, 
+                  emailWelcomeTitle:$emailWelcomeTitle, 
+                  emailWelcomeMessage:$emailWelcomeMessage, 
+                  emailForgottenPasswordTitle: $emailForgottenPasswordTitle, 
+                  emailForgottenPasswordMessage: $emailForgottenPasswordMessage,
+                  loginFacebookId: $loginFacebookId,
+                  loginFacebookSecret: $loginFacebookSecret,
+                  loginGmailId: $loginGmailId,
+                  loginGmailSecret: $loginGmailSecret,
+                  loginGithubId: $loginGithubId,
+                  loginGithubSecret: $loginGithubSecret) {
            ...ProjectFragment
     }
   }
