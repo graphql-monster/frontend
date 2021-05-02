@@ -28,6 +28,7 @@ export const BaseControl: React.FC<IBaseControl> = ({ model, field, onChange, ed
   const name = (field as TControlField).name ? (field as TControlField).name : field as string
   const label = (field as TControlField).label ? (field as TControlField).label : name
   const control = (field as TControlField).control ? (field as TControlField).control : null
+  const placeholder = (field as TControlField).placeholder ? (field as TControlField).placeholder : ''
 
   const [value, setValue] = useState(model[name]);
 
@@ -50,7 +51,7 @@ export const BaseControl: React.FC<IBaseControl> = ({ model, field, onChange, ed
             control({onChange:(env: any) => onUpdate(env.target.value), value}) :
             <Form.Control
               type="text"
-              placeholder=""
+              placeholder={placeholder}
               onChange={(env: any) => onUpdate(env.target.value)}
               value={value}
             />

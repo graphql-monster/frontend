@@ -1,0 +1,7 @@
+#import "./fragment.gql"
+
+mutation updateProject($id: ID!, $name: String!, $domain: String, $models: String!, $email: String, $emailWelcomeTitle: String, $emailWelcomeMessage: String, $emailForgottenPasswordTitle: String, $emailForgottenPasswordMessage:String) {
+    updateProject(id: $id, name: $name, domain: $domain, models: $models, email:$email, emailWelcomeTitle:$emailWelcomeTitle, emailWelcomeMessage:$emailWelcomeMessage, emailForgottenPasswordTitle: $emailForgottenPasswordTitle, emailForgottenPasswordMessage: $emailForgottenPasswordMessage) {
+           ...ProjectFragment
+    }
+  }

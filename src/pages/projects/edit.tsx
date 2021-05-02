@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as _ from 'lodash'
 import gql from "graphql-tag";
+import { loader } from 'graphql.macro';
 
 import BaseEdit from "../../components/editor/edit"
-import { Form } from "react-bootstrap";
-import { TControl } from "../../components/editor/control";
+import { Form, Tab, Tabs } from "react-bootstrap";
+import { TControl, TField } from "../../components/editor/control";
 
 import AceEditor from "react-ace";
 
@@ -13,40 +14,9 @@ import "ace-builds/src-noconflict/theme-github";
 import { USER_LIST_QUERY } from "./list";
 import { useHistory } from "react-router";
 
-const CREATE_MUTATION = gql`
-  mutation createProject($userId: ID!, $name: String!, $domain: String, $models: String!) {
-    createProject(userId: $userId, name: $name, domain: $domain, models: $models) {
-      id
-      name,
-      domain,
-      models,
-      _error
-    }
-  }
-`;
-
-const UPDATE_MUTATION = gql`
-  mutation updateProject($id: ID!, $name: String!, $domain: String, $models: String!) {
-    updateProject(id: $id, name: $name, domain: $domain, models: $models) {
-      id
-      name,
-      domain,
-      models,
-      _error
-    }
-  }
-`;
-
-const QUERY = gql`
-  query project($id:ID){ Project(id:$id) {
-      id,
-      name,
-      domain,
-      models,
-      _error,
-      user{id}
-    }}
-`;
+const CREATE_MUTATION = loader('./graphql/create.gql')
+const UPDATE_MUTATION = loader('./graphql/update.gql')
+const QUERY = loader('./graphql/query.gql');
 
 const ProjectSchemaControl:React.FC<TControl> = ({onChange, value}) => (
   <>
@@ -71,9 +41,31 @@ const ProjectErrorControl:React.FC<TControl> = ({onChange, value}) => (
   </>
 )
 
+const SchemaTab = ['name','domain',
+{
+  name:'models',
+  label: 'Schema',
+  control: ProjectSchemaControl
+}]
+
+const EmailTab:TField[] = [
+  {label: 'Email from', name: 'email', placeholder: 'info@your-service.domain'},
+  {label: 'Welcome Email Title', name: 'emailWelcomeTitle', placeholder: 'info@your-service.domain'},
+  {label: 'Welcome Email Message', name: 'emailWelcomeMessage', placeholder: 'info@your-service.domain'},
+  {label: 'Reset Password Email Title', name: 'emailForgottenPasswordTitle', placeholder: 'info@your-service.domain'},
+  {label: 'Reset Password Email Message', name: 'emailForgottenPasswordMessage', placeholder: 'info@your-service.domain'}
+]
+
+const LoginTab = [
+  'emailToken',
+  'emailToken'
+]
+
 export const ProjectEdit = (data:any) => {
   const userId = localStorage.getItem('user.id')
   const projectId = _.get(data, 'match.params.projectId')
+  const [key, setKey] = useState<string>('home');
+
   const [error, setError] = useState('')
   const history = useHistory()
 
@@ -126,27 +118,25 @@ export const ProjectEdit = (data:any) => {
     history.push('/user/projects')
   }
 
+
   return (
-    <>
-     <> {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}</>
-    <BaseEdit 
-      id={projectId} 
-      name={'Project'}
-      fields={['name','domain',
-      {
-        name:'models',
-        label: 'Schema',
-        control: ProjectSchemaControl
-      }]}
-      query={{
-          CREATE_MUTATION,
-          UPDATE_MUTATION,
-          QUERY
-      }}
-      updateCache={updateCache}
-      renameError={renameError}
-      onCompleted={onCompleted}
-    />
-    </>
+    <div>
+     
+      <> {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}</>
+      <BaseEdit 
+          id={projectId} 
+          name={'Project'}
+          fields={{'Schema':SchemaTab, 'Email':EmailTab, 'Login':LoginTab}}
+          query={{
+              CREATE_MUTATION,
+              UPDATE_MUTATION,
+              QUERY
+          }}
+          updateCache={updateCache}
+          renameError={renameError}
+          onCompleted={onCompleted}
+        />
+    
+    </div>
   );
 };

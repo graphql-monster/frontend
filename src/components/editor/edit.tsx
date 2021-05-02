@@ -5,10 +5,11 @@ import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import { DEFAULT_SCHEMA } from "../../pages/projects/defaultSchema";
 import * as _ from 'lodash'
-import { Alert } from 'react-bootstrap'
+import { Alert, Button } from 'react-bootstrap'
 import Unauthorized from '../common/unauthorized'
 import Loading from '../common/loading'
 import { TField, TControlField } from "./control";
+import EditTabs from "./tabs";
 
 export const getDataFromRaw = (rawData: any) => {
   const rawName = Object.keys(rawData)[0]
@@ -19,10 +20,13 @@ export type TBaseEditUpdateCacheFn = (cache: any, data: any) => void
 export type TBaseEdiRenameErrorFn = (error: string) => string
 export type TBaseEdiOnCompletedFn = (data: any) => void
 
-export type TBaseEdit = Pick<TBaseForm, 'fields'> & {
+export type TTabFields = {[key:string]: TBaseForm['fields']}
+
+export type TBaseEdit = {
   id: string
   name: string
   query: any
+  fields: TBaseForm['fields'] | TTabFields
   onUpdated? : (data:any) => void
   updateCache?: TBaseEditUpdateCacheFn
   renameError?: TBaseEdiRenameErrorFn
@@ -33,6 +37,10 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
   const [localId, setLocalId] = useState(externId);
   const [unauthorized, setUnauthorized] = useState(false);
   const [errors, setErrors] = useState<string[]|null>([])
+
+  // if the fields is not ust simle array
+  // we consider is it a object defined tabs 
+  const haveTabs = Object.keys(fields).some((k)=>isNaN(+k))
 
   const [model, setModel] = useState({
     name: "Project A",
@@ -55,13 +63,13 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     const loadedData = getDataFromRaw(loadedDataRaw)
 
     if(loadedData){
-      const np = fields.reduce((o:any, field: TField)=> {
-        const fieldName = (field as TControlField).name ? (field as TControlField).name : field as string
-        o[fieldName] = loadedData[fieldName]
-        return o
-      }, {})
+      // const np = fields.reduce((o:any, field: TField)=> {
+      //   const fieldName = (field as TControlField).name ? (field as TControlField).name : field as string
+      //   o[fieldName] = loadedData[fieldName]
+      //   return o
+      // }, {})
 
-      setModel(np)
+      setModel({...loadedData})
     } else {
       setUnauthorized(true)
     }
@@ -94,7 +102,6 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     errorPolicy: "none",
     onCompleted: (raw: any) => {
       const data = getDataFromRaw(raw)
-      console.log("CREATED", raw, data.id);
       setLocalId(data.id);
 
       setErrors(null)
@@ -128,7 +135,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
     }
   );
 
-  const onUpdate = useCallback((model: any) => {
+  const onUpdate = useCallback(() => {
     console.log('onUpdate >>> ', localId, model)
     if(localId){
         updateProjectMutation({
@@ -146,7 +153,7 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
           });
     }
     
-  }, [localId]);
+  }, [localId, model]);
 
   if(unauthorized) {
     return (<Unauthorized where={`${name} edit`} />)
@@ -157,11 +164,11 @@ export const BaseEdit:React.FC<TBaseEdit> = ({id: externId, query, name, fields,
   }
 
   return (
-    <div>
-      {externId ? <h3>{name} Edit ({externId})</h3> : <h3>{name} create</h3>}
+    <div style={{margin:'15px'}}>
+      {externId ? <h3>{name} Edit ({externId}) <Button onClick={onUpdate}>{externId ? 'Update' : 'Create'}</Button></h3> : <h3>{name} create <Button onClick={onUpdate}>{externId ? 'Update' : 'Create'}</Button></h3>}
       {error && <Alert variant={'danger'}>`${error.message}`</Alert>}
       {errors && errors.length > 0 && errors.map((e)=>(<Alert variant={'danger'}>{e}</Alert>))}
-      <BaseForm model={model} doUpdate={onUpdate} edit={Boolean(localId)} fields={fields} />
+      {haveTabs ? <EditTabs fields={fields as TTabFields} model={model} doUpdate={onUpdate} edit={Boolean(localId)} /> : <BaseForm model={model} doUpdate={onUpdate} edit={Boolean(localId)} fields={fields as TField[]} />}
     </div>
   );
 };

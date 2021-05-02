@@ -1,0 +1,13 @@
+fragment ProjectFragment on Project {
+    id
+    name,
+    domain,
+    models,
+
+    email,
+    emailWelcomeTitle,
+    emailWelcomeMessage,
+    emailForgottenPasswordMessage,
+    emailForgottenPasswordTitle
+    _error
+}
