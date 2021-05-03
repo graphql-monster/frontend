@@ -54,7 +54,7 @@ const SchemaTab = [
 
 const EmailTab:TField[] = [
   // {label: 'Service name (same as project name)', name: 'name', placeholder: 'service name'},
-  {label: 'Service url (SERVICE_URL)', name: 'domain', placeholder: 'your-service.domain'},
+  {label: 'Service url (SERVICE_URL)', name: 'domain', placeholder: 'http(s)://your-service.domain'},
   {label: 'Email from', name: 'email', placeholder: 'info@your-service.domain'},
   {label: 'Welcome Email Title', name: 'emailWelcomeTitle', placeholder: 'Wellcome in {{SERVICE_NAME}}'},
   {label: 'Welcome Email Message', name: 'emailWelcomeMessage', control: TextEditControl, placeholder: 'Please verify your email by click to this <a href="{{SERVICE_URL}}/email/${user.__verifyToken}/verify">{{SERVICE_URL}}/email/${user.__verifyToken}/verify</a>'},
@@ -65,10 +65,15 @@ const EmailTab:TField[] = [
 const LoginTab = [
   {label: 'Facebook:ID', name: 'loginFacebookId'},
   {label: 'Facebook:SECRET', name: 'loginFacebookSecret'},
-  {label: 'Gmail:ID', name: 'loginGmailId'},
-  {label: 'Gmail:Secret', name: 'loginGmailSecret'},
+  {label: 'Facebook:CallbackURL', name: 'loginFacebookCallbackURL'},
+  
   {label: 'Github:Id', name: 'loginGithubId'},
   {label: 'Github:Secret', name: 'loginGithubSecret'},
+  {label: 'Github:CallbackURL', name: 'loginGithubCallbackURL'},
+
+  {label: 'Gmail:ID', name: 'loginGmailId'},
+  {label: 'Gmail:Secret', name: 'loginGmailSecret'},
+  {label: 'Gmail:CallbackURL', name: 'loginGmailCallbackURL'},
 ]
 
 export const ProjectEdit = (data:any) => {
@@ -130,13 +135,13 @@ export const ProjectEdit = (data:any) => {
 
 
   return (
-    <div>
+    <div className="row-table container">
      
       <> {error ? <div className="alert alert-danger" role="alert">{error}</div> : null}</>
       <BaseEdit 
           id={projectId} 
           name={'Project'}
-          fields={{'Schema':SchemaTab, 'Email':EmailTab, 'Login':LoginTab}}
+          fields={{'Schema':SchemaTab, 'Email':EmailTab, 'Auth':LoginTab}}
           query={{
               CREATE_MUTATION,
               UPDATE_MUTATION,
