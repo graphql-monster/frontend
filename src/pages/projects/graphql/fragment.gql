@@ -12,10 +12,15 @@ fragment ProjectFragment on Project {
 
     loginFacebookId,
     loginFacebookSecret,
-    loginGmailId,
-    loginGmailSecret,
+    loginFacebookCallbackURL,
+
     loginGithubId,
     loginGithubSecret,
+    loginGithubCallbackURL,
+
+    loginGmailId,
+    loginGmailSecret,
+    loginGmailCallbackURL,
 
     _error
 }
