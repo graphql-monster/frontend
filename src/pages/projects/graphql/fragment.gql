@@ -1,26 +1,26 @@
-fragment ProjectFragment on Project {
-    id
-    name,
-    domain,
-    models,
+fragment ProjectFragment on ProjectModel {
+  id
+  name
+  domain
+  models
 
-    email,
-    emailWelcomeTitle,
-    emailWelcomeMessage,
-    emailForgottenPasswordMessage,
-    emailForgottenPasswordTitle,
+  email
+  emailWelcomeTitle
+  emailWelcomeMessage
+  emailForgottenPasswordMessage
+  emailForgottenPasswordTitle
 
-    loginFacebookId,
-    loginFacebookSecret,
-    loginFacebookCallbackURL,
+  loginFacebookId
+  loginFacebookSecret
+  loginFacebookCallbackURL
 
-    loginGithubId,
-    loginGithubSecret,
-    loginGithubCallbackURL,
+  loginGithubId
+  loginGithubSecret
+  loginGithubCallbackURL
 
-    loginGmailId,
-    loginGmailSecret,
-    loginGmailCallbackURL,
+  loginGmailId
+  loginGmailSecret
+  loginGmailCallbackURL
 
-    _error
+  _error
 }

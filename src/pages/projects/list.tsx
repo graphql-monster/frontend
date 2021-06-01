@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 
 export const USER_LIST_QUERY = gql`
-  query allProjects1($filter: ProjectFilter){ allProjects(filter: $filter) {
+  query allProjects1($filter: ProjectFilter){ allProject(filter: $filter) {
       id
       name,
       models,
@@ -21,7 +21,7 @@ export const USER_LIST_QUERY = gql`
 `;
 
 const ADMIN_LIST_QUERY = gql`
-  query allProjects($filter: ProjectFilter){ allProjects(filter: $filter) {
+  query allProjects($filter: ProjectFilter){ allProject(filter: $filter) {
       id
       name,
       models,
