@@ -24,7 +24,6 @@ export const AceControl = ({name, storedData, label, required, register, placeho
 
             <AceEditor 
               mode="html"
-              theme="github"
               width="1000px"
               
               value={value != null ? value : storedData && storedData[name]}

@@ -16,6 +16,7 @@
     "ace-builds": "^1.4.12",
     "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
+    "eslint-plugin-react": "^7.24.0",
     "font-awesome": "^4.7.0",
     "graphql": "^15.5.0",
     "graphql-playground-react": "1.7.27",
@@ -40,6 +41,7 @@
   "scripts": {
     "start": "set PORT=3000 && react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint \"*/**/*.{js,ts}\" --quiet --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
@@ -64,6 +66,12 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.149",
-    "@types/react-recaptcha": "^2.3.3"
+    "@types/react-recaptcha": "^2.3.3",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.1"
   }
 }
