@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap'
 import './row.scss'
@@ -16,12 +16,19 @@ export interface IListRowParams {
   fields?: IFilteredField[]
   onDelete: (obj: any) => void
   showDelete?: boolean
+  onEdit?: (item: any) => void
 }
-export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields=['id'] , showDelete=false}) => {
+export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields=['id'] , showDelete=false, onEdit}) => {
+
+  const doEdit = useCallback(()=>{
+    if(onEdit) onEdit(item)
+  }, [item, onEdit])
+
   return (
     <tr className="row1">
       
-      <td className="id"><Link to={`/user/${name.toLowerCase()}/${item.id}`}>{item.id}</Link></td>
+      <td className="id">
+        {onEdit ? <span onClick={doEdit}>{item.id}</span> : <Link to={`/user/${name.toLowerCase()}/${item.id}`}>{item.id}</Link>}</td>
       {fields.map(field=>(field !=='id' && <td><ListRowItem item={item} field={field} /></td>))}
       {item.user && (<td>{item.user.email}</td>)}
       

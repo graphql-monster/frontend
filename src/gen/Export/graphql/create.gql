@@ -1,0 +1,9 @@
+#import "./fragment.gql"
+
+mutation createExport($name: String!, $type: String!, $template: String!, $query: String!, $projectId: ID, $project: InExportMemberProjectAsProject, $userId: ID!) {
+    mutated: createExport(
+      name: $name, type: $type, template: $template, query: $query, projectId: $projectId, project: $project, userId: $userId
+      ) {
+     ...ExportFragment
+    }
+  }

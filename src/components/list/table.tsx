@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { Table as BTable, Button } from 'react-bootstrap'
 
 import { useQuery, useMutation } from '@apollo/client';
-import { ListRow } from './row';
+import { IListRowParams, ListRow } from './row';
 import Loading from '../common/loading';
 import DeleteModal from '../common/DeleteModal';
 import Unauthorized from '../common/unauthorized';
@@ -21,16 +21,17 @@ export interface ITableQueries {
   DELETE_MUTATION: DocumentNode
 }
 
-export interface IProjectList {
+export interface ITableList {
     userId?: string
     adminMode?: boolean
     filter: any
     queries: ITableQueries
     fields?: IFilteredField[]
     name: string
+    onEdit: IListRowParams['onEdit']
 }
 
-export const Table : React.FC<IProjectList> = ({filter, name, adminMode = false, queries, fields}) => {
+export const Table : React.FC<ITableList> = ({filter, name, adminMode = false, queries, fields, onEdit}) => {
   const [unauthorized, setUnauthorized] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [deleteObject, setDeleteObject] = useState(null)
@@ -127,7 +128,7 @@ export const Table : React.FC<IProjectList> = ({filter, name, adminMode = false,
               </thead>
               <tbody>
               {
-                data.length && data.map((projectItem:any)=>(<ListRow name={name} item={projectItem} onDelete={onDelete} fields={fields} showDelete={adminMode}/>))
+                data.length && data.map((projectItem:any)=>(<ListRow name={name} item={projectItem} onDelete={onDelete} fields={fields} showDelete={adminMode} onEdit={onEdit} />))
               }
               </tbody>
             

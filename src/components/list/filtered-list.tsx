@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {Link, useHistory} from 'react-router-dom'
-import Table, {ITableQueries} from './table'
+import Table, {ITableList, ITableQueries} from './table'
 import FilterItem from './filter-item'
 import {Navbar, Button} from 'react-bootstrap'
 import './filtered-list.scss'
@@ -14,6 +14,9 @@ export interface IProjectFilterList {
     adminMode?: boolean
     queries: ITableQueries
     fields: IFilteredField[]
+    filter?: any
+    onCreate?: ()=>void
+    onEdit?: ITableList['onEdit']
 }
 
 const createFilter = () => {
@@ -61,7 +64,7 @@ const filterDestruct = (filter: any) => {
 }
 
 
-export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMode=false, queries, fields}) => {
+export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMode=false, queries, fields, filter: staticFilter, onCreate, onEdit}) => {
 
     const [filter, setFilter] = useState(adminMode ? createFilter() : null)
     const history = useHistory()
@@ -72,6 +75,10 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
         
         if(userId){
             addAnd(defaultFilter.AND, {user_every:{id:userId}})
+        }
+
+        if(staticFilter){
+            addAnd(defaultFilter.AND, staticFilter)
         }
         
         return defaultFilter
@@ -104,7 +111,8 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
     }, [userId])
 
     const onCreateNew = () => {
-        history.push('/user/' + name.toLowerCase() + '/create' )
+        if(onCreate) onCreate()
+        else history.push('/user/' + name.toLowerCase() + '/create' )
     }
 
     // if is not adminMode, 
@@ -129,7 +137,7 @@ export const FilteredList:React.FC<IProjectFilterList> = ({name, userId, adminMo
             </div>
             <div className="row-table">
            
-            <Table name={name} filter={filter} queries={queries} adminMode={adminMode} fields={fields} />
+            <Table name={name} filter={filter} queries={queries} adminMode={adminMode} fields={fields} onEdit={onEdit}/>
             <Button onClick={onCreateNew}>Create New</Button>
             </div>
             

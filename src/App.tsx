@@ -9,6 +9,7 @@ import { ApolloProvider } from '@apollo/client';
 
 import { ProjectEdit } from './pages/projects/edit'
 import ProjectList, { ProjectAdminList } from './pages/projects/list'
+import ExportList from './pages/exports/List'
 import UserList from "./pages/users/list";
 import { Header } from './components/Header/Header'
 import { UserProvider } from './contexts/userContext'
@@ -29,6 +30,7 @@ import UserInfo from "./pages/login/UserInfo";
 import ForgottenPassword from "./pages/login/ForgottenPassword";
 import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
 import { GithubCallback } from "./pages/login/passport/GithubCallback";
+import ExportEdit from "./pages/exports/Edit";
 
 
 
@@ -97,10 +99,13 @@ export default function BasicExample() {
               </Route>
               <Route path="/user/projects/create" component={ProjectEdit} />
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
+              <Route path="/user/projects/:projectId/exports/:id" component={ExportEdit} />
+              <Route path="/user/projects/:projectId/exports" component={ExportList} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
                 <ProjectList />
               </Route>
+              
               <Route path="/user/info">
                 <UserInfo />
               </Route>

@@ -1,0 +1,13 @@
+fragment ExportFragment on ExportModel {
+  name
+  type
+  template
+  query
+  id
+  project {
+    id
+  }
+  user {
+    id
+  }
+}

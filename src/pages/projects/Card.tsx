@@ -20,8 +20,12 @@ export const Card:React.FC<ICards> = ({project}) => {
         history.push('/user/projects/' +project.id )
     }
 
+    const onExports = () => {
+        history.push(`/user/projects/${project.id}/exports` )
+    }
+
     const onPlayground = () => {
-        history.push('/user/projects/' +project.id + '/graphiql')
+        history.push(`/user/projects/${project.id}/graphiql`)
     }
 
     return (
@@ -47,6 +51,7 @@ export const Card:React.FC<ICards> = ({project}) => {
                 
                 <div className="projectCardButtons">
                     <button type="button" className="btn btn-sm btn-primary projectCardButtons" onClick={onEdit}>Configuration</button>
+                    <button type="button" className="btn btn-sm btn-primary projectCardButtons" onClick={onExports}>Exports</button>
                     <button type="button" className="btn btn-sm btn-primary projectCardButtons" onClick={onPlayground} title="In Admin Playground button you will connect to GraphQL playground with admin rights">Admin Playground</button>
                     <button type="button" className="btn btn-sm btn-danger projectCardButtons">Delete</button>
                 </div>
