@@ -3,15 +3,15 @@ import * as _ from 'lodash'
 import gql from "graphql-tag";
 import { loader } from 'graphql.macro';
 
-import BaseEdit from "../../components/editor/edit"
+import BaseEdit from "../../components/EditorEx/Edit"
 import { Form, Tab, Tabs } from "react-bootstrap";
-import { TControl, TField } from "../../components/editor/control";
+import { TControl, TField } from "../../components/EditorEx/Control";
 
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
-import { USER_LIST_QUERY } from "./list";
+import { USER_LIST_QUERY } from "./List";
 import { useHistory } from "react-router";
 
 const CREATE_MUTATION = loader('./graphql/create.gql')

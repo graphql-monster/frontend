@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useCallback, useState } from 'react'
-import Loading from '../../components/common/loading';
-import Unauthorized from '../../components/common/unauthorized';
-import { getDataFromRaw } from '../../components/editor/edit';
+import Loading from '../../components/Common/Loading';
+import Unauthorized from '../../components/Common/Unauthorized';
+import { getDataFromRaw } from '../../components/EditorEx/Edit';
 
 export const BaseEditor = ({name, form, externId, renameError, onUpdated, updateCache, query, children}:any) => {
 

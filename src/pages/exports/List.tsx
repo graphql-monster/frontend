@@ -1,5 +1,5 @@
 import React from "react";
-import FilteredList from "../../components/list/filtered-list";
+import FilteredList from "../../components/List/FilteredList";
 import gql from 'graphql-tag';
 import { useUserState } from "../../contexts/userContext";
 import { useHistory, useParams } from "react-router";

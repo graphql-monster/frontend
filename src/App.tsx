@@ -7,17 +7,17 @@ import {
 } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 
-import { ProjectEdit } from './pages/projects/edit'
-import ProjectList, { ProjectAdminList } from './pages/projects/list'
+import { ProjectEdit } from './pages/Projects/Edit'
+import ProjectList, { ProjectAdminList } from './pages/Projects/List'
 import ExportList from './pages/exports/List'
-import UserList from "./pages/users/list";
+import UserList from "./pages/Users/List";
 import { Header } from './components/Header/Header'
 import { UserProvider } from './contexts/userContext'
 
 import apolloClient from './common/apolloClient'
-import UserRoleList from "./pages/user-roles/list";
-import UserRoleEdit from './pages/user-roles/edit'
-import GQLPlayground from "./pages/projects/GQLPlayground";
+import UserRoleList from "./pages/UserRoles/List";
+import UserRoleEdit from './pages/UserRoles/Edit'
+import GQLPlayground from "./pages/Projects/GQLPlayground";
 import Home from "./pages/home/home";
 import { Register } from "./pages/login/Register";
 import Login from "./pages/login/Login";

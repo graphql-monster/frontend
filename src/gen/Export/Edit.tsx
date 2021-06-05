@@ -2,7 +2,7 @@ import React from "react";
 import { loader } from 'graphql.macro';
 import { useParams } from "react-router-dom";
 import * as _ from 'lodash'
-import BaseEdit from "../../components/editor/edit";
+import BaseEdit from "../../components/EditorEx/Edit";
 
 
 export const CREATE_MUTATION = loader('./graphql/create.gql')
