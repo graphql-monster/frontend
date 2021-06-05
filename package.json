@@ -23,7 +23,7 @@
     "lodash": "^4.17.20",
     "node-sass": "4",
     "react": "^17.0.1",
-    "react-ace": "^9.2.1",
+    "react-ace": "^9.4.0",
     "react-bootstrap": "^1.4.0",
     "react-dom": "16",
     "react-hook-form": "^7.8.0",

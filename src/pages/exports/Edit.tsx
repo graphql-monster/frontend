@@ -8,12 +8,17 @@ import BaseEditor from "./BaseEditor";
 import Control from "./Control";
 import { Button, Form, FormControl } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import HiddenItem from "./HiddenItem";
+import HiddenItem from "./HiddenItem"
+import AceEditor from "react-ace"
+import AceControl from "./AceControl";
 
 export const ExportForm = ({onSubmit, storedData, graphQlError, projectId}:any) => {
   
   const reactForm = useForm()
-  const { register, handleSubmit, formState, setValue } = reactForm;
+  const { register, handleSubmit, formState, setValue, getValues } = reactForm;
+
+  const formDataQuery = getValues('query')
+  const template = getValues('template')
 
   const processSubmit = (data:any) => {
     onSubmit(data)
@@ -21,8 +26,12 @@ export const ExportForm = ({onSubmit, storedData, graphQlError, projectId}:any) 
 
   return (<Form onSubmit={handleSubmit(processSubmit)}>
       <Control name={'name'} label={'name'} required={true} storedData={storedData} {...reactForm} />
-      <Control name={'query'} label={'query'} required={true} storedData={storedData} {...reactForm} />
-      <Control name={'template'} label={'template'} required={true} storedData={storedData} {...reactForm} />
+      {/* <Control name={'query'} label={'query'} required={true} storedData={storedData} {...reactForm} /> */}
+      {/* <Control name={'template'} label={'template'} required={true} storedData={storedData} {...reactForm} /> */}
+
+      <AceControl name={'query'} label={'Query'}  {...reactForm} storedData={storedData} />
+      <AceControl name={'template'} label={'Template'} {...reactForm} storedData={storedData} />
+
       <HiddenItem name={'type'} value={'pdf'} {...reactForm} storedData={storedData} />
       <HiddenItem name={'projectId'} value={projectId} {...reactForm} storedData={storedData} />
 
