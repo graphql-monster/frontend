@@ -4,7 +4,7 @@ import FilterItem from './FilterItem'
 import {Navbar, Button} from 'react-bootstrap'
 import './FilteredList.scss'
 import { IFilteredField } from './RowItem'
-import Table, { ITableList, ITableQueries } from './Table1'
+import Table, { ITableList, ITableQueries } from './Table'
 
 
 

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { Table as BTable, Button } from 'react-bootstrap'
 
 import { useQuery, useMutation } from '@apollo/client';
-import { IListRowParams, ListRow } from './Row1';
+import { IListRowParams, ListRow } from './Row';
 import Loading from '../Common/Loading';
 import DeleteModal from '../Common/DeleteModal';
 import Unauthorized from '../Common/Unauthorized';
