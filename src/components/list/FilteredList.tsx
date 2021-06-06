@@ -20,7 +20,7 @@ export interface IProjectFilterList {
 }
 
 const createFilter = () => {
-    let obj:any = []
+    const obj:any = []
     obj.name = 'AND'
     return {AND: obj}
 }
@@ -52,7 +52,7 @@ const filterDestructNode = (node: any) => {
 }
 
 const filterDestruct = (filter: any) => {
-    let fo = {
+    const fo = {
         filter: '',
         params: '',
     }

@@ -26,7 +26,7 @@ export type ExportEditType = {
   }
 
 export const ExportEdit:(obj:ExportEditType)=>any = ({name, fields, createMutation, updateMutation, oneQuery }) => {
-  let params = useParams() as any;
+  const params = useParams() as any;
   
   const id = params.id !== 'create' &&  params.id
 

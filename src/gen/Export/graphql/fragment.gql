@@ -4,6 +4,7 @@ fragment ExportFragment on ExportModel {
   template
   query
   id
+  testVariables
   project {
     id
   }

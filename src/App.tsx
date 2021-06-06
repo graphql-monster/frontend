@@ -1,38 +1,32 @@
-import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
-import { ApolloProvider } from '@apollo/client';
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { ApolloProvider } from '@apollo/client'
 
 import { ProjectEdit } from './pages/Projects/Edit'
 import ProjectList, { ProjectAdminList } from './pages/Projects/List'
 import ExportList from './pages/exports/List'
-import UserList from "./pages/Users/List";
+import UserList from './pages/Users/List'
 import { Header } from './components/Header/Header'
-import { UserProvider } from './contexts/userContext'
 
-import apolloClient from './common/apolloClient'
-import UserRoleList from "./pages/UserRoles/List";
+import apolloClient from './app/apolloClient'
+import UserRoleList from './pages/UserRoles/List'
 import UserRoleEdit from './pages/UserRoles/Edit'
-import GQLPlayground from "./pages/Projects/GQLPlayground";
-import Home from "./pages/home/home";
-import { Register } from "./pages/login/Register";
-import Login from "./pages/login/Login";
-import { PricingPage } from "./pages/pricing/pricing";
-import SubscribePage from "./pages/pricing/subsribe";
-import Documentation from "./pages/documentation/Documentation";
-import SubscibesListPage from "./pages/pricing/subsribe-list";
-import VerifyUser from "./pages/login/VerifyUser";
-import UserInfo from "./pages/login/UserInfo";
-import ForgottenPassword from "./pages/login/ForgottenPassword";
-import ForgottenPasswordReset from "./pages/login/ForgottenPasswordReset";
-import { GithubCallback } from "./pages/login/passport/GithubCallback";
-import ExportEdit from "./pages/exports/Edit";
-
-
+import GQLPlayground from './pages/Projects/GQLPlayground'
+import Home from './pages/home/home'
+import { Register } from './pages/login/Register'
+import Login from './pages/login/Login'
+import { PricingPage } from './pages/pricing/pricing'
+import SubscribePage from './pages/pricing/subsribe'
+import Documentation from './pages/documentation/Documentation'
+import SubscibesListPage from './pages/pricing/subsribe-list'
+import VerifyUser from './pages/login/VerifyUser'
+import UserInfo from './pages/login/UserInfo'
+import ForgottenPassword from './pages/login/ForgottenPassword'
+import ForgottenPasswordReset from './pages/login/ForgottenPasswordReset'
+import { PassportCallback } from './pages/login/PassportCallback'
+import ExportEdit from './pages/exports/Edit'
+import { Provider } from 'react-redux'
+import { store } from './app/store'
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -43,14 +37,13 @@ import ExportEdit from "./pages/exports/Edit";
 // making sure things like the back button and bookmarks
 // work properly.
 
-export default function BasicExample() {
-
+export default function App() {
   return (
-    <ApolloProvider client={apolloClient}>
-      <UserProvider>
+    <Provider store={store}>
+      <ApolloProvider client={apolloClient}>
         <Router>
           <div>
-              <Header />
+            <Header />
             {/*
               A <Switch> looks through all its children <Route>
               elements and renders the first one whose path
@@ -65,14 +58,14 @@ export default function BasicExample() {
               <Route exact path="/login">
                 <Login />
               </Route>
-              <Route path="/login/facebook" >
-                <GithubCallback type={'facebook'} />
+              <Route path="/login/facebook">
+                <PassportCallback type={'facebook'} />
               </Route>
-              <Route path="/login/github" >
-                <GithubCallback type={'github'} />
+              <Route path="/login/github">
+                <PassportCallback type={'github'} />
               </Route>
-              <Route path="/login/google" >
-                <GithubCallback type={'google'} />
+              <Route path="/login/google">
+                <PassportCallback type={'google'} />
               </Route>
               <Route path="/register">
                 <Register />
@@ -82,17 +75,13 @@ export default function BasicExample() {
               <Route exact path="/forgotten-password">
                 <ForgottenPassword />
               </Route>
-              
-              
+
               <Route path="/verify-user/:verifyToken" component={VerifyUser} />
               <Route path="/pricing">
                 <PricingPage />
               </Route>
               <Route path="/subscribe">
                 <SubscribePage />
-              </Route>
-              <Route path="/dashboard">
-                <Dashboard />
               </Route>
               <Route path="/documentation">
                 <Documentation />
@@ -105,7 +94,7 @@ export default function BasicExample() {
               <Route path="/user/projects">
                 <ProjectList />
               </Route>
-              
+
               <Route path="/user/info">
                 <UserInfo />
               </Route>
@@ -113,41 +102,20 @@ export default function BasicExample() {
                 <ProjectAdminList />
               </Route>
               <Route path="/admin/users">
-                <UserList adminMode={true}/>
+                <UserList adminMode={true} />
               </Route>
               <Route path="/admin/roles">
-                <UserRoleList adminMode={true}/>
+                <UserRoleList adminMode={true} />
               </Route>
               <Route path="/admin/subsribes">
-                <SubscibesListPage adminMode={true}/>
+                <SubscibesListPage adminMode={true} />
               </Route>
               <Route path="/user/roles/create" component={UserRoleEdit} />
               <Route path="/user/roles/:id" component={UserRoleEdit} />
             </Switch>
           </div>
         </Router>
-      </UserProvider>
-    </ApolloProvider>
-  );
+      </ApolloProvider>
+    </Provider>
+  )
 }
-
-// You can think of these components as "pages"
-// in your app.
-
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
-

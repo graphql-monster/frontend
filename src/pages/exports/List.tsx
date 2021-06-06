@@ -1,23 +1,27 @@
-import React from "react";
-import FilteredList from "../../components/List/FilteredList";
-import gql from 'graphql-tag';
-import { useUserState } from "../../contexts/userContext";
-import { useHistory, useParams } from "react-router";
+import React from 'react'
+import FilteredList from '../../components/List/FilteredList'
+import gql from 'graphql-tag'
+import { useHistory, useParams } from 'react-router'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../../app/reducers/userSlice'
 
 const USER_LIST_QUERY = gql`
-  query allExport($filter: ExportFilter){ allExport(filter: $filter) {
-      id,
-      type
-    }}
-`;
-
-const ADMIN_LIST_QUERY = gql`
-  query allExport($filter: ExportFilter){ allExport(filter: $filter) {
-      id,
+  query allExport($filter: ExportFilter) {
+    allExport(filter: $filter) {
+      id
       type
     }
   }
-`;
+`
+
+const ADMIN_LIST_QUERY = gql`
+  query allExport($filter: ExportFilter) {
+    allExport(filter: $filter) {
+      id
+      type
+    }
+  }
+`
 
 const DELETE_MUTATION = gql`
   mutation deleteExport($id: ID!) {
@@ -25,11 +29,10 @@ const DELETE_MUTATION = gql`
       id
     }
   }
-`;
+`
 
-
-export const UserList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
-  const user = useUserState()
+export const UserList: React.FC<{ userId?: string; adminMode?: boolean }> = ({ userId, adminMode = false }) => {
+  const user = useSelector(selectUser)
   const history = useHistory()
   const params = useParams() as any
 
@@ -41,20 +44,22 @@ export const UserList: React.FC<{userId?: string, adminMode?: boolean}> = ({user
     history.push(`/user/projects/${params.projectId}/exports/${item.id}`)
   }
 
-    return (
-        <div>
-            <FilteredList 
-                name={'Exports'}
-                fields={['id']}
-                userId={user.id} 
-                adminMode={adminMode}
-                queries={{USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION}}
-                filter={{project_every: {id: params.projectId}}} 
-                onCreate={onCreate}
-                onEdit={onEdit}
-                />
-        </div>
-    )
+  if (!user) return <></>
+
+  return (
+    <div>
+      <FilteredList
+        name={'Exports'}
+        fields={['id']}
+        userId={user.id}
+        adminMode={adminMode}
+        queries={{ USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION }}
+        filter={{ project_every: { id: params.projectId } }}
+        onCreate={onCreate}
+        onEdit={onEdit}
+      />
+    </div>
+  )
 }
 
 export default UserList
