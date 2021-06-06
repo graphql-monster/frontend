@@ -3,8 +3,8 @@ fragment ExportFragment on ExportModel {
   type
   template
   query
-  id
   testVariables
+  id
   project {
     id
   }

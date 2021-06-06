@@ -1,28 +1,26 @@
-import React, { Children, useCallback, useEffect, useMemo, useState } from 'react'
-import { loader } from 'graphql.macro'
+import JSON5 from 'json5'
+import React, { useMemo } from 'react'
+import { Button, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import * as _ from 'lodash'
-import { CREATE_MUTATION, FIELDS as GEN_FIELDS, ExportEditType, ONE_QUERY, UPDATE_MUTATION } from '../../gen/Export/Edit'
-import StoreItem from './StoreItem'
+import { selectUser } from '../../app/reducers/userSlice'
+import { CREATE_MUTATION, ExportEditType, ONE_QUERY, UPDATE_MUTATION } from '../../gen/Export/Edit'
+import AceControl from './AceControl'
 import BaseEditor from './BaseEditor'
 import Control from './Control'
-import { Button, Form, FormControl } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
 import HiddenItem from './HiddenItem'
-import AceEditor from 'react-ace'
-import AceControl from './AceControl'
-import JSON5 from 'json5'
 
 export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: any) => {
+  const user = useSelector(selectUser) || { id: null }
   const reactForm = useForm()
   const { register, handleSubmit, formState, setValue, getValues } = reactForm
 
   const testVariables = getValues('testVariables')
   const testLink = useMemo(() => {
-    const jsonValue = testVariables ? JSON5.stringify(JSON5.parse(testVariables)) : testVariables
+    const jsonValue = testVariables ? JSON5.stringify(JSON5.parse(testVariables)) : ''
     const escapedValue = encodeURI(jsonValue.substr(1, jsonValue.length - 2))
-    return `${process.env.PUBLIC_URL}/client/_user_id/${projectId}/export/${storedData['id']}/${escapedValue}`
-    // return ''
+    return `${process.env.REACT_APP_HOST}/client/${user.id}/project/${projectId}/pdf/${storedData['id']}/${escapedValue}`
   }, [testVariables])
 
   const processSubmit = (data: any) => {
