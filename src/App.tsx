@@ -4,7 +4,7 @@ import { ApolloProvider } from '@apollo/client'
 
 import { ProjectEdit } from './pages/Projects/Edit'
 import ProjectList, { ProjectAdminList } from './pages/Projects/List'
-import ExportList from './pages/exports/List'
+import ExportList from './pages/Exports/List'
 import UserList from './pages/Users/List'
 import { Header } from './components/Header/Header'
 
@@ -24,7 +24,7 @@ import UserInfo from './pages/login/UserInfo'
 import ForgottenPassword from './pages/login/ForgottenPassword'
 import ForgottenPasswordReset from './pages/login/ForgottenPasswordReset'
 import { PassportCallback } from './pages/login/PassportCallback'
-import ExportEdit from './pages/exports/Edit'
+import ExportEdit from './pages/Exports/Edit'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 

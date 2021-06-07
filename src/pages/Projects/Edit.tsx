@@ -10,6 +10,8 @@ import { USER_LIST_QUERY } from './List'
 
 import 'ace-builds/src-noconflict/mode-java'
 import 'ace-builds/src-noconflict/theme-github'
+import BaseEditor from '../../components/Editor/BaseEditor'
+import { ProjectEditForm } from './EditForm'
 
 const CREATE_MUTATION = loader('./graphql/create.gql')
 const UPDATE_MUTATION = loader('./graphql/update.gql')
@@ -145,28 +147,18 @@ export const ProjectEdit = (data: any) => {
   }
 
   return (
-    <div className="row-table container">
-      <>
-        {' '}
-        {error ? (
-          <div className="alert alert-danger" role="alert">
-            {error}
-          </div>
-        ) : null}
-      </>
-      <BaseEdit
-        id={projectId}
+    <div className={`base-edit-project base-edit`}>
+      <BaseEditor
+        externId={projectId}
         name={'Project'}
-        fields={{ Schema: SchemaTab, Email: EmailTab, Auth: LoginTab }}
         query={{
-          CREATE_MUTATION,
-          UPDATE_MUTATION,
+          CREATE_MUTATION: CREATE_MUTATION,
+          UPDATE_MUTATION: UPDATE_MUTATION,
           QUERY,
         }}
-        updateCache={updateCache}
-        renameError={renameError}
-        onCompleted={onCompleted}
-      />
+      >
+        {(storedData: any, onSubmit: any, errors: any) => <ProjectEditForm storedData={storedData} onSubmit={onSubmit} graphQlError={errors} projectId={projectId} />}
+      </BaseEditor>
     </div>
   )
 }

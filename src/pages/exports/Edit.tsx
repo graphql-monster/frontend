@@ -6,15 +6,14 @@ import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { selectUser } from '../../app/reducers/userSlice'
 import { CREATE_MUTATION, ExportEditType, ONE_QUERY, UPDATE_MUTATION } from '../../gen/Export/Edit'
-import AceControl from './AceControl'
-import BaseEditor from './BaseEditor'
-import Control from './Control'
-import HiddenItem from './HiddenItem'
+import AceControl from '../../components/Editor/AceControl'
+import BaseEditor from '../../components/Editor/BaseEditor'
+import Control from '../../components/Editor/Control'
+import HiddenItem from '../../components/Editor/HiddenItem'
 import { PdfDownloadState, TPdfDownloadState } from './PdfDownloadState'
 import './Edit.css'
 
-const mutationOptaionToken = `// optain user token via graphql
-mutation{
+const mutationOptaionToken = `mutation{
   login_v1(email:"type-user-email", password:"type-user-pass"){
       token
   }
@@ -97,6 +96,7 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
   return (
     <div>
       <Form onSubmit={handleSubmit(processSubmit)}>
+        <h1>Export</h1>
         <h2>Config</h2>
         <Control name={'name'} label={'name'} required={true} storedData={storedData} {...reactForm} />
         {/* <Control name={'query'} label={'query'} required={true} storedData={storedData} {...reactForm} /> */}
@@ -113,11 +113,20 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
         {/* <AceControl name={'testTokenQuery'} label={'Optain Token'} {...reactForm} storedData={storedData} defaultHight={100} /> */}
 
         <div className=".my-documentation">
-          <h3>Optaining user token</h3>
+          <h3>
+            Optaining user token{' '}
+            <small>
+              (
+              <Link to={`/user/projects/${projectId}/graphiql`} target={'_blank'}>
+                Admin Playground
+              </Link>
+              )
+            </small>
+          </h3>
           <pre>
             <code>{mutationOptaionToken}</code>
           </pre>
-          <Control name={'testToken'} label={'Test Token'} storedData={storedData} {...reactForm} />
+          <Control name={'testToken'} label={'Test Token (not for save)'} storedData={storedData} {...reactForm} />
 
           {pdfDownloadState.ok || (pdfDownloadState.error && <PdfDownloadState {...pdfDownloadState} />)}
 
