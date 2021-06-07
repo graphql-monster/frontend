@@ -28,6 +28,8 @@ import ExportEdit from './pages/exports/Edit'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 
+import './App.css'
+
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
 //
