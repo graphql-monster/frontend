@@ -29,6 +29,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 
 import './App.css'
+import ProjectFilesList from './pages/Files/List'
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -92,6 +93,7 @@ export default function App() {
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />
               <Route path="/user/projects/:projectId/exports/:id" component={ExportEdit} />
               <Route path="/user/projects/:projectId/exports" component={ExportList} />
+              <Route path="/user/projects/:projectId/files" component={ProjectFilesList} />
               <Route path="/user/projects/:projectId" component={ProjectEdit} />
               <Route path="/user/projects">
                 <ProjectList />
