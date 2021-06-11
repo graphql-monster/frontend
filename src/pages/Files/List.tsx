@@ -38,7 +38,7 @@ const DELETE_MUTATION = gql`
 `
 
 export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }> = ({ userId, adminMode = false }) => {
-  const user = useSelector(selectUser) || { id: null }
+  const user = useSelector(selectUser) || { id: null, token: '' }
   const history = useHistory()
   const params = useParams() as any
 
@@ -49,7 +49,12 @@ export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }
     const data = new FormData()
     data.append('file', file)
     new Promise(async (resolve, reject) => {
-      const event = await axios.post(`${process.env.REACT_APP_HOST}/client/${user.id}/project/${params?.projectId}/upload`, data, {})
+      const event = await axios.post(`${process.env.REACT_APP_HOST}/client/${user.id}/project/${params?.projectId}/upload`, data, {
+        // authorization: Bearer
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       console.log(event)
       resolve(event)
       // receive two    parameter endpoint url ,form data

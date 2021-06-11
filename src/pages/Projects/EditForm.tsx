@@ -23,7 +23,10 @@ export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId 
   const onTabSelect: SelectCallback = (tabKey) => {
     if (tabKey === 'exports') {
       history.replace(`/user/projects/${projectId}/exports`)
-      // history
+    }
+
+    if (tabKey === 'files') {
+      history.replace(`/user/projects/${projectId}/files`)
     }
 
     setSelectedTab(tabKey || '')
@@ -92,6 +95,7 @@ export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId 
         </Form>
       </Tab>
       <Tab eventKey={'exports'} title={'Exports'} disabled={!projectId}></Tab>
+      <Tab eventKey={'files'} title={'Files'} disabled={!projectId}></Tab>
     </Tabs>
   )
 }
