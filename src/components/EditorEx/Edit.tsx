@@ -6,8 +6,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { DEFAULT_SCHEMA } from "../../pages/Projects/defaultSchema";
 import * as _ from 'lodash'
 import { Alert, Button } from 'react-bootstrap'
-import Unauthorized from '../Common/Unauthorized'
-import Loading from '../Common/Loading'
+import Unauthorized from '../Unauthorized/Unauthorized'
+import Loading from '../Loading/Loading'
 import { TField, TControlField } from "./Control";
 import EditTabs from "./Tabs";
 

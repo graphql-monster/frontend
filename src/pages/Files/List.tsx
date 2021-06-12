@@ -1,5 +1,5 @@
 import React from 'react'
-import FilteredList from '../../components/List/FilteredList'
+import FilteredList from '../../components/List1/FilteredList'
 import gql from 'graphql-tag'
 import { useHistory, useParams } from 'react-router'
 import { useSelector } from 'react-redux'

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
-import './Row.scss'
+import './Row1.scss'
 import { ListRowItem, IFilteredField } from './RowItem'
 
 export interface IListRowItem {

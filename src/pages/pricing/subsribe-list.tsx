@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FilteredList from "../../components/List/FilteredList";
+import FilteredList from "../../components/List1/FilteredList";
 import gql from 'graphql-tag';
 import { Link } from "react-router-dom";
 
