@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Tab, Tabs } from 'react-bootstrap'
+import { Alert, Button, Form, Tab, Tabs } from 'react-bootstrap'
 import { SelectCallback } from 'react-bootstrap/esm/helpers'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { selectUser } from '../../app/reducers/userSlice'
 import AceControl from '../../components/Editor/AceControl'
 import Control from '../../components/Editor/Control'
+import { GraphQLError } from './GraphQLError'
 
 export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId }: any) => {
   const user = useSelector(selectUser) || { id: null }
@@ -37,6 +38,7 @@ export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId 
       <Tab eventKey={'main'} title={'Main'}>
         <Form onSubmit={handleSubmit(processSubmit)}>
           <Control name={'name'} label={'Service name (SERVICE_NAME)'} required={true} storedData={storedData} {...reactForm} />
+          {graphQlError?.length > 0 && <GraphQLError graphQLError={graphQlError} />}
           <AceControl name={'models'} label={'Schema'} {...reactForm} storedData={storedData} />
           <hr />
           <Button type="submit">Save</Button>

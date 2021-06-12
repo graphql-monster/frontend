@@ -75,6 +75,7 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
   const onSubmit = useCallback(
     (data) => {
       if (localId) {
+        setErrors(null)
         updateProjectMutation({
           variables: {
             id: localId,

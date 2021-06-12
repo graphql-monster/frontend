@@ -4,14 +4,13 @@ import React, { useState } from 'react'
 import AceEditor from 'react-ace'
 import { Form } from 'react-bootstrap'
 import { useHistory } from 'react-router'
+import BaseEditor from '../../components/Editor/BaseEditor'
 import { TControl, TField } from '../../components/EditorEx/Control'
-import BaseEdit from '../../components/EditorEx/Edit'
+import { ProjectEditForm } from './EditForm'
 import { USER_LIST_QUERY } from './List'
 
 import 'ace-builds/src-noconflict/mode-java'
 import 'ace-builds/src-noconflict/theme-github'
-import BaseEditor from '../../components/Editor/BaseEditor'
-import { ProjectEditForm } from './EditForm'
 
 const CREATE_MUTATION = loader('./graphql/create.gql')
 const UPDATE_MUTATION = loader('./graphql/update.gql')
