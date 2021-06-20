@@ -31,31 +31,33 @@ export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields
   }, [name, item, getEditLink])
 
   return (
-    <tr className="row">
-      <td className="id">{onEdit ? <span onClick={doEdit}>{item.id}</span> : <Link to={editLink}>{item.id}</Link>}</td>
-      {fields.map(
-        (field) =>
-          field !== 'id' && (
-            <td>
-              <ListRowItem item={item} field={field} />
-            </td>
-          ),
-      )}
-      {item.user && <td>{item.user.email}</td>}
+    <React.Fragment>
+      <tr>
+        <td className="id">{onEdit ? <span onClick={doEdit}>{item.id}</span> : <Link to={editLink}>{item.id}</Link>}</td>
+        {fields.map(
+          (field) =>
+            field !== 'id' && (
+              <td>
+                <ListRowItem item={item} field={field} />
+              </td>
+            ),
+        )}
+        {item.user && <td>{item.user.email}</td>}
 
-      {showDelete && (
-        <td className="right">
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => {
-              onDelete(item)
-            }}
-          >
-            delete
-          </Button>
-        </td>
-      )}
-    </tr>
+        {showDelete && (
+          <td className="right">
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                onDelete(item)
+              }}
+            >
+              delete
+            </Button>
+          </td>
+        )}
+      </tr>
+    </React.Fragment>
   )
 }
