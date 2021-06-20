@@ -33,6 +33,9 @@ export const PricingPage: React.FC = () => (
             up to 3 basic projects
             <ul className="list-unstyled my-5 text-small text-left">
               <li className="mb-3">
+                <i className="fa fa-check mr-2 text-primary"></i> Advanced user auth with Login, Register, ...
+              </li>
+              <li className="mb-3">
                 <i className="fa fa-check mr-2 text-primary"></i> up to 1000 request / hour
               </li>
               <li className="mb-3">
@@ -47,7 +50,7 @@ export const PricingPage: React.FC = () => (
               </li>
               <li className="mb-3 text-muted">
                 <i className="fa fa-times mr-2"></i>
-                <del>3th party login (facebook, google, ...)</del>
+                <del>3th party login (Facebook, Google, ...)</del>
               </li>
               <li className="mb-3 text-muted">
                 <i className="fa fa-times mr-2"></i>
@@ -72,6 +75,9 @@ export const PricingPage: React.FC = () => (
             <div className="custom-separator my-4 mx-auto bg-primary"></div>plus one basic and one Pro project
             <ul className="list-unstyled my-5 text-small text-left font-weight-normal">
               <li className="mb-3">
+                <i className="fa fa-check mr-2 text-primary"></i> Advanced user auth with Login, Register, ...
+              </li>
+              <li className="mb-3">
                 <i className="fa fa-check mr-2 text-primary"></i> up to 10000 request / hour
               </li>
               <li className="mb-3">
@@ -84,7 +90,7 @@ export const PricingPage: React.FC = () => (
                 <i className="fa fa-check mr-2 text-primary"></i> User Email verification
               </li>
               <li className="mb-3">
-                <i className="fa fa-check mr-2 text-primary"></i> 3th party login (facebook, google, ...)
+                <i className="fa fa-check mr-2 text-primary"></i> 3th party login (Facebook, Google, ...)
               </li>
               <li className="mb-3 text-muted">
                 <i className="fa fa-times mr-2"></i>
@@ -110,6 +116,9 @@ export const PricingPage: React.FC = () => (
             plus one dedicated server
             <ul className="list-unstyled my-5 text-small text-left font-weight-normal">
               <li className="mb-3">
+                <i className="fa fa-check mr-2 text-primary"></i> Advanced user auth with Login, Register, ...
+              </li>
+              <li className="mb-3">
                 <i className="fa fa-check mr-2 text-primary"></i> not limited requests
               </li>
               <li className="mb-3">
@@ -122,7 +131,7 @@ export const PricingPage: React.FC = () => (
                 <i className="fa fa-check mr-2 text-primary"></i> User Email verification
               </li>
               <li className="mb-3">
-                <i className="fa fa-check mr-2 text-primary"></i> 3th party login (facebook, google, ...)
+                <i className="fa fa-check mr-2 text-primary"></i> 3th party login (Facebook, Google, ...)
               </li>
               <li className="mb-3">
                 <i className="fa fa-check mr-2 text-primary"></i> Hooks with own code
