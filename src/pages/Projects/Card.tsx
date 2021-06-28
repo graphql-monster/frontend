@@ -12,7 +12,7 @@ interface ICards {
 export const Card: React.FC<ICards> = ({ project }) => {
   const history = useHistory()
 
-  const projectConnectLink = `https://protectql.com/client/${project.user.id}/project/${project.id}/graphql`
+  const projectConnectLink = `https://graphql.monster/client/${project.user.id}/project/${project.id}/graphql`
 
   const onEdit = () => {
     history.push('/user/projects/' + project.id)

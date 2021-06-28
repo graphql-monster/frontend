@@ -24,7 +24,7 @@ export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
     setError(errorMessage)
     setTimeout(() => {
       history.replace('/login')
-    }, 4000)
+    }, 6000)
   }
   useEffect(() => {
     const request = async () => {
@@ -36,7 +36,7 @@ export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
         history.replace('/user/projects')
       } catch (ex) {
         const response = JSON.parse(_.get(ex, 'request.response', '{}'))
-        showError(response.error?.message || ex.message)
+        showError(response.error?.error || response.error?.message || ex.message)
       }
     }
 
@@ -48,7 +48,11 @@ export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
     <>
       {error && (
         <Alert variant={'danger'}>
-          {type} login isn't work due "{error}" You will be redirect back to <Link to="/login">Login</Link>
+          <h4>Login {type} Error</h4>
+          <p>{error}</p>
+          <i>
+            You will be redirect back to <Link to="/login">Login</Link>
+          </i>
         </Alert>
       )}
     </>
