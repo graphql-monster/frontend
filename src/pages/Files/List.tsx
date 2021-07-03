@@ -68,7 +68,7 @@ export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }
   }`,
       {},
       {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${localStorage.getItem('user.token')}`,
         xuser: user.id,
         xproject: params?.projectId,
       } as any,

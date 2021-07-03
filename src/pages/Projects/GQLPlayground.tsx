@@ -21,7 +21,7 @@ export const GQLPlayground: React.FC<{ data: any }> = (data: any) => {
   settings['schema.polling.enable'] = false
   settings['request.globalHeaders'] = {
     // hot reload
-    Authorization: `Bearer ${userState.token}`,
+    Authorization: `Bearer ${localStorage.getItem('user.token')}`,
     XUser: `${userState.id}`,
     XProject: `${projectId}`,
 
