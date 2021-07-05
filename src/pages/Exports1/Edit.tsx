@@ -123,7 +123,7 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
               )
             </small>
           </h3>
-          <pre>
+          <pre className="export-pre">
             <code>{mutationOptaionToken}</code>
           </pre>
           <Control name={'testToken'} label={'Test Token (not for save)'} storedData={storedData} {...reactForm} />

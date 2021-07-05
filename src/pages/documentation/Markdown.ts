@@ -36,7 +36,7 @@ type User @model {
     email: String! @isReadonly
     password: String! @isReadonly
     verified: Boolean @isReadonly
-    roles: @relation("RoleOnUser")[]
+    roles: [@relation("RoleOnUser")]
 }
 \`\`\`
 
@@ -57,8 +57,8 @@ This model you can't modify or extend, but is look like this
 
 \`\`\`
 type UserRole @model {
-  role: String @isUnique
-  users: @relation("RoleOnUser")[]
+  name: String @isUnique
+  users: [@relation("RoleOnUser")]
 }
 \`\`\`
 
@@ -94,7 +94,7 @@ type InvoiceItem @entity {
 }
 
 type Invoice @model {
-    items: InvoiceItem[]
+    items: [InvoiceItem]
     customer: Address
     seller: Address
     totalPrice: Float
@@ -158,10 +158,10 @@ emit: String # not possible is reserved
 Each field can be described as array
 
 \`\`\`
-field1: String[] # this field is array of strings
-field2: Int[] # this field is array of numbers
-field3: Boolean[] # this field is array of boolens
-field4: Date[] # this field is array of dates
+field1: [String] # this field is array of strings
+field2: [Int] # this field is array of numbers
+field3: [Boolean] # this field is array of boolens
+field4: [Date] # this field is array of dates
 \`\`\`
 
 ## Field modificators
@@ -243,7 +243,7 @@ type Todo @model {
 }
 
 type User @model {
- todo: @relation(name: "TodoOnUser")[]
+ todo: [@relation(name: "TodoOnUser")]
 }
 \`\`\`
 
@@ -253,11 +253,11 @@ One Users can have multiple Todos what can be related to multiple Users
 
 \`\`\`
 type Todo @model {
- user: @relation(name: "TodoOnUser")[]
+ user: [@relation(name: "TodoOnUser")]
 }
 
 type User @model {
- todo: @relation(name: "TodoOnUser")[]
+ todo: [@relation(name: "TodoOnUser")]
 }
 \`\`\`
 
@@ -273,8 +273,8 @@ type Project @model {
 }
 
 type User @model {
- todo: @relation(name: "TodoOnUser")[]
- project: @relation(name: "ProjectOnUser")[]
+ todo: [@relation(name: "TodoOnUser")]
+ project: [@relation(name: "ProjectOnUser")]
 }
 \`\`\`
 
@@ -292,19 +292,19 @@ type Todo @model {
 }
 
 type User @model {
- todo: @relation(name: "TodoOnUser")[]
+ todo: [@relation(name: "TodoOnUser")]
 }
 \`\`\`
 
-In another way this relation with required list of user are not possible and will automaticaly set to \`user: @relation(name: "TodoOnUser")[]\` (not required list of User)
+In another way this relation with required list of user are not possible and will automaticaly set to \`user: [@relation(name: "TodoOnUser")]\` (not required list of User)
 
 \`\`\`
 type Todo @model {
- user: @relation(name: "TodoOnUser")[]!
+ user: [@relation(name: "TodoOnUser")]!
 }
 
 type User @model {
- todo: @relation(name: "TodoOnUser")[]
+ todo: [@relation(name: "TodoOnUser")]
 }
 \`\`\`
 

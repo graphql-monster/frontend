@@ -1,48 +1,30 @@
 import React from 'react'
-import { Button, Dropdown } from 'react-bootstrap'
+import { Button, Dropdown, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import './Header.css'
 import Logo from './Logo'
 
-export const PublicHeader = () => ( <div className="header-light transparent scroll-light container">
-     <div className="header-light transparent scroll-light container">
-      <div className="row">
-        <div className="col-md-12">
-          <div className="d-flex justify-content-between">
-            <div className="align-self-center header-col-left">
-              <Logo />
-            </div>
-            <div className="align-self-center ml-auto header-col-mid">
-              <ul id="mainmenu">
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="/pricing">Pricing</a>
-                </li>
-                <li>
-                  <a href="/documentation">Documentation</a>
-                  <ul>
-                    <li><a href="/documentation#model">Model</a></li>
-                    <li><a href="/documentation#fields">Fields</a></li>
-                    <li><a href="/documentation#relations">Relations</a></li>
-                    <li><a href="/documentation#model-permissions">Model Permissions</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div className="align-self-center ml-auto header-col-right">
-              &nbsp;&nbsp;<Link className="" to="/login">Login</Link> or <Link className="" to="/register">Register</Link>
-                                    <span id="menu-btn"></span>
-            </div>
-            <div className="clearfix"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>)
-
-
+export const PublicHeader = () => (
+  <Navbar bg="light" expand="lg">
+    <Navbar.Brand href="/">Graphql Monster (beta)</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="mr-auto">
+        <Nav.Link href="/pricing">Pricing</Nav.Link>
+        <NavDropdown title="Documentation" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/documentation#model">Model</NavDropdown.Item>
+          <NavDropdown.Item href="/documentation#fields">Fields</NavDropdown.Item>
+          <NavDropdown.Item href="/documentation#relations">Relations</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/documentation#model-permission">Model Permissions</NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+      <Nav className="mr-left">
+        <Link className="" to="/login">Login</Link> or <Link className="" to="/register">Register</Link>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+)
 
 export default PublicHeader

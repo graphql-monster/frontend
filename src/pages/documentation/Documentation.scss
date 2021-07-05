@@ -1,3 +1,28 @@
+h1:not(:first-child) {
+  margin-top: 140px;
+}
+h1 {
+  position: relative;
+}
+h1:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px; // suit your need
+  background: rgb(0, 168, 8); // suit your need
+  top: 100%;
+  left: 0;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
 .my-documentation {
   margin: 40px;
 }
@@ -8,10 +33,11 @@
 }
 
 .my-documentation pre {
-  padding: 20px;
+  padding: 10px;
   background-color: white;
+  border-radius: 3px;
   border-width: 1px;
-  border-style: solid;
+  border-top-style: solid;
   border-color: gray;
   font-style: italic;
 }

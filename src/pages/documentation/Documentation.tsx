@@ -10,36 +10,13 @@ import markdown from './Markdown'
 import './Documentation.scss'
 
 export const Documentation = () => {
-    const c1 = 
-``
-
-return (
-    <div className="my-documentation">
-        <ReactMarkdown plugins={[gfm]} children={markdown} allowDangerousHtml={true} />
-    </div>
-)
-
-//     return (
-//         <div className="no-bottom no-top" id="content">
-//             <section className="full-height documentation-section">
-//                 <h1>Simple Model</h1>
-//                 <p>Types are similar of types in graphql <a href="https://graphql.org/learn/schema/">https://graphql.org/learn/schema/</a></p>
-//                 <pre><code>
-//                 {c1}
-//                 </code></pre>
-//                 <p>
-//                     The language is pretty readable, but let's go over it so that we can have a shared vocabulary:
-//                 </p>
-
-
-// </p>
-
-//             </section>
-
-//             <section className="full-height vertical-center">
-//             </section>
-//         </div>
-//     );
+    return (
+        <div className="container">
+            <div className="my-documentation">
+                <ReactMarkdown plugins={[gfm]} children={markdown} allowDangerousHtml={true} />
+            </div>
+        </div>
+    )
 }
 
 export default Documentation

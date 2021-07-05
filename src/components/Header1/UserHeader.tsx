@@ -4,46 +4,32 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import Nav from 'react-bootstrap/Nav'
 import Badge from 'react-bootstrap/Badge'
 import Logo from './Logo'
+import { Navbar, NavDropdown } from 'react-bootstrap'
 
-const UserHeader = ({user, onLogout}:any) =>  ( <div className="header-light transparent scroll-light container">
-<div className="row">
-  <div className="col-md-12">
-    <div className="d-flex justify-content-between">
-      <div className="align-self-center header-col-left">
-        <Logo />
-      </div>
-      <div className="align-self-center ml-auto header-col-mid">
-        <ul id="mainmenu">
-          <li>
-            <Link to="/user/projects">Projects</Link>
-          </li>
-          <li>
-            <a href="/documentation">Documentation</a>
-            <ul>
-              <li><a href="/documentation#model">Model</a></li>
-              <li><a href="/documentation#fields">Fields</a></li>
-              <li><a href="/documentation#relations">Relations</a></li>
-              <li><a href="/documentation#model-permissions">Model Permissions</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div className="align-self-center ml-auto header-col-right">
-      <ul id="mainmenu">
-                <li>
-                  <Link to="/user/info">User</Link>
-                  <ul>
-                    <li><Link to="/user/info" >User Info</Link></li>
-                    <li><Link to="/login" onClick={onLogout}>Logout</Link></li>
-                    
-                  </ul>
-                </li>
-                </ul><span id="menu-btn"></span>
-      </div>
-      <div className="clearfix"></div>
-    </div>
-  </div>
-</div>
-</div>)
+const UserHeader = ({ user, onLogout }: any) => (
+  <Navbar bg="light" expand="lg">
+    <Navbar.Brand href="#home">Graphql Monster (beta)</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="mr-auto">
+        <Nav.Link href="/user/projects">Projects</Nav.Link>
+        <NavDropdown title="Documentation" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/documentation#model">Model</NavDropdown.Item>
+          <NavDropdown.Item href="/documentation#fields">Fields</NavDropdown.Item>
+          <NavDropdown.Item href="/documentation#relations">Relations</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/documentation#model-permission">Model Permissions</NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+      <Nav className="mr-left">
+        <NavDropdown title="User" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/user/info">User Info</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/login" onClick={onLogout}>Logout</NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+)
 
 export default UserHeader
