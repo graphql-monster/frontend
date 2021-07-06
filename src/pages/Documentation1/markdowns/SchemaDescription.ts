@@ -1,5 +1,5 @@
 export default `
-# Menu
+# Schema Description
 
 1. [Model](#model)
 1. [Entity](#entity)

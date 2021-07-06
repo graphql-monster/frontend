@@ -17,7 +17,7 @@ import { Register } from './pages/login/Register'
 import Login from './pages/login/Login'
 import { PricingPage } from './pages/pricing/pricing'
 import SubscribePage from './pages/pricing/subsribe'
-import Documentation from './pages/documentation/Documentation'
+import DocumentationSchemaDescription from './pages/Documentation1/SchemaDescription'
 import SubscibesListPage from './pages/pricing/subsribe-list'
 import VerifyUser from './pages/login/VerifyUser'
 import UserInfo from './pages/login/UserInfo'
@@ -30,6 +30,7 @@ import { store } from './app/store'
 
 import './App.css'
 import ProjectFilesList from './pages/Files/List'
+import DocumentationOptainToken from './pages/Documentation1/OptainToken'
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -86,8 +87,11 @@ export default function App() {
               <Route path="/subscribe">
                 <SubscribePage />
               </Route>
-              <Route path="/documentation">
-                <Documentation />
+              <Route path="/documentation/schema-description">
+                <DocumentationSchemaDescription />
+              </Route>
+              <Route path="/documentation/optain-token">
+                <DocumentationOptainToken />
               </Route>
               <Route path="/user/projects/create" component={ProjectEdit} />
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />

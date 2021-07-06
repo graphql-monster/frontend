@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Button, Dropdown, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import NavDropdownItem from '../NavDropdownItem/NavDropdownItem'
+import NavLink from '../NavLink/NavLink'
 
 import './Header.css'
 import Logo from './Logo'
@@ -11,13 +13,10 @@ export const PublicHeader = () => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href="/pricing">Pricing</Nav.Link>
+        <NavLink to="/pricing">Pricing</NavLink>
         <NavDropdown title="Documentation" id="basic-nav-dropdown">
-          <NavDropdown.Item href="/documentation#model">Model</NavDropdown.Item>
-          <NavDropdown.Item href="/documentation#fields">Fields</NavDropdown.Item>
-          <NavDropdown.Item href="/documentation#relations">Relations</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="/documentation#model-permission">Model Permissions</NavDropdown.Item>
+          <NavDropdownItem to="/documentation/schema-description">Schema description</NavDropdownItem>
+          <NavDropdownItem to="/documentation/optain-token">Optain token</NavDropdownItem>
         </NavDropdown>
       </Nav>
       <Nav className="mr-left">
@@ -26,5 +25,7 @@ export const PublicHeader = () => (
     </Navbar.Collapse>
   </Navbar>
 )
+
+
 
 export default PublicHeader

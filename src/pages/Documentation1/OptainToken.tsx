@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import gfm from 'remark-gfm'
 
-import markdown from './Markdown'
+import markdown from './markdowns/OptainToken'
 import './Documentation.scss'
 
-export const Documentation = () => {
+export const DocumentationOptainToken = () => {
     return (
         <div className="container">
             <div className="my-documentation">
@@ -19,4 +19,4 @@ export const Documentation = () => {
     )
 }
 
-export default Documentation
+export default DocumentationOptainToken
