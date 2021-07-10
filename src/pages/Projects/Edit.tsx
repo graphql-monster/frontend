@@ -116,7 +116,7 @@ export const ProjectEdit = (data: any) => {
           filter: { user_every: { id: userId } },
         },
         data: {
-          allProjects: [...cacheRead.allProjects, createProject],
+          allProject: [...cacheRead.allProject, createProject],
         },
       })
 
@@ -155,6 +155,7 @@ export const ProjectEdit = (data: any) => {
           UPDATE_MUTATION: UPDATE_MUTATION,
           QUERY,
         }}
+        updateCache={updateCache}
       >
         {(storedData: any, onSubmit: any, errors: any) => <ProjectEditForm storedData={storedData} onSubmit={onSubmit} graphQlError={errors} projectId={projectId} />}
       </BaseEditor>

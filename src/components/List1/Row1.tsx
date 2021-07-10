@@ -43,7 +43,6 @@ export const ListRow: React.FC<IListRowParams> = ({ item, onDelete, name, fields
             ),
         )}
         {item.user && <td>{item.user.email}</td>}
-
         {showDelete && (
           <td className="right">
             <Button

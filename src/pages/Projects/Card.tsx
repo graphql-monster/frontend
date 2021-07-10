@@ -7,9 +7,10 @@ import { Alert, Button } from 'react-bootstrap'
 
 interface ICards {
   project: any
+  onRemove: (project: any) => void
 }
 
-export const Card: React.FC<ICards> = ({ project }) => {
+export const Card: React.FC<ICards> = ({ project, onRemove }) => {
   const history = useHistory()
 
   const projectConnectLink = `https://graphql.monster/client/${project.user.id}/project/${project.id}/graphql`
@@ -76,7 +77,13 @@ export const Card: React.FC<ICards> = ({ project }) => {
           >
             Admin Playground
           </button>
-          <button type="button" className="btn btn-sm btn-danger projectCardButtons">
+          <button
+            type="button"
+            className="btn btn-sm btn-danger projectCardButtons"
+            onClick={() => {
+              onRemove(project)
+            }}
+          >
             Delete
           </button>
         </div>

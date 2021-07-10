@@ -1,28 +1,31 @@
-import React from "react";
-import FilteredList from "../../components/List1/FilteredList";
-import gql from 'graphql-tag';
-import ConnectBase from "../../components/List1/ConnectBase";
+import React from 'react'
+import FilteredList from '../../components/List1/FilteredList'
+import gql from 'graphql-tag'
+import ConnectBase from '../../components/List1/ConnectBase'
 
 const USER_LIST_QUERY = gql`
-  query allUsers($filter: UserFilter){ allUsers(filter: $filter) {
+  query allUsers($filter: UserFilter) {
+    allUsers(filter: $filter) {
       id
-      name,
+      name
       models
-    }}
-`;
+    }
+  }
+`
 
 const ADMIN_LIST_QUERY = gql`
-  query allUsers($filter: UserFilter){ allUsers(filter: $filter) {
+  query allUser($filter: UserFilter) {
+    allUser(filter: $filter) {
       id
-      email,
-      password,
+      email
+      password
       roles {
         id
         name
       }
     }
   }
-`;
+`
 
 const DELETE_MUTATION = gql`
   mutation deleteUser($id: ID!) {
@@ -30,59 +33,65 @@ const DELETE_MUTATION = gql`
       id
     }
   }
-`;
+`
 
 const USER_ROLE_QUERY = gql`
-  query allUserRoles{ allUserRoles {
+  query allUserRoles {
+    allUserRoles {
       id
       name
-    }}
-`;
+    }
+  }
+`
 
 const ADD_MUTATION = gql`
-  mutation addToRoleOnUser($id1: ID!, $id2: ID!) { addToRoleOnUser(rolesUserRoleId:$id1, usersUserId:$id2) {
-    rolesUserRole {
-      id
-    } usersUser {
-      id
+  mutation addToRoleOnUser($id1: ID!, $id2: ID!) {
+    addToRoleOnUser(rolesUserRoleId: $id1, usersUserId: $id2) {
+      rolesUserRole {
+        id
+      }
+      usersUser {
+        id
+      }
     }
-  }}
-`;
+  }
+`
 
 const REMOVE_MUTATION = gql`
-  mutation removeFromRoleOnUser($id1: ID!, $id2: ID!) { removeFromRoleOnUser(rolesUserRoleId:$id1, usersUserId:$id2) {
-    rolesUserRole {
-      id
-    } usersUser {
-      id
+  mutation removeFromRoleOnUser($id1: ID!, $id2: ID!) {
+    removeFromRoleOnUser(rolesUserRoleId: $id1, usersUserId: $id2) {
+      rolesUserRole {
+        id
+      }
+      usersUser {
+        id
+      }
     }
-  }}
-`;
+  }
+`
 
-
-const ConnectRole: React.FC<{value:any, names?:any, item:any}> = ({value,names, item}) => {
- 
-
+const ConnectRole: React.FC<{ value: any; names?: any; item: any }> = ({ value, names, item }) => {
   const gql = {
     QUERY: USER_ROLE_QUERY,
     ADD: ADD_MUTATION,
-    REMOVE: REMOVE_MUTATION
+    REMOVE: REMOVE_MUTATION,
   }
 
-  return <ConnectBase value={value} names={names} gql={gql} item={item}/>
+  return <ConnectBase value={value} names={names} gql={gql} item={item} />
 }
 
-export const UserList: React.FC<{userId?: string, adminMode?: boolean}> = ({userId, adminMode=false}) => {
-    return (
-        <div>
-            <FilteredList 
-                name={'Users'}
-                fields={['email','password', {name: 'roles.name', component: ConnectRole}, 'roles.id']}
-                userId={userId} 
-                adminMode={adminMode}
-                queries={{USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION}} />
-        </div>
-    )
+export const UserList: React.FC<{ userId?: string; adminMode?: boolean }> = ({ userId, adminMode = false }) => {
+  return (
+    <div>
+      <FilteredList
+        name={'Users'}
+        fields={['email', 'password', { name: 'roles.name', component: ConnectRole }, 'roles.id']}
+        userId={userId}
+        adminMode={adminMode}
+        queries={{ USER_LIST_QUERY, ADMIN_LIST_QUERY, DELETE_MUTATION }}
+      />
+    </div>
+  )
 }
 
 export default UserList

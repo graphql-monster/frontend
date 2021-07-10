@@ -4,9 +4,10 @@ import gql from 'graphql-tag'
 import { Link, useHistory } from 'react-router-dom'
 import ProjectCards from './ProjectCards'
 import { Button } from 'react-bootstrap'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { selectUser } from '../../app/reducers/userSlice'
 import { useSelector } from 'react-redux'
+import DeleteModal from '../../components/DeleteModal/DeleteModal'
 
 export const USER_LIST_QUERY = gql`
   query allProjects1($filter: ProjectFilter) {
@@ -39,7 +40,7 @@ const ADMIN_LIST_QUERY = gql`
 
 const DELETE_MUTATION = gql`
   mutation deleteProject($id: ID!) {
-    deleteProject(id: $id) {
+    removeProject(id: $id) {
       id
     }
   }
@@ -54,7 +55,22 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
   const [data, setData] = useState<any[]>()
   const user = useSelector(selectUser) || { id: null }
 
-  const { refetch: userRefetch, loading: userLoading } = useQuery(USER_LIST_QUERY, {
+  const [projectForRemove, setProjectForRemove] = useState<any>(null)
+
+  const onHideDidaloDelete = () => {
+    setProjectForRemove(null)
+  }
+
+  const onRemove = (project: any) => {
+    setProjectForRemove(project)
+  }
+
+  const doRemove = async () => {
+    setProjectForRemove(null)
+    await removeMutation({ variables: { id: projectForRemove.id } })
+  }
+
+  const { refetch, loading: userLoading } = useQuery(USER_LIST_QUERY, {
     onError: (e) => {
       console.log('onError >>> ', e.message)
       if (e.message == 'GraphQL error: Unauhorized') {
@@ -81,6 +97,34 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
     },
   })
 
+  const [removeMutation] = useMutation(DELETE_MUTATION, {
+    errorPolicy: 'none',
+    update: (cache, { data }) => {
+      const removeProject = data.removeProject
+
+      if (removeProject) {
+        const cacheRead = cache.readQuery({
+          query: USER_LIST_QUERY,
+          variables: {
+            filter: { user_every: { id: user.id } },
+          },
+        }) as any
+
+        cache.writeQuery({
+          query: USER_LIST_QUERY,
+          variables: {
+            filter: { user_every: { id: user.id } },
+          },
+          data: {
+            allProject: cacheRead.allProject.filter((project: any) => project.id !== removeProject.id),
+          },
+        })
+        refetch()
+        console.log(data)
+      }
+    },
+  })
+
   const onCreateNew = () => {
     history.push('/user/projects/create')
   }
@@ -92,7 +136,7 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
           <div className="row">
             <div className="col-md-10 offset-md-1">
               <div className="col-md-12 ">
-                <ProjectCards projects={data} />
+                <ProjectCards projects={data} onRemove={onRemove} />
                 <Button onClick={onCreateNew}>Create New Project</Button>
               </div>
               <div className="clearfix"></div>
@@ -100,6 +144,7 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
           </div>
         </div>
       </div>
+      <DeleteModal show={!!projectForRemove} onHide={onHideDidaloDelete} onDelete={doRemove} category={'project'} deleteObject={projectForRemove} />
     </>
   )
 }
