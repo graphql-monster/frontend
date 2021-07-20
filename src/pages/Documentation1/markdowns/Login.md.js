@@ -1,5 +1,6 @@
-export default `
-# Optain Token
+
+                export default `
+# Obtain Token
 
 1. [Admin Playground](#entity)
 1. [Login existing user](#entity)
@@ -13,9 +14,11 @@ export default `
 In project list, is a button Admin Playground from where you can do all operations with admin role. For example list of all users
 
 ### Project with Admin Playground button
+
 ![alt admin playground button](/documentation/admin-playground-button.png)
 
 ### Admin Playground
+
 ![alt admin playground](/documentation/admin-playground.png)
 
 ### All user query
@@ -46,7 +49,7 @@ In project list, is a button Admin Playground from where you can do all operatio
 # Login existing user
 
 After create new project, your email and password is recreated also into your new project.
-So with your creadentials you can login to your project and you can optain a token with admin role.
+So with your creadentials you can login to your project and you can obtain a token with admin role.
 Unfortunately that is not possible if you are login to graphql.monster with 3party github, facebook,
 
 ### admin playground
@@ -153,7 +156,7 @@ curl -XPOST -H 'Authorization: Bearer eyJhbGciOiJIUzI1iNIsInR5cCI6IkpXVCJ9.eyJpZ
 
 # Refresh token
 
-Token is limited for one hour, but you can optain new token with \`refreshToken\` key together with new \`refreshToken\`
+Token is limited for one hour, but you can obtain new token with \`refreshToken\` key together with new \`refreshToken\`
 
 ### admin playground
 
@@ -196,4 +199,4 @@ curl -XPOST -H 'Authorization: Bearer eyJhbGciOiJIUzI1iNIsInR5cCI6IkpXVCJ9.eyJpZ
 }
 \`\`\`
 
-`
+            `

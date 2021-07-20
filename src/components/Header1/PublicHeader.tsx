@@ -16,16 +16,20 @@ export const PublicHeader = () => (
         <NavLink to="/pricing">Pricing</NavLink>
         <NavDropdown title="Documentation" id="basic-nav-dropdown">
           <NavDropdownItem to="/documentation/schema-description">Schema description</NavDropdownItem>
-          <NavDropdownItem to="/documentation/optain-token">Optain token</NavDropdownItem>
+          <NavDropdownItem to="/documentation/obtain-token">Obtain token</NavDropdownItem>
         </NavDropdown>
       </Nav>
       <Nav className="mr-left">
-        <Link className="" to="/login">Login</Link> or <Link className="" to="/register">Register</Link>
+        <Link className="" to="/login">
+          Login
+        </Link>{' '}
+        or{' '}
+        <Link className="" to="/register">
+          Register
+        </Link>
       </Nav>
     </Navbar.Collapse>
   </Navbar>
 )
-
-
 
 export default PublicHeader

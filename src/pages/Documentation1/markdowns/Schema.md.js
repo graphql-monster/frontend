@@ -1,4 +1,5 @@
-export default `
+
+                export default `
 # Schema Description
 
 1. [Model](#model)
@@ -373,4 +374,4 @@ type Todo @model {
 
 now all the objects of Todo can see also a user who is sign to TodosRole
 
-`
+            `

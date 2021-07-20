@@ -110,11 +110,11 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
         <hr />
         <h2>Test environment</h2>
         <AceControl name={'testVariables'} label={'Test Variables'} {...reactForm} storedData={storedData} defaultHight={100} />
-        {/* <AceControl name={'testTokenQuery'} label={'Optain Token'} {...reactForm} storedData={storedData} defaultHight={100} /> */}
+        {/* <AceControl name={'testTokenQuery'} label={'Obtain Token'} {...reactForm} storedData={storedData} defaultHight={100} /> */}
 
         <div className=".my-documentation">
           <h3>
-            Optaining user token{' '}
+            Obtaining user token{' '}
             <small>
               (
               <Link to={`/user/projects/${projectId}/graphiql`} target={'_blank'}>

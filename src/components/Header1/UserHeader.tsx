@@ -17,19 +17,20 @@ const UserHeader = ({ user, onLogout }: any) => (
         <NavLink to="/user/projects">Projects</NavLink>
         <NavDropdown title="Documentation" id="basic-nav-dropdown">
           <NavDropdownItem to="/documentation/schema-description">Schema description</NavDropdownItem>
-          <NavDropdownItem to="/documentation/optain-token">Optain token</NavDropdownItem>
+          <NavDropdownItem to="/documentation/obtain-token">Obtain token</NavDropdownItem>
         </NavDropdown>
-
       </Nav>
       <Nav className="mr-left">
         <NavDropdown title="User" id="basic-nav-dropdown">
           <NavDropdown.Item href="/user/info">User Info</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="/login" onClick={onLogout}>Logout</NavDropdown.Item>
+          <NavDropdown.Item href="/login" onClick={onLogout}>
+            Logout
+          </NavDropdown.Item>
         </NavDropdown>
       </Nav>
     </Navbar.Collapse>
-  </Navbar >
+  </Navbar>
 )
 
 export default UserHeader

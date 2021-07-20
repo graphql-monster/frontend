@@ -43,12 +43,14 @@
   },
   "scripts": {
     "start": "set PORT=3000 && react-scripts start",
+    "prebuild": "node utils/convert.js ../builder/Login.md ../builder/Schema.md ./src/pages/Documentation1/markdowns/",
     "build": "react-scripts build",
     "lint": "eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
-    "deploy": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
+    "deploy": "gh-pages -d ./build",
+    "deploy1": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && rm build.tar.gz",
     "deploy:all": "tar -zcf build.tar.gz ./build && scp build.tar.gz protectql@89.221.215.217:~/master/frontend && ssh protectql@89.221.215.217 'cd ~/master/frontend && yarn deploy:client' && rm build.tar.gz",
     "deploy:here": "ssh protectql@89.221.215.217 'cd ~/master/frontend/ && rm -r ./build/ && tar -xvf build.tar.gz && rm build.tar.gz\\'",
     "deploy:client": "rm -r ./build/ && tar -xvf build.tar.gz && rm build.tar.gz"
@@ -74,9 +76,12 @@
     "@types/react-resizable": "^1.7.2",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.1"
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.3.1",
+    "replace": "^1.2.1"
   }
 }
