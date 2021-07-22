@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "set PORT=3000 && react-scripts start",
-    "prebuild": "node utils/convert.js ../builder/Login.md ../builder/Schema.md ./src/pages/Documentation1/markdowns/",
+    "prebuild": "node utils/convert.js ./CreateWebTSApp.md ../builder/Login.md ../builder/Schema.md ./src/pages/Documentation1/markdowns/",
     "build": "react-scripts build",
     "lint": "eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix",
     "test": "react-scripts test",

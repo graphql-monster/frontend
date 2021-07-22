@@ -31,6 +31,7 @@ import { store } from './app/store'
 import './App.css'
 import ProjectFilesList from './pages/Files/List'
 import DocumentationObtainToken from './pages/Documentation1/ObtainToken'
+import DocumentationCreateTodoApp from './pages/Documentation1/CreateTodoApp'
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -92,6 +93,9 @@ export default function App() {
               </Route>
               <Route path="/documentation/obtain-token">
                 <DocumentationObtainToken />
+              </Route>
+              <Route path="/documentation/todo-app">
+                <DocumentationCreateTodoApp />
               </Route>
               <Route path="/user/projects/create" component={ProjectEdit} />
               <Route path="/user/projects/:projectId/graphiql" component={GQLPlayground} />

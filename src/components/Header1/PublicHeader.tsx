@@ -17,6 +17,7 @@ export const PublicHeader = () => (
         <NavDropdown title="Documentation" id="basic-nav-dropdown">
           <NavDropdownItem to="/documentation/schema-description">Schema description</NavDropdownItem>
           <NavDropdownItem to="/documentation/obtain-token">Obtain token</NavDropdownItem>
+          <NavDropdownItem to="/documentation/todo-app">Create Todo App Typescript</NavDropdownItem>
         </NavDropdown>
       </Nav>
       <Nav className="mr-left">
