@@ -341,7 +341,7 @@ NOTE: we waiting for response of `createTodo` because we want to know `id` of ne
 ```
     const addTask = async (title: string) => {
         const createdData = await createTodo({ variables: { title, completed: false } }) as any
-        const newTasks = [...tasks, createdData.createTodo];
+        const newTasks = [...tasks, createdData.data.createTodo];
         setTasks(newTasks)
     };
 ```
@@ -571,7 +571,7 @@ export function Todo() {
 
     const addTask = async (title: string) => {
         const createdData = await createTodo({ variables: { title, completed: false } }) as any
-        const newTasks = [...tasks, createdData.createTodo];
+        const newTasks = [...tasks, createdData.data.createTodo];
         setTasks(newTasks)
     };
 
