@@ -8,6 +8,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { selectUser } from '../../app/reducers/userSlice'
 import { useSelector } from 'react-redux'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
+import ReactGA from 'react-ga';
 
 export const USER_LIST_QUERY = gql`
   query allProjects1($filter: ProjectFilter) {
@@ -62,10 +63,18 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
   }
 
   const onRemove = (project: any) => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'On remove'
+    });
     setProjectForRemove(project)
   }
 
   const doRemove = async () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'Do remove'
+    });
     setProjectForRemove(null)
     await removeMutation({ variables: { id: projectForRemove.id } })
   }
@@ -126,6 +135,10 @@ export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = fal
   })
 
   const onCreateNew = () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'Create'
+    });
     history.push('/user/projects/create')
   }
 

@@ -8,6 +8,7 @@ import { selectUser } from '../../app/reducers/userSlice'
 import AceControl from '../../components/Editor/AceControl'
 import Control from '../../components/Editor/Control'
 import { GraphQLError } from './GraphQLError'
+import ReactGA from 'react-ga';
 
 export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId }: any) => {
   const user = useSelector(selectUser) || { id: null }
@@ -18,6 +19,10 @@ export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId 
   const { register, handleSubmit, formState, setValue, getValues, watch } = reactForm
 
   const processSubmit = (data: any) => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'Save'
+    });
     onSubmit(data)
   }
 
