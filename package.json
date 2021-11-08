@@ -20,7 +20,7 @@
     "eslint-plugin-react": "^7.24.0",
     "font-awesome": "^4.7.0",
     "graphql": "^15.5.0",
-    "graphql-playground-react": "1.7.27",
+    "graphql-playground-react": "1.7.28",
     "graphql.macro": "^1.4.2",
     "json5": "^2.2.0",
     "lodash": "^4.17.20",
