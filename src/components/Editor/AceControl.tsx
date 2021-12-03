@@ -3,7 +3,7 @@ import AceEditor from 'react-ace'
 import { Form, FormControl } from 'react-bootstrap'
 import { Resizable } from 'react-resizable'
 
-export const AceControl = ({ name, storedData, label, required, register, placeholder, formState, setValue, getValues, defaultHight }: any) => {
+export const AceControl = ({ name, defaultValue, storedData, label, required, register, placeholder, formState, setValue, getValues, defaultHight }: any) => {
   const { errors, touchedFields, dirtyFields } = formState
   const error = errors && errors[name]
   const touched = touchedFields && touchedFields[name]
@@ -14,7 +14,8 @@ export const AceControl = ({ name, storedData, label, required, register, placeh
 
   useEffect(() => {
     if (storedData && storedData[name]) setValue(name, storedData[name])
-  }, [storedData])
+    else if (defaultValue || defaultValue === '') setValue(name, defaultValue)
+  }, [storedData, defaultValue])
 
   const onResize = (_: unknown, { size }: any) => {
     setHeight(size.height)
@@ -32,7 +33,7 @@ export const AceControl = ({ name, storedData, label, required, register, placeh
             <AceEditor
               width={`100%`}
               height={`${height - 15}px`}
-              value={value != null ? value : storedData && storedData[name]}
+              value={value || (storedData && storedData[name]) || defaultValue}
               onChange={(value) => {
                 setValue(name, value)
               }}

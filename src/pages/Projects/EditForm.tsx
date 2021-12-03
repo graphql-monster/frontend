@@ -39,7 +39,7 @@ export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId 
         <Form onSubmit={handleSubmit(processSubmit)}>
           <Control name={'name'} label={'Service name (SERVICE_NAME)'} required={true} storedData={storedData} {...reactForm} />
           {graphQlError?.length > 0 && <GraphQLError graphQLError={graphQlError} />}
-          <AceControl name={'models'} label={'Schema'} {...reactForm} storedData={storedData} />
+          <AceControl name={'models'} label={'Models'} {...reactForm} defaultValue={''} storedData={storedData} />
           <hr />
           <Button type="submit">Save</Button>
         </Form>
