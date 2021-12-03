@@ -157,7 +157,7 @@ export const ProjectEdit = (data: any) => {
         }}
         updateCache={updateCache}
       >
-        {(storedData: any, onSubmit: any, errors: any) => <ProjectEditForm storedData={storedData} onSubmit={onSubmit} graphQlError={errors} projectId={projectId} />}
+        {(storedData: any, onSubmit: any, errors: any, submitting: boolean, submittingDone: boolean) => <ProjectEditForm storedData={storedData} onSubmit={onSubmit} graphQlError={errors} projectId={projectId} submitting={submitting} submittingDone={submittingDone} />}
       </BaseEditor>
     </div>
   )

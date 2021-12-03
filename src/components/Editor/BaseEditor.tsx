@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Loading from '../Loading/Loading'
 import Unauthorized from '../Unauthorized/Unauthorized'
 import { getDataFromRaw } from '../EditorEx/Edit'
@@ -8,6 +8,8 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
   const [localId, setLocalId] = useState(externId)
   const [unauthorized, setUnauthorized] = useState(false)
   const [errors, setErrors] = useState<string[] | null>([])
+  const [submittingDone, setSubmittingDone] = useState(false)
+
 
   const [storedData, setStoredData] = useState({})
 
@@ -37,6 +39,7 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
     const data = getDataFromRaw(raw)
     setLocalId(data.id)
     setErrors(null)
+    setSubmittingDone(true)
     if (onUpdated) onUpdated(raw)
   }
 
@@ -54,14 +57,14 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
     },
   })
 
-  const [createProjectMutation] = useMutation(query.CREATE_MUTATION, {
+  const [createProjectMutation, { loading: createSubmitting }] = useMutation(query.CREATE_MUTATION, {
     errorPolicy: 'none',
     onCompleted: onCompleted,
     update: updateCache,
     onError: handleError,
   })
 
-  const [updateProjectMutation] = useMutation(query.UPDATE_MUTATION, {
+  const [updateProjectMutation, { loading: updateSubmitting }] = useMutation(query.UPDATE_MUTATION, {
     errorPolicy: 'none',
     onCompleted: onCompleted,
     update: updateCache,
@@ -72,8 +75,11 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
   //   console.log(data)
   // }
 
+  const submitting = useMemo(() => createSubmitting || updateSubmitting, [createSubmitting, updateSubmitting])
+
   const onSubmit = useCallback(
     (data) => {
+      setSubmittingDone(false)
       if (localId) {
         setErrors(null)
         updateProjectMutation({
@@ -102,7 +108,7 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
     return <Loading what={name} />
   }
 
-  return <div>{children(storedData, onSubmit, errors)}</div>
+  return <div>{children(storedData, onSubmit, errors, submitting, submittingDone)}</div>
 }
 
 export default BaseEditor

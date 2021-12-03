@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-
+import ReactGA from 'react-ga';
 import './Card.scss'
 import logo from './3.png'
 import { Alert, Button } from 'react-bootstrap'
@@ -16,18 +16,34 @@ export const Card: React.FC<ICards> = ({ project, onRemove }) => {
   const projectConnectLink = `https://graphql.monster/client/${project.user.id}/project/${project.id}/graphql`
 
   const onEdit = () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'Edit'
+    });
     history.push('/user/projects/' + project.id)
   }
 
   const onExports = () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'Export'
+    });
     history.push(`/user/projects/${project.id}/exports`)
   }
 
   const onFiles = () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'File'
+    });
     history.push(`/user/projects/${project.id}/files`)
   }
 
   const onPlayground = () => {
+    ReactGA.event({
+      category: 'Project',
+      action: 'AdminPlayground'
+    });
     history.push(`/user/projects/${project.id}/graphiql`)
   }
 

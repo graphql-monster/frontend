@@ -8,6 +8,7 @@ import { isEmailValid, passwordStrong } from '../../app/utils'
 import PasswordComponent from './PasswordComponent'
 import { useAppDispatch } from '../../app/hooks'
 import { login, UserToken } from '../../app/reducers/userSlice'
+import ReactGA from 'react-ga';
 
 const REGISTER_MUTATION = gql`
   mutation register($email: String!, $pass: String!) {
@@ -45,6 +46,10 @@ export const Register: React.FC = () => {
   const [invalidCopy, setInvalidCopy] = useState(false)
 
   const onRegister = async () => {
+    ReactGA.event({
+      category: 'User',
+      action: 'OnRegister'
+    });
     if (!isEmailValid(email)) {
       return setInvalidEmail(true)
     }
@@ -59,6 +64,10 @@ export const Register: React.FC = () => {
       const userToken = data.register_v1 as UserToken
       dispatch(login(userToken))
       history.push('/user/projects')
+      ReactGA.event({
+        category: 'User',
+        action: 'Register'
+      });
     } catch (ex) {
       console.log('onError', data)
       setEmailProbablyTaken(true)
