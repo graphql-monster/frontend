@@ -13,7 +13,6 @@
     "ace-builds": "^1.4.12",
     "axios": "^1.21.1",
     "bootstrap": "^4.4.1",
-    "eslint-plugin-react": "^7.24.0",
     "font-awesome": "^4.7.0",
     "graphql": "^15.5.0",
     "graphql-playground-react": "1.7.27",
@@ -32,13 +31,14 @@
     "react-typed": "^2.0.12",
     "remark-gfm": "^1.0.0",
     "buffer": "^6.0.3",
-    "graphql-tag": "^2.12.6"
+    "graphql-tag": "^2.12.6",
+    "lru-cache": "^4.1.5"
   },
   "scripts": {
     "start": "vite",
     "prebuild": "node utils/convert.js ./CreateWebTSApp.md ../builder/Login.md ../builder/Schema.md ./src/pages/Documentation1/markdowns/",
     "build": "tsc --noEmit && vite build",
-    "lint": "eslint \"*/**/*.{js,ts,tsx}\" --quiet --fix",
+    "lint": "eslint .",
     "test": "vitest",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d ./build",
@@ -49,19 +49,20 @@
     "dev": "vite",
     "preview": "vite preview",
     "test:run": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate": "yarn typecheck && yarn lint && yarn test:run"
   },
   "devDependencies": {
     "@types/react-recaptcha": "^2.3.3",
     "@types/react-resizable": "^3.0.8",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
     "gh-pages": "^3.2.3",
-    "prettier": "^2.3.1",
+    "prettier": "3.10.1",
     "replace": "^1.2.1",
     "typescript": "~5.9.3",
     "sass": "^1.77.0",
@@ -69,12 +70,17 @@
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/user-event": "^14.6.12",
     "vite": "^8.3.8",
     "@vitejs/plugin-react": "^6.3.0",
     "vitest": "^5.1.0",
     "@rollup/plugin-graphql": "^3.0.0",
-    "jsdom": "^29.0.0"
+    "jsdom": "^29.0.0",
+    "@eslint/js": "^9.39.5",
+    "typescript-eslint": "^8.72.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0"
   },
   "resolutions": {
     "@types/react": "^18.3.0"

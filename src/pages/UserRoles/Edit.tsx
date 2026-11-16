@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
-import gql from "graphql-tag";
+import React, { useState, useEffect, useCallback } from 'react'
+import gql from 'graphql-tag'
 
-import BaseEdit from "../../components/EditorEx/Edit"
-
+import BaseEdit from '../../components/EditorEx/Edit'
 
 const CREATE_MUTATION = gql`
   mutation createUserRole($role: String!) {
@@ -11,42 +10,43 @@ const CREATE_MUTATION = gql`
       role
     }
   }
-`;
+`
 
 const UPDATE_MUTATION = gql`
-  mutation updateUserRole($id:ID!, $role: String!) {
+  mutation updateUserRole($id: ID!, $role: String!) {
     updateUserRole(id: $id, role: $role) {
       id
       role
     }
   }
-`;
+`
 
 const QUERY = gql`
-  query userRole($id:ID){ UserRole(id:$id) {
-      id,
-      role,
-    }}
-`;
+  query userRole($id: ID) {
+    UserRole(id: $id) {
+      id
+      role
+    }
+  }
+`
 
-export const UserRoleEdit = (data:any) => {
+export const UserRoleEdit = (data: any) => {
   const id = data?.match?.params?.id
-  
 
   return (
     <>
-      <BaseEdit 
-        id={id} 
+      <BaseEdit
+        id={id}
         name={'UserRole'}
         fields={['role']}
         query={{
-            CREATE_MUTATION,
-            UPDATE_MUTATION,
-            QUERY
+          CREATE_MUTATION,
+          UPDATE_MUTATION,
+          QUERY,
         }}
       />
     </>
-  );
-};
+  )
+}
 
 export default UserRoleEdit

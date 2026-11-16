@@ -1,6 +1,10 @@
 #import "./fragment.gql"
 
-query project($id:ID){ Project(id:$id) {
-      ...ProjectFragment
-      user{id}
-    }}
+query project($id: ID) {
+  Project(id: $id) {
+    ...ProjectFragment
+    user {
+      id
+    }
+  }
+}

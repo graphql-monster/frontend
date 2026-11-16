@@ -10,7 +10,6 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
   const [errors, setErrors] = useState<string[] | null>([])
   const [submittingDone, setSubmittingDone] = useState(false)
 
-
   const [storedData, setStoredData] = useState({})
 
   const handleError = (incommingError: { message: string }) => {

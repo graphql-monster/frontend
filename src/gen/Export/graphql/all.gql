@@ -1,6 +1,7 @@
 #import "./fragment.gql"
 
-query allExports($filter: ExportFilter){ 
+query allExports($filter: ExportFilter) {
   all: allExports(filter: $filter) {
     ...ExportFragment
-  }}
+  }
+}

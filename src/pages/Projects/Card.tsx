@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga'
 import './Card.scss'
 import logo from './3.png'
 import { Alert, Button } from 'react-bootstrap'
@@ -18,32 +18,32 @@ export const Card: React.FC<ICards> = ({ project, onRemove }) => {
   const onEdit = () => {
     ReactGA.event({
       category: 'Project',
-      action: 'Edit'
-    });
+      action: 'Edit',
+    })
     history.push('/user/projects/' + project.id)
   }
 
   const onExports = () => {
     ReactGA.event({
       category: 'Project',
-      action: 'Export'
-    });
+      action: 'Export',
+    })
     history.push(`/user/projects/${project.id}/exports`)
   }
 
   const onFiles = () => {
     ReactGA.event({
       category: 'Project',
-      action: 'File'
-    });
+      action: 'File',
+    })
     history.push(`/user/projects/${project.id}/files`)
   }
 
   const onPlayground = () => {
     ReactGA.event({
       category: 'Project',
-      action: 'AdminPlayground'
-    });
+      action: 'AdminPlayground',
+    })
     history.push(`/user/projects/${project.id}/graphiql`)
   }
 

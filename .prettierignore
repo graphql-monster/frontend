@@ -1,0 +1,8 @@
+node_modules/
+build/
+coverage/
+yarn.lock
+public/
+src/pages/Documentation1/markdowns/
+src/css/landing/
+CreateWebTSApp.md

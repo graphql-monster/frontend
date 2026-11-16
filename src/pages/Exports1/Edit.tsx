@@ -20,7 +20,7 @@ const mutationOptaionToken = `mutation{
 }`
 
 async function downloadPDF(setStatus: (a: TPdfDownloadState) => void, url: string, filename = 'download.pdf', token = '') {
-  let headers = new Headers()
+  const headers = new Headers()
   if (token) headers.append('Authorization', `Bearer ${token}`)
   setStatus({})
   try {
@@ -41,7 +41,7 @@ async function downloadPDF(setStatus: (a: TPdfDownloadState) => void, url: strin
         // For other browsers: create a link pointing to the ObjectURL containing the blob.
         const objUrl = window.URL.createObjectURL(newBlob)
 
-        let link = document.createElement('a')
+        const link = document.createElement('a')
         link.href = objUrl
         link.download = filename
         link.click()
@@ -54,7 +54,7 @@ async function downloadPDF(setStatus: (a: TPdfDownloadState) => void, url: strin
         setStatus({ ok: true })
       }
     } else {
-      let b = new Blob([blob], { type: 'application/json' })
+      const b = new Blob([blob], { type: 'application/json' })
       const fr = new FileReader()
 
       fr.onload = function (data1) {

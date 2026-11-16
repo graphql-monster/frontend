@@ -32,7 +32,9 @@ test('sends refresh credentials as JSON and returns the GraphQL response through
 
 test('propagates transport failures to the token refresh handler', async () => {
   const error = new Error('Network unavailable')
-  axios.defaults.adapter = async () => { throw error }
+  axios.defaults.adapter = async () => {
+    throw error
+  }
 
   await expect(refreshToken()).rejects.toBe(error)
 })

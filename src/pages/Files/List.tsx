@@ -76,31 +76,25 @@ export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }
     setFileList(localFiles?.data?.data?.allFile)
   }
 
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const onChange = async (event: React.FormEvent<HTMLInputElement>) => {
     const files = event.currentTarget?.files || []
     const file = files[0]
 
     const data = new FormData()
     data.append('file', file)
-    new Promise(async (resolve, reject) => {
-      const event = await axios.post(`${URL}/upload`, data, {
-        // authorization: Bearer
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          xuser: user.id,
-          xproject: params?.projectId,
-        },
-      })
-      console.log(event)
-      loadFilesFromClient()
-      resolve(event)
-      // receive two    parameter endpoint url ,form data
+    const response = await axios.post(`${URL}/upload`, data, {
+      // authorization: Bearer
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        xuser: user.id,
+        xproject: params?.projectId,
+      },
     })
+    console.log(response)
+    loadFilesFromClient()
 
     // history.push(`/user/projects/${params.projectId}/exports/create`)
   }
-
-  if (!user) return <></>
 
   useEffect(() => {
     if (URL && user.token) loadFilesFromClient()

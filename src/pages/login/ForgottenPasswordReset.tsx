@@ -62,8 +62,8 @@ export const ForgotenPasswordReset: React.FC<any> = ({ match }) => {
     const doCheck = async () => {
       try {
         await doForgottenPasswordCheck({ variables: { token } })
-      } catch (ex) {
-      } finally {
+      } catch {
+        // The mutation exposes the error through its result state.
       }
     }
 

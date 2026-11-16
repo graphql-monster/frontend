@@ -13,8 +13,8 @@ The development server runs at http://localhost:3000 with React Fast Refresh.
 ## Checks and production build
 
 ```sh
-yarn typecheck
-yarn test:run
+yarn validate
+yarn format:check
 yarn build
 yarn preview
 ```
@@ -52,3 +52,19 @@ The existing GitHub Pages redirect page and custom domain file remain in
 Legacy GraphQL Playground, Google Analytics and Markdown dependencies still
 report peer dependency warnings. Full browser behavior with the backend needs
 manual verification. Registration has an existing nested form warning.
+
+## Linting and formatting
+
+`yarn lint` checks the project without changing files. `yarn lint:fix` applies
+automatic fixes. `yarn format` applies Prettier, and `yarn format:check` verifies
+formatting. `yarn validate` runs TypeScript, ESLint and all tests.
+
+ESLint uses flat configuration with TypeScript and React plugins. Existing
+unused declarations and missing JSX keys are warnings; dynamic GraphQL form
+types can still use `any`. Build output, public vendor files and generated
+documentation are excluded from formatting and linting where appropriate.
+
+ESLint stays on version 9 for compatibility with eslint-plugin-react, and
+TypeScript stays on 5.9 within typescript-eslint's supported range.
+GraphQL Playground also needs a direct lru-cache 4 dependency because its
+published package imports it without declaring it as a runtime dependency.

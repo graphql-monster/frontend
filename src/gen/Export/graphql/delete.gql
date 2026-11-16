@@ -1,5 +1,5 @@
-  mutation deleteExport($id: ID!) {
-    deleted: deleteExport(id: $id) {
-      id
-    }
+mutation deleteExport($id: ID!) {
+  deleted: deleteExport(id: $id) {
+    id
   }
+}
