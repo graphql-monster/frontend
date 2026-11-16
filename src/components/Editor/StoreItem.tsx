@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -11,7 +10,7 @@ export const StoreItem = ({name, storeSelector, register, setValue, storedData}:
         if(storedData && storedData[storedDataName]) {
             let storedId: string
       
-            if(isRelation) storedId = _.get(storedData, [storedDataName, 'id'])
+            if(isRelation) storedId = storedData?.[storedDataName]?.id
             else storedId = storedData[storedDataName]
       
             setValue(name, storedId)

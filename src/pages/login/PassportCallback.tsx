@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import _ from 'lodash'
 import { Alert } from 'react-bootstrap'
 import { login, UserToken } from '../../app/reducers/userSlice'
 import { useAppDispatch } from '../../app/hooks'
@@ -13,7 +12,7 @@ export const tokenFromFacebookCode = async (type: string, code: string) => {
 export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
   const dispatch = useAppDispatch()
   const location = useLocation()
-  const codeRaw = _.get(location, 'search', '').split('?code=')
+  const codeRaw = location.search.split('?code=')
   const code = codeRaw.length > 1 ? codeRaw[1] : ''
 
   const history = useHistory()
@@ -35,7 +34,8 @@ export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
         dispatch(login(userToken))
         history.replace('/user/projects')
       } catch (ex) {
-        const response = JSON.parse(_.get(ex, 'request.response', '{}'))
+        const request = (ex as { request?: { response?: string } } | null)?.request
+        const response = JSON.parse(request?.response === undefined ? '{}' : request.response)
         showError(response.error?.error || response.error?.message || (ex instanceof Error ? ex.message : String(ex)))
       }
     }

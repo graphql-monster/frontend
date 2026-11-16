@@ -4,7 +4,6 @@ import { BaseForm, TBaseForm } from "./Form";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import { DEFAULT_SCHEMA } from "../../pages/Projects/defaultSchema";
-import * as _ from 'lodash'
 import { Alert, Button } from 'react-bootstrap'
 import Unauthorized from '../Unauthorized/Unauthorized'
 import Loading from '../Loading/Loading'

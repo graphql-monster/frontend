@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
-import * as _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
@@ -25,7 +24,7 @@ const VERIFY_EMAIL_MUTATION = gql`
 `
 
 export const VerifyUser: React.FC<any> = ({ match }) => {
-  const verifyToken = _.get(match, 'params.verifyToken')
+  const verifyToken = match?.params?.verifyToken
   const [verified, setVerified] = useState(false)
 
   const history = useHistory()

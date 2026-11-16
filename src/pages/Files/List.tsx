@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import { Button, Tab, Table, Tabs } from 'react-bootstrap'
 import { SelectCallback } from 'react-bootstrap/esm/helpers'
 import axios from 'axios'
-import { map } from 'lodash'
 
 const USER_LIST_QUERY = gql`
   query allExport($filter: ExportFilter) {

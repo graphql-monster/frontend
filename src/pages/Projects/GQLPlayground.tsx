@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React from 'react'
 import { Provider, useSelector } from 'react-redux'
 import { Playground, store, getSettings, setSettingsString } from 'graphql-playground-react'
@@ -6,7 +5,7 @@ import { selectUser } from '../../app/reducers/userSlice'
 
 export const GQLPlayground: React.FC<{ data: any }> = (data: any) => {
   const userState = useSelector(selectUser) || { id: null, token: null }
-  const projectId = _.get(data, 'match.params.projectId')
+  const projectId = data?.match?.params?.projectId
   const endpoint = `${process.env.REACT_APP_HOST}/client/${userState.id}/project/${projectId}/graphql`
   // const endpoint = `${process.env.REACT_APP_HOST}/graphql`
 
