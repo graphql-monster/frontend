@@ -1,18 +1,17 @@
 import axios, { AxiosAdapter } from 'axios'
 import { refreshToken } from './refreshToken'
+import { vi } from 'vitest'
 
 const originalAdapter = axios.defaults.adapter
-const originalHost = process.env.REACT_APP_HOST
 
 afterEach(() => {
   axios.defaults.adapter = originalAdapter
-  if (originalHost === undefined) delete process.env.REACT_APP_HOST
-  else process.env.REACT_APP_HOST = originalHost
+  vi.unstubAllEnvs()
   localStorage.clear()
 })
 
 test('sends refresh credentials as JSON and returns the GraphQL response through Axios', async () => {
-  process.env.REACT_APP_HOST = 'https://api.example.test'
+  vi.stubEnv('REACT_APP_HOST', 'https://api.example.test')
   localStorage.setItem('user.id', 'user-1')
   localStorage.setItem('user.token', 'expired-token')
   localStorage.setItem('user.refreshToken', 'refresh-token')

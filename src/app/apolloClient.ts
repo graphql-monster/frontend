@@ -90,7 +90,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const httpLink = createHttpLink({
-  uri: `${process.env.REACT_APP_HOST}/graphql`,
+  uri: `${import.meta.env.REACT_APP_HOST}/graphql`,
   //uri: 'http://protectql.com/graphql',
 })
 

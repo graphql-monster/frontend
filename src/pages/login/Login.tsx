@@ -136,13 +136,13 @@ export const Login: React.FC = () => {
                   <ul className="list s3">
                     <li>Or login with:</li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/github`}>GitHub</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/github`}>GitHub</a>
                     </li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a>
                     </li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/google`}>Google</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/google`}>Google</a>
                     </li>
                   </ul>
                 </div>

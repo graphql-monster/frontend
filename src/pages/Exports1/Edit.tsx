@@ -83,7 +83,7 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
   const testLink = useMemo(() => {
     const jsonValue = testVariables ? JSON5.stringify(JSON5.parse(testVariables)) : ''
     const escapedValue = encodeURI(jsonValue.substr(1, jsonValue.length - 2))
-    return `${process.env.REACT_APP_HOST}/client/${user.id}/project/${projectId}/pdf/${storedData['id']}/${escapedValue}`
+    return `${import.meta.env.REACT_APP_HOST}/client/${user.id}/project/${projectId}/pdf/${storedData['id']}/${escapedValue}`
   }, [testVariables])
 
   const onTestDownload = useCallback(() => {

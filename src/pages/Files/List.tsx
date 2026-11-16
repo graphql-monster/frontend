@@ -57,7 +57,7 @@ export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }
   const user = useSelector(selectUser) || { id: null, token: '' }
   const history = useHistory()
   const params = useParams() as any
-  const URL = useMemo(() => `${process.env.REACT_APP_HOST}/client/${user.id}/project/${params?.projectId}`, [user.id, params?.projectId])
+  const URL = useMemo(() => `${import.meta.env.REACT_APP_HOST}/client/${user.id}/project/${params?.projectId}`, [user.id, params?.projectId])
 
   const loadFilesFromClient = async () => {
     const localFiles = await clientGQL(

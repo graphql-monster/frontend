@@ -1,13 +1,14 @@
 import React from "react";
-import { loader } from 'graphql.macro';
 import { useParams } from "react-router-dom";
 import BaseEdit from "../../components/EditorEx/Edit";
 
 
-export const CREATE_MUTATION = loader('./graphql/create.gql')
-export const UPDATE_MUTATION = loader('./graphql/update.gql')
-export const ONE_QUERY = loader('./graphql/one.gql');
-export const ALL_QUERY = loader('./graphql/all.gql');
+import CREATE_MUTATION from './graphql/create.gql'
+import UPDATE_MUTATION from './graphql/update.gql'
+import ONE_QUERY from './graphql/one.gql'
+import ALL_QUERY from './graphql/all.gql'
+
+export { CREATE_MUTATION, UPDATE_MUTATION, ONE_QUERY, ALL_QUERY }
 
 export const FIELDS = [
 	{name: 'name', label:'Name', required: true},

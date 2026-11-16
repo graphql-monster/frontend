@@ -1,6 +1,6 @@
 #import "./fragment.gql"
 
-query export($id:ID){ 
+query ExportById($id:ID){
   one: Export(id:$id) {
       ...ExportFragment
     }}

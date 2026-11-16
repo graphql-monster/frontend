@@ -1,12 +1,13 @@
 import React from "react";
-import { loader } from "graphql.macro";
 
 import { useSelector } from "react-redux";
 
 
 
-export const USER_LIST_QUERY = loader('./graphql/all.gql')
-export const DELETE_MUTATION = loader('./graphql/delete.gql')
+import USER_LIST_QUERY from './graphql/all.gql'
+export { USER_LIST_QUERY }
+import DELETE_MUTATION from './graphql/delete.gql'
+export { DELETE_MUTATION }
 export const ADMIN_LIST_QUERY = USER_LIST_QUERY
 
 export const FIELDS = [{name: 'name', title:'Name'},

@@ -6,8 +6,8 @@ import { selectUser } from '../../app/reducers/userSlice'
 export const GQLPlayground: React.FC<{ data: any }> = (data: any) => {
   const userState = useSelector(selectUser) || { id: null, token: null }
   const projectId = data?.match?.params?.projectId
-  const endpoint = `${process.env.REACT_APP_HOST}/client/${userState.id}/project/${projectId}/graphql`
-  // const endpoint = `${process.env.REACT_APP_HOST}/graphql`
+  const endpoint = `${import.meta.env.REACT_APP_HOST}/client/${userState.id}/project/${projectId}/graphql`
+  // const endpoint = `${import.meta.env.REACT_APP_HOST}/graphql`
 
   // NOTE: for some reason pass setting over `setting` properties doesn't work
   //       so it is taken this workeround
