@@ -6,7 +6,7 @@ import { login, UserToken } from '../../app/reducers/userSlice'
 import { useAppDispatch } from '../../app/hooks'
 
 export const tokenFromFacebookCode = async (type: string, code: string) => {
-  return axios.get(`${process.env.REACT_APP_HOST}/auth/${type}/callback?code=${code}`)
+  return axios.get(`${import.meta.env.REACT_APP_HOST}/auth/${type}/callback?code=${code}`)
 }
 
 export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {

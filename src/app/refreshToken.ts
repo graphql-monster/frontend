@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 export const refreshToken = async () => {
-    const userId = localStorage.getItem('user.id')
-    const token = localStorage.getItem('user.token')
-    const refreshToken = localStorage.getItem('user.refreshToken')
-    return axios.post(`${process.env.REACT_APP_HOST}/graphql`, {
-        query: `
+  const userId = localStorage.getItem('user.id')
+  const token = localStorage.getItem('user.token')
+  const refreshToken = localStorage.getItem('user.refreshToken')
+  return axios.post(`${import.meta.env.REACT_APP_HOST}/graphql`, {
+    query: `
             mutation refreshToken($userId: ID!, $token: String!, $refreshToken:String!){
                 refreshToken_v1(userId: $userId, token: $token, refreshToken:$refreshToken){
                     token,
@@ -13,10 +13,10 @@ export const refreshToken = async () => {
                 }
             }
         `,
-        variables: {
-            userId,
-            token,
-            refreshToken
-        }
-    })
+    variables: {
+      userId,
+      token,
+      refreshToken,
+    },
+  })
 }

@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink, fromPromise } from '@apollo/client'
+import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink, fromPromise, NextLink, Operation } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { refreshToken } from './refreshToken'
@@ -14,16 +14,15 @@ const retryLink = new RetryLink({
 })
 
 let isRefreshing = false
-let pendingRequests: any = []
+let pendingRequests: Array<() => void> = []
 
 const resolvePendingRequests = () => {
-  //@ts-ignore
   pendingRequests.map((callback) => callback())
   pendingRequests = []
 }
 
 // https://able.bio/AnasT/apollo-graphql-async-access-token-refresh--470t1c8
-const unautheniticatedAction = (forward: any, operation: any) => {
+const unautheniticatedAction = (forward: NextLink, operation: Operation) => {
   // error code is set to UNAUTHENTICATED
   // when AuthenticationError thrown in resolver
   let forward$
@@ -32,7 +31,6 @@ const unautheniticatedAction = (forward: any, operation: any) => {
     isRefreshing = true
     forward$ = fromPromise(
       refreshToken()
-        // @ts-ignore
         .then(({ data }) => {
           const {
             data: { refreshToken_v1 },
@@ -64,14 +62,12 @@ const unautheniticatedAction = (forward: any, operation: any) => {
   } else {
     // Will only emit once the Promise is resolved
     forward$ = fromPromise(
-      new Promise((resolve) => {
-        // @ts-ignore
+      new Promise<void>((resolve) => {
         pendingRequests.push(() => resolve())
       }),
     )
   }
 
-  // @ts-ignore
   return forward$.flatMap(() => {
     return forward(operation)
   })
@@ -90,11 +86,10 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const httpLink = createHttpLink({
-  uri: `${process.env.REACT_APP_HOST}/graphql`,
+  uri: `${import.meta.env.REACT_APP_HOST}/graphql`,
   //uri: 'http://protectql.com/graphql',
 })
 
-// @ts-ignore
 const erroLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors && graphQLErrors.some((error) => (error as any).tokenExpired)) {
     return unautheniticatedAction(forward, operation)

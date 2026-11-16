@@ -1,4 +1,3 @@
-import { loader } from 'graphql.macro'
 import React, { useState } from 'react'
 import AceEditor from 'react-ace'
 import { Form } from 'react-bootstrap'
@@ -11,9 +10,9 @@ import { USER_LIST_QUERY } from './List'
 import 'ace-builds/src-noconflict/mode-java'
 import 'ace-builds/src-noconflict/theme-github'
 
-const CREATE_MUTATION = loader('./graphql/create.gql')
-const UPDATE_MUTATION = loader('./graphql/update.gql')
-const QUERY = loader('./graphql/query.gql')
+import CREATE_MUTATION from './graphql/create.gql'
+import UPDATE_MUTATION from './graphql/update.gql'
+import QUERY from './graphql/query.gql'
 
 const ProjectSchemaControl: React.FC<TControl> = ({ onChange, value }) => (
   <React.Fragment>
@@ -156,7 +155,16 @@ export const ProjectEdit = (data: any) => {
         }}
         updateCache={updateCache}
       >
-        {(storedData: any, onSubmit: any, errors: any, submitting: boolean, submittingDone: boolean) => <ProjectEditForm storedData={storedData} onSubmit={onSubmit} graphQlError={errors} projectId={projectId} submitting={submitting} submittingDone={submittingDone} />}
+        {(storedData: any, onSubmit: any, errors: any, submitting: boolean, submittingDone: boolean) => (
+          <ProjectEditForm
+            storedData={storedData}
+            onSubmit={onSubmit}
+            graphQlError={errors}
+            projectId={projectId}
+            submitting={submitting}
+            submittingDone={submittingDone}
+          />
+        )}
       </BaseEditor>
     </div>
   )

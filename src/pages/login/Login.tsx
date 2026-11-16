@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAppDispatch } from '../../app/hooks'
 import { login, UserToken } from '../../app/reducers/userSlice'
 import { isEmailValid } from '../../app/utils'
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga'
 
 const LOGIN_QL = gql`
   mutation Login($email: String!, $pass: String!) {
@@ -40,8 +40,8 @@ export const Login: React.FC = () => {
   const onLogin = async () => {
     ReactGA.event({
       category: 'User',
-      action: 'OnLogin'
-    });
+      action: 'OnLogin',
+    })
     if (!isEmailValid(email)) {
       return setInvalidEmail(true)
     }
@@ -54,8 +54,8 @@ export const Login: React.FC = () => {
       history.push('/user/projects')
       ReactGA.event({
         category: 'User',
-        action: 'Login'
-      });
+        action: 'Login',
+      })
     } catch (e) {
       setInvalidEmail(true)
       setInvalidPass(true)
@@ -136,13 +136,13 @@ export const Login: React.FC = () => {
                   <ul className="list s3">
                     <li>Or login with:</li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/github`}>GitHub</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/github`}>GitHub</a>
                     </li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/facebook`}>Facebook</a>
                     </li>
                     <li>
-                      <a href={`${process.env.REACT_APP_HOST}/auth/google`}>Google</a>
+                      <a href={`${import.meta.env.REACT_APP_HOST}/auth/google`}>Google</a>
                     </li>
                   </ul>
                 </div>
@@ -156,4 +156,3 @@ export const Login: React.FC = () => {
 }
 
 export default Login
-

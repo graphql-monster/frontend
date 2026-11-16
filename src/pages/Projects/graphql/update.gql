@@ -1,47 +1,47 @@
 #import "./fragment.gql"
 
 mutation updateProject(
-    $id: ID!, 
-    $name: String!, 
-    $domain: String, 
-    $models: String!, 
+  $id: ID!
+  $name: String!
+  $domain: String
+  $models: String!
+  $email: String
+  $emailWelcomeTitle: String
+  $emailWelcomeMessage: String
+  $emailForgottenPasswordTitle: String
+  $emailForgottenPasswordMessage: String
+  $loginFacebookId: String
+  $loginFacebookSecret: String
+  $loginFacebookCallbackURL: String
+  $loginGithubCallbackURL: String
+  $loginGithubId: String
+  $loginGithubSecret: String
+  $loginGmailId: String
+  $loginGmailSecret: String
+  $loginGmailCallbackURL: String
+) {
+  updateProject(
+    id: $id
+    name: $name
+    domain: $domain
+    models: $models
 
-    $email: String, 
-    $emailWelcomeTitle: String, 
-    $emailWelcomeMessage: String, 
-    $emailForgottenPasswordTitle: String, 
-    $emailForgottenPasswordMessage:String,
+    email: $email
+    emailWelcomeTitle: $emailWelcomeTitle
+    emailWelcomeMessage: $emailWelcomeMessage
+    emailForgottenPasswordTitle: $emailForgottenPasswordTitle
+    emailForgottenPasswordMessage: $emailForgottenPasswordMessage
 
-    $loginFacebookId:String,
-    $loginFacebookSecret:String,
-    $loginFacebookCallbackURL:String
-    $loginGithubCallbackURL:String
-    $loginGithubId:String,
-    $loginGithubSecret:String,
-    $loginGmailId:String,
-    $loginGmailSecret:String,
-    $loginGmailCallbackURL:String) {
-    
-    updateProject(id: $id, 
-                  name: $name, 
-                  domain: $domain, 
-                  models: $models, 
-                  
-                  email:$email, 
-                  emailWelcomeTitle:$emailWelcomeTitle, 
-                  emailWelcomeMessage:$emailWelcomeMessage, 
-                  emailForgottenPasswordTitle: $emailForgottenPasswordTitle, 
-                  emailForgottenPasswordMessage: $emailForgottenPasswordMessage,
-
-                  loginFacebookId: $loginFacebookId,
-                  loginFacebookSecret: $loginFacebookSecret,
-                  loginFacebookCallbackURL: $loginFacebookCallbackURL,
-                  loginGithubId: $loginGithubId,
-                  loginGithubSecret: $loginGithubSecret,
-                  loginGithubCallbackURL: $loginGithubCallbackURL,
-                  loginGmailId: $loginGmailId,
-                  loginGmailSecret: $loginGmailSecret,
-                  loginGmailCallbackURL: $loginGmailCallbackURL) {
-           ...ProjectFragment
-    }
+    loginFacebookId: $loginFacebookId
+    loginFacebookSecret: $loginFacebookSecret
+    loginFacebookCallbackURL: $loginFacebookCallbackURL
+    loginGithubId: $loginGithubId
+    loginGithubSecret: $loginGithubSecret
+    loginGithubCallbackURL: $loginGithubCallbackURL
+    loginGmailId: $loginGmailId
+    loginGmailSecret: $loginGmailSecret
+    loginGmailCallbackURL: $loginGmailCallbackURL
+  ) {
+    ...ProjectFragment
   }
+}

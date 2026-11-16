@@ -1,8 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import './Row1.scss'
-
 
 export interface IFilteredFieldDesc {
   name: string
@@ -23,33 +22,28 @@ const getElementFromField = (item: any, field: IFilteredField) => {
   const names = fieldDesc.name ? fieldDesc.name.split('.') : (field as string).split('.')
   const element = item[names[0]]
 
-  return {element, name: names[0], names}
+  return { element, name: names[0], names }
 }
 
 export const ListRowItem: React.FC<IListRowParams> = ({ item, field }) => {
-  const {element, name, names} = getElementFromField(item, field)
+  const { element, name, names } = getElementFromField(item, field)
 
-  if(!element) {
-    return (<>ERR NOT EXIST:{name}</>)
+  if (!element) {
+    return <>ERR NOT EXIST:{name}</>
   }
 
-  if((field as IFilteredFieldDesc).component) {
+  if ((field as IFilteredFieldDesc).component) {
     const component = (field as IFilteredFieldDesc).component
-    return (<>{component && component({value:element, names, item})}</>)
+    return <>{component && component({ value: element, names, item })}</>
   }
 
-  if(element.substr && element.length > 50) {
-    return (<>{element.substr(0, 47)}...</>)
+  if (element.substr && element.length > 50) {
+    return <>{element.substr(0, 47)}...</>
   }
 
-  if(element.push && element.reduce && names.length > 1) {
-    return (<>{(element as any[]).reduce((p, e)=>p + e[names[1]], '')}</>)
+  if (element.push && element.reduce && names.length > 1) {
+    return <>{(element as any[]).reduce((p, e) => p + e[names[1]], '')}</>
   }
 
-  return (
-    <>
-    {element}
-    </>
-  );
-};
-
+  return <>{element}</>
+}

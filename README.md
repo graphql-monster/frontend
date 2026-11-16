@@ -1,67 +1,70 @@
-## Project setup
+# GraphQL Monster frontend
 
-The application uses React 18.3 and the `createRoot` API, TypeScript 4.9,
-Create React App 5, and Dart Sass. Use Yarn 1 and the committed `yarn.lock`.
-The migration was verified with Node.js 24.11.1.
+React 18 application built with Vite, TypeScript and Dart Sass.
+Use Node.js 24 or newer and Yarn 1. The setup was verified with Node.js 24.11.1.
 
 ```sh
 yarn install --frozen-lockfile
 yarn start
-yarn tsc --noEmit
-CI=true yarn test --watchAll=false --runInBand
-yarn build
 ```
 
-The backend URL is configured through `REACT_APP_HOST` in the environment files.
-When the sibling `../builder` repository is unavailable, the documentation build
-keeps the generated Login and Schema documentation committed in this repository.
+The development server runs at http://localhost:3000 with React Fast Refresh.
 
-Legacy GraphQL Playground, Google Analytics, and Markdown dependencies still
-report peer dependency warnings. Their full browser behavior, including backend
-integration, needs manual verification. The registration screen also has an
-existing nested form warning.
+## Checks and production build
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```sh
+yarn validate
+yarn format:check
+yarn build
+yarn preview
+```
 
-## Available Scripts
+`yarn test` runs Vitest in watch mode. Tests use jsdom and Testing Library.
+`yarn build` checks TypeScript and writes the production site to `build/`,
+preserving the output directory used by the existing deploy scripts.
+`yarn preview` serves that production build locally.
 
-In the project directory, you can run:
+## Configuration
 
-### `yarn start`
+The backend URL stays in `REACT_APP_HOST` in `.env` and `.env.production`.
+Read it in application code with `import.meta.env.REACT_APP_HOST`.
+Vite exposes only variables prefixed with `REACT_APP_` or `VITE_`; all such
+variables are public and are embedded at build time. Local overrides can use
+`.env.local` or `.env.production.local`.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+GraphQL documents use direct `.gql` imports. The GraphQL plugin resolves
+`#import` fragment references for both the dev server and production builds.
+Bootstrap Sass imports use package paths without Webpack's `~` prefix.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The prebuild step generates documentation from Markdown. When the sibling
+`../builder` repository is unavailable, it keeps the generated Login and Schema
+documentation committed here.
 
-### `yarn test`
+## Hosting
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Deploy the contents of `build/` at the domain root. The server must serve
+`index.html` for application routes, such as `/login` and `/user/projects`.
+The existing GitHub Pages redirect page and custom domain file remain in
+`public/` and are copied to the build.
 
-### `yarn build`
+## Known limitations
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Legacy GraphQL Playground, Google Analytics and Markdown dependencies still
+report peer dependency warnings. Full browser behavior with the backend needs
+manual verification. Registration has an existing nested form warning.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Linting and formatting
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`yarn lint` checks the project without changing files. `yarn lint:fix` applies
+automatic fixes. `yarn format` applies Prettier, and `yarn format:check` verifies
+formatting. `yarn validate` runs TypeScript, ESLint and all tests.
 
-### `yarn eject`
+ESLint uses flat configuration with TypeScript and React plugins. Existing
+unused declarations and missing JSX keys are warnings; dynamic GraphQL form
+types can still use `any`. Build output, public vendor files and generated
+documentation are excluded from formatting and linting where appropriate.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ESLint stays on version 9 for compatibility with eslint-plugin-react, and
+TypeScript stays on 5.9 within typescript-eslint's supported range.
+GraphQL Playground also needs a direct lru-cache 4 dependency because its
+published package imports it without declaring it as a runtime dependency.

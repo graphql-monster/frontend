@@ -1,30 +1,30 @@
-import React from "react";
-import { loader } from "graphql.macro";
+import React from 'react'
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 
-
-
-export const USER_LIST_QUERY = loader('./graphql/all.gql')
-export const DELETE_MUTATION = loader('./graphql/delete.gql')
+import USER_LIST_QUERY from './graphql/all.gql'
+export { USER_LIST_QUERY }
+import DELETE_MUTATION from './graphql/delete.gql'
+export { DELETE_MUTATION }
 export const ADMIN_LIST_QUERY = USER_LIST_QUERY
 
-export const FIELDS = [{name: 'name', title:'Name'},
-{name: 'type', title:'Type'},
-{name: 'template', title:'Template'},
-{name: 'query', title:'Query'}]
-
+export const FIELDS = [
+  { name: 'name', title: 'Name' },
+  { name: 'type', title: 'Type' },
+  { name: 'template', title: 'Template' },
+  { name: 'query', title: 'Query' },
+]
 
 export type ExportListType = {
-  adminMode?: boolean, 
-  name?: string, 
+  adminMode?: boolean
+  name?: string
   fields?: any
-  allQuery?: any,
-  adminQuery?: any,
+  allQuery?: any
+  adminQuery?: any
   deleteMutation?: any
 }
 
-export const ExportList: React.FC<ExportListType> = ({adminMode=false, name, fields, allQuery, adminQuery, deleteMutation}) => {
+export const ExportList: React.FC<ExportListType> = ({ adminMode = false, name, fields, allQuery, adminQuery, deleteMutation }) => {
   return <></>
 }
 
