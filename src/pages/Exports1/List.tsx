@@ -2,7 +2,7 @@ import React from 'react'
 import FilteredList from '../../components/List1/FilteredList'
 import gql from 'graphql-tag'
 import { useHistory, useParams } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/reducers/userSlice'
 import { Link } from 'react-router-dom'
 import { Tab, Tabs } from 'react-bootstrap'
@@ -37,7 +37,7 @@ const DELETE_MUTATION = gql`
 `
 
 export const UserList: React.FC<{ userId?: string; adminMode?: boolean }> = ({ userId, adminMode = false }) => {
-  const user = useSelector(selectUser)
+  const user = useAppSelector(selectUser)
   const history = useHistory()
   const params = useParams() as any
 

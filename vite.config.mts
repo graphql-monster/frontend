@@ -5,6 +5,8 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [graphql(), react()],
   envPrefix: ['VITE_', 'REACT_APP_'],
+  // The legacy Playground ships React 16; all UI must use the app's React 18.
+  resolve: { dedupe: ['react', 'react-dom'] },
   define: {
     global: 'globalThis',
   },

@@ -6,7 +6,7 @@ import ProjectCards from './ProjectCards'
 import { Button } from 'react-bootstrap'
 import { useMutation, useQuery } from '@apollo/client'
 import { selectUser } from '../../app/reducers/userSlice'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import ReactGA from 'react-ga'
 
@@ -54,7 +54,7 @@ const GraphiqlLink: React.FC<{ value: any; names?: any; item: any }> = ({ value,
 export const ProjectList: React.FC<{ adminMode?: boolean }> = ({ adminMode = false }) => {
   const history = useHistory()
   const [data, setData] = useState<any[]>()
-  const user = useSelector(selectUser) || { id: null }
+  const user = useAppSelector(selectUser) || { id: null }
 
   const [projectForRemove, setProjectForRemove] = useState<any>(null)
 

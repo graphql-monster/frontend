@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 
 export const StoreItem = ({ name, storeSelector, register, setValue, storedData }: any) => {
-  const stateValue = useSelector(storeSelector)
+  const stateValue = useAppSelector(storeSelector)
   const isRelation = name.endsWith('Id')
   const storedDataName = isRelation ? name.substr(0, name.length - 2) : name
 

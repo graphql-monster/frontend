@@ -68,3 +68,15 @@ ESLint stays on version 9 for compatibility with eslint-plugin-react, and
 TypeScript stays on 5.9 within typescript-eslint's supported range.
 GraphQL Playground also needs a direct lru-cache 4 dependency because its
 published package imports it without declaring it as a runtime dependency.
+
+## Redux state
+
+Application state uses Redux Toolkit 2, Redux 5 and React Redux 9. Import
+`useAppDispatch`, `useAppSelector` and `useAppStore` from `src/app/hooks.ts`
+to preserve the application's store types. React Redux includes its own types;
+the application does not need `@types/react-redux`.
+
+The legacy GraphQL Playground uses its bundled MiddlewareApp wrapper, which
+owns its Redux 4 store and React Redux 7 Provider. Keep that store separate from
+the application store. Vite deduplicates React and React DOM so all components
+run against React 18, including the legacy wrapper.
