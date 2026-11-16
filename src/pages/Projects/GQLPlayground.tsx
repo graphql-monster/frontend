@@ -1,39 +1,28 @@
 import React from 'react'
-import { Provider, useSelector } from 'react-redux'
-import { Playground, store, getSettings, setSettingsString } from 'graphql-playground-react'
+import { useParams } from 'react-router-dom'
+import Playground from 'graphql-playground-react/lib/components/MiddlewareApp'
+import type { ISettings } from 'graphql-playground-react/lib/types'
+import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/reducers/userSlice'
 
-export const GQLPlayground: React.FC<{ data: any }> = (data: any) => {
-  const userState = useSelector(selectUser) || { id: null, token: null }
-  const projectId = data?.match?.params?.projectId
-  const endpoint = `${import.meta.env.REACT_APP_HOST}/client/${userState.id}/project/${projectId}/graphql`
-  // const endpoint = `${import.meta.env.REACT_APP_HOST}/graphql`
+function GQLPlayground() {
+  const user = useAppSelector(selectUser)
+  const { projectId } = useParams<{ projectId: string }>()
+  const endpoint = `${import.meta.env.REACT_APP_HOST}/client/${user?.id ?? null}/project/${projectId}/graphql`
 
-  // NOTE: for some reason pass setting over `setting` properties doesn't work
-  //       so it is taken this workeround
-  // https://github.com/graphql/graphql-playground/issues/1037#issuecomment-559224565
-  // grab the redux store
-  const state = store.getState()
-  // get the current settings
-  const settings = getSettings(state)
-  settings['editor.theme'] = 'light'
-  settings['schema.polling.enable'] = false
-  settings['request.globalHeaders'] = {
-    // hot reload
-    Authorization: `Bearer ${localStorage.getItem('user.token')}`,
-    XUser: `${userState.id}`,
-    XProject: `${projectId}`,
-
-    // proxy mode works on authorization
-    // 'Authorization': `Bearer ${userState.token}`,
+  const settings: Partial<ISettings> = {
+    'editor.theme': 'light',
+    'schema.polling.enable': false,
+    'request.globalHeaders': {
+      Authorization: `Bearer ${localStorage.getItem('user.token')}`,
+      XUser: `${user?.id ?? null}`,
+      XProject: projectId,
+    },
   }
 
-  store.dispatch(setSettingsString(JSON.stringify(settings, null, 2)))
-  return (
-    <Provider store={store}>
-      <Playground endpoint={endpoint} workspaceName={projectId} platformToken={'ahojk8999333'} />
-    </Provider>
-  )
+  // The vendor wrapper owns its legacy Provider and merges partial settings with
+  // persisted defaults, although its published props require a complete ISettings.
+  return <Playground endpoint={endpoint} workspaceName={projectId} settings={settings as ISettings} />
 }
 
 export default GQLPlayground

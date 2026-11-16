@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { useHistory } from 'react-router-dom'
 import { logout, selectUser } from '../../app/reducers/userSlice'
 import AdminHeader from './AdminHeader'
@@ -8,8 +8,8 @@ import UserHeader from './UserHeader'
 import ReactGA from 'react-ga'
 
 export const Header: React.FC = () => {
-  const user = useSelector(selectUser)
-  const dispatch = useDispatch()
+  const user = useAppSelector(selectUser)
+  const dispatch = useAppDispatch()
   const history = useHistory()
   useEffect(
     () =>

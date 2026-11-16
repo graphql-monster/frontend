@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../store'
+import type { RootState } from '../store'
 
 export interface UserToken {
   token: string
@@ -60,11 +60,9 @@ const userFromStorage = () => {
       .getItem('user.roles')
       ?.split(',')
       .map((role) => ({ name: role })),
-    verified: Boolean(localStorage.getItem('user.verified')),
+    verified: localStorage.getItem('user.verified') === 'true',
   } as UserWithToken
 }
-
-const initialSelected = localStorage.getItem('organization.selected')
 
 const initialState: UserState = {
   user: userFromStorage(),

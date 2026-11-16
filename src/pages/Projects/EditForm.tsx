@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Alert, Button, Form, Tab, Tabs } from 'react-bootstrap'
 import { SelectCallback } from 'react-bootstrap/esm/helpers'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 import { Link, useHistory } from 'react-router-dom'
 import { selectUser } from '../../app/reducers/userSlice'
 import AceControl from '../../components/Editor/AceControl'
@@ -11,7 +11,7 @@ import { GraphQLError } from './GraphQLError'
 import ReactGA from 'react-ga'
 
 export const ProjectEditForm = ({ onSubmit, storedData, graphQlError, projectId, submitting, submittingDone }: any) => {
-  const user = useSelector(selectUser) || { id: null }
+  const user = useAppSelector(selectUser) || { id: null }
   const history = useHistory()
 
   const [selectedTab, setSelectedTab] = useState('main')

@@ -2,7 +2,7 @@ import JSON5 from 'json5'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 import { Link, useParams } from 'react-router-dom'
 import { selectUser } from '../../app/reducers/userSlice'
 import { CREATE_MUTATION, ExportEditType, ONE_QUERY, UPDATE_MUTATION } from '../../gen/Export/Edit'
@@ -71,7 +71,7 @@ async function downloadPDF(setStatus: (a: TPdfDownloadState) => void, url: strin
 }
 
 export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: any) => {
-  const user = useSelector(selectUser) || { id: null }
+  const user = useAppSelector(selectUser) || { id: null }
   const reactForm = useForm()
   const { register, handleSubmit, formState, setValue, getValues, watch } = reactForm
 

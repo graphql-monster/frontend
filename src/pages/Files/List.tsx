@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import FilteredList from '../../components/List1/FilteredList'
 import gql from 'graphql-tag'
 import { useHistory, useParams } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/reducers/userSlice'
 import { Link } from 'react-router-dom'
 import { Button, Tab, Table, Tabs } from 'react-bootstrap'
@@ -54,7 +54,7 @@ async function clientGQL(clientUrl: string, query: string, variables: any = {}, 
 
 export const ProjectFilesList: React.FC<{ userId?: string; adminMode?: boolean }> = ({ userId, adminMode = false }) => {
   const [fileList, setFileList] = useState([])
-  const user = useSelector(selectUser) || { id: null, token: '' }
+  const user = useAppSelector(selectUser) || { id: null, token: '' }
   const history = useHistory()
   const params = useParams() as any
   const URL = useMemo(() => `${import.meta.env.REACT_APP_HOST}/client/${user.id}/project/${params?.projectId}`, [user.id, params?.projectId])

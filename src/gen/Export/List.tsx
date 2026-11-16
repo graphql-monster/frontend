@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../app/hooks'
 
 import USER_LIST_QUERY from './graphql/all.gql'
 export { USER_LIST_QUERY }
