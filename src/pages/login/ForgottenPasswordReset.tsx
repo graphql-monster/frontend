@@ -1,6 +1,5 @@
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
-import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
@@ -35,7 +34,7 @@ const FORGOTTEN_PASSWORD_RESET_MUTATION = gql`
 `
 
 export const ForgotenPasswordReset: React.FC<any> = ({ match }) => {
-  const token = _.get(match, 'params.token')
+  const token = match?.params?.token
   const [password, setPassword] = useState('')
   const [copy, setCopy] = useState('')
 

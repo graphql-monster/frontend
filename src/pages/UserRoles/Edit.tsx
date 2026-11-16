@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import * as _ from 'lodash'
 import gql from "graphql-tag";
 
 import BaseEdit from "../../components/EditorEx/Edit"
@@ -31,7 +30,7 @@ const QUERY = gql`
 `;
 
 export const UserRoleEdit = (data:any) => {
-  const id = _.get(data, 'match.params.id')
+  const id = data?.match?.params?.id
   
 
   return (

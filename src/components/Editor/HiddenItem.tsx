@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, { useEffect } from 'react'
 
 export const HiddenItem = ({name, value, register, setValue, storedData}:any) =>{
@@ -10,7 +9,7 @@ export const HiddenItem = ({name, value, register, setValue, storedData}:any) =>
         if(storedData && storedData[storedDataName]) {
             let storedId: string
       
-            if(isRelation) storedId = _.get(storedData, [storedDataName, 'id'])
+            if(isRelation) storedId = storedData?.[storedDataName]?.id
             else storedId = storedData[storedDataName]
       
             setValue(name, storedId)

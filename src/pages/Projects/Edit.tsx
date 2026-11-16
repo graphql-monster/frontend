@@ -1,5 +1,4 @@
 import { loader } from 'graphql.macro'
-import * as _ from 'lodash'
 import React, { useState } from 'react'
 import AceEditor from 'react-ace'
 import { Form } from 'react-bootstrap'
@@ -93,7 +92,7 @@ const LoginTab = [
 
 export const ProjectEdit = (data: any) => {
   const userId = localStorage.getItem('user.id')
-  const projectId = _.get(data, 'match.params.projectId')
+  const projectId = data?.match?.params?.projectId
   const [key, setKey] = useState<string>('home')
 
   const [error, setError] = useState('')
