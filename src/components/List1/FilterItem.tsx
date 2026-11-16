@@ -56,7 +56,7 @@ export const FilterItem: React.FC<IFilterItemParam> = ({fields, onChange}) => {
         }
     }, [filter, onChange, setFilter])
 
-    const processFilter = useCallback((field, option, text) => {
+    const processFilter = useCallback((field: string, option: string, text: string) => {
         if(!text && option != 'isEmpty') {
             doFilter(null)
             return

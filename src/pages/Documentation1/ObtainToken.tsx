@@ -1,5 +1,5 @@
 import React from 'react'
-import Typed from 'react-typed'
+import { ReactTyped as Typed } from 'react-typed'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 

@@ -36,7 +36,7 @@ export const PassportCallback: React.FC<{ type: string }> = ({ type }) => {
         history.replace('/user/projects')
       } catch (ex) {
         const response = JSON.parse(_.get(ex, 'request.response', '{}'))
-        showError(response.error?.error || response.error?.message || ex.message)
+        showError(response.error?.error || response.error?.message || (ex instanceof Error ? ex.message : String(ex)))
       }
     }
 

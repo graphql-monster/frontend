@@ -34,8 +34,9 @@ async function downloadPDF(setStatus: (a: TPdfDownloadState) => void, url: strin
       const newBlob = new Blob([blob], { type: 'application/pdf' })
 
       // MS Edge and IE don't allow using a blob object directly as link href, instead it is necessary to use msSaveOrOpenBlob
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob)
+      const legacyNavigator = window.navigator as Navigator & { msSaveOrOpenBlob?: (blob: Blob) => void }
+      if (legacyNavigator.msSaveOrOpenBlob) {
+        legacyNavigator.msSaveOrOpenBlob(newBlob)
       } else {
         // For other browsers: create a link pointing to the ObjectURL containing the blob.
         const objUrl = window.URL.createObjectURL(newBlob)
@@ -128,7 +129,7 @@ export const ExportForm = ({ onSubmit, storedData, graphQlError, projectId }: an
           </pre>
           <Control name={'testToken'} label={'Test Token (not for save)'} storedData={storedData} {...reactForm} />
 
-          {pdfDownloadState.ok || (pdfDownloadState.error && <PdfDownloadState {...pdfDownloadState} />)}
+          {pdfDownloadState.ok || (Boolean(pdfDownloadState.error) && <PdfDownloadState {...pdfDownloadState} />)}
 
           <div className="input-group">
             <input type="text" className="form-control" value={testLink} placeholder="Project connect link" id="copy-input" />

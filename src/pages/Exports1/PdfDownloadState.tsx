@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
 
-export type TPdfDownloadState = { ok?: Boolean; error?: unknown }
+export type TPdfDownloadState = { ok?: boolean; error?: unknown }
 
 export const PdfDownloadState: (state: TPdfDownloadState) => any = ({ ok, error }) => {
   if (ok) {

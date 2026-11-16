@@ -1,3 +1,26 @@
+## Project setup
+
+The application uses React 18.3 and the `createRoot` API, TypeScript 4.9,
+Create React App 5, and Dart Sass. Use Yarn 1 and the committed `yarn.lock`.
+The migration was verified with Node.js 24.11.1.
+
+```sh
+yarn install --frozen-lockfile
+yarn start
+yarn tsc --noEmit
+CI=true yarn test --watchAll=false --runInBand
+yarn build
+```
+
+The backend URL is configured through `REACT_APP_HOST` in the environment files.
+When the sibling `../builder` repository is unavailable, the documentation build
+keeps the generated Login and Schema documentation committed in this repository.
+
+Legacy GraphQL Playground, Google Analytics, and Markdown dependencies still
+report peer dependency warnings. Their full browser behavior, including backend
+integration, needs manual verification. The registration screen also has an
+existing nested form warning.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
