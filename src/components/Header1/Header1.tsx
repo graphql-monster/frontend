@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { logout, selectUser } from '../../app/reducers/userSlice'
@@ -11,10 +11,10 @@ export const Header: React.FC = () => {
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
   const history = useHistory()
-  history.listen((location, action) => {
+  useEffect(() => history.listen((location) => {
     ReactGA.set({ page: location.pathname });
     ReactGA.pageview(location.pathname);
-  });
+  }), [history]);
 
   const onLogout = () => {
     dispatch(logout())

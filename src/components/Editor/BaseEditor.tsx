@@ -78,7 +78,7 @@ export const BaseEditor = ({ name, form, externId, renameError, onUpdated, updat
   const submitting = useMemo(() => createSubmitting || updateSubmitting, [createSubmitting, updateSubmitting])
 
   const onSubmit = useCallback(
-    (data) => {
+    (data: Record<string, unknown>) => {
       setSubmittingDone(false)
       if (localId) {
         setErrors(null)
